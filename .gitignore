@@ -20,6 +20,9 @@
 # production
 /build
 
+# legacy static site
+/_legacy
+
 # misc
 .DS_Store
 *.pem
