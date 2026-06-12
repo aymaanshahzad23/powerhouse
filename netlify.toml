@@ -1,5 +1,10 @@
+# Static Powerhouse site (index.html at repo root — no build step)
 [build]
-  command = "npm run build"
+  publish = "."
+  command = ""
 
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
+# SPA-style fallback (single-page app; all routes serve index.html)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

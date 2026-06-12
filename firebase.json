@@ -1,0 +1,32 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "auth": {
+    "providers": {
+      "googleSignIn": {
+        "oAuthBrandDisplayName": "Powerhouse",
+        "supportEmail": "support@powerhousetech.in",
+        "authorizedRedirectUris": [
+          "https://powerhouse-tech-f6da1.firebaseapp.com"
+        ]
+      }
+    },
+    "authorizedDomains": [
+      "localhost",
+      "powerhouse-tech-f6da1.firebaseapp.com",
+      "powerhouse-tech-f6da1.web.app"
+    ]
+  }
+}

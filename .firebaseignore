@@ -1,0 +1,6 @@
+.git
+.gitignore
+.firebase
+**/node_modules/**
+AGENTS.md
+CLAUDE.md

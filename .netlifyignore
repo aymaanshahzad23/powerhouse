@@ -1,0 +1,20 @@
+# Don't upload Next.js / dev files to Netlify CDN
+node_modules
+.next
+src
+public
+package.json
+package-lock.json
+tsconfig.json
+next.config.ts
+next-env.d.ts
+postcss.config.mjs
+eslint.config.mjs
+_legacy
+.firebase
+.firebaserc
+firebase.json
+.firebaseignore
+AGENTS.md
+CLAUDE.md
+README.md
