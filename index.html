@@ -1494,9 +1494,8 @@ const SHEET_URL = '';
 // Home tab instead (saved in the browser, used by the Execute workflow button).
 const N8N_WEBHOOK_URL = '';
 
-// Tally Converter — Claude API (use a backend proxy in production to protect the key)
-const CLAUDE_API_URL = 'https://api.anthropic.com/v1/messages';
-const ANTHROPIC_API_KEY = 'YOUR_ANTHROPIC_API_KEY_HERE';
+// Tally Converter — Claude mapping via server-side proxy (ANTHROPIC_API_KEY in Netlify env)
+const CLAUDE_MAP_API = '/api/claude-map';
 const TEMPLATE_MAP_URL = 'template_map.json';
 // ────────────────────────────────────────────────────────────────────────────
 
@@ -2119,134 +2118,22 @@ async function readTallyFile(file) {
 }
 
 async function callClaudeForMapping(tallyData, entityName, fyEnd, prevFyEnd) {
-  const systemPrompt = `You are a Chartered Accountant assistant specialising in Indian accounting standards. 
-You receive raw Tally accounting software exports and map every ledger balance to the correct line item in Schedule III of the Financial Statements format for Non-Corporate Entities (as per ICAI Guidance Note).
-
-You MUST respond with ONLY valid JSON — no explanation, no markdown, no backticks.
-
-The JSON must follow this exact schema:
-{
-  "entity_name": "string",
-  "fy_end": "YYYY-MM-DD",
-  "prev_fy_end": "YYYY-MM-DD",
-  "balance_sheet": {
-    "equity_and_liabilities": {
-      "owners_capital": { "current": number, "previous": number },
-      "long_term_borrowings": { "current": number, "previous": number },
-      "other_long_term_liabilities": { "current": number, "previous": number },
-      "long_term_provisions": { "current": number, "previous": number },
-      "short_term_borrowings": { "current": number, "previous": number },
-      "trade_payables": { "current": number, "previous": number },
-      "other_current_liabilities": { "current": number, "previous": number },
-      "short_term_provisions": { "current": number, "previous": number }
-    },
-    "assets": {
-      "property_plant_equipment": { "current": number, "previous": number },
-      "intangible_assets": { "current": number, "previous": number },
-      "capital_wip": { "current": number, "previous": number },
-      "non_current_investments": { "current": number, "previous": number },
-      "long_term_loans_advances": { "current": number, "previous": number },
-      "other_non_current_assets": { "current": number, "previous": number },
-      "current_investments": { "current": number, "previous": number },
-      "inventories": { "current": number, "previous": number },
-      "trade_receivables": { "current": number, "previous": number },
-      "cash_and_bank": { "current": number, "previous": number },
-      "short_term_loans_advances": { "current": number, "previous": number },
-      "other_current_assets": { "current": number, "previous": number }
-    }
-  },
-  "profit_and_loss": {
-    "revenue_from_operations": { "current": number, "previous": number },
-    "other_income": { "current": number, "previous": number },
-    "cost_of_goods_sold": { "current": number, "previous": number },
-    "employee_benefits_expense": { "current": number, "previous": number },
-    "finance_costs": { "current": number, "previous": number },
-    "depreciation_amortization": { "current": number, "previous": number },
-    "other_expenses": { "current": number, "previous": number }
-  },
-  "notes": {
-    "owners_capital_details": [
-      { "name": "string", "share_pct": number, "opening": number, "capital_introduced": number,
-        "remuneration": number, "interest": number, "withdrawals": number, "closing": number }
-    ],
-    "revenue_breakup": {
-      "sale_of_products": { "current": number, "previous": number },
-      "sale_of_services": { "current": number, "previous": number },
-      "other_operating_revenue": { "current": number, "previous": number }
-    },
-    "other_income_breakup": {
-      "interest_income": { "current": number, "previous": number },
-      "dividend_income": { "current": number, "previous": number },
-      "other_non_operating": { "current": number, "previous": number }
-    },
-    "employee_expense_breakup": {
-      "salaries_wages_bonus": { "current": number, "previous": number },
-      "pf_and_other_funds": { "current": number, "previous": number },
-      "gratuity": { "current": number, "previous": number },
-      "staff_welfare": { "current": number, "previous": number }
-    },
-    "other_expenses_breakup": [
-      { "head": "string", "current": number, "previous": number }
-    ],
-    "trade_payables_msme": { "current": number, "previous": number },
-    "trade_payables_others": { "current": number, "previous": number },
-    "cash_in_hand": { "current": number, "previous": number },
-    "bank_balances": { "current": number, "previous": number },
-    "inventories_breakup": {
-      "stock_in_trade_opening": { "current": number, "previous": number },
-      "stock_in_trade_closing": { "current": number, "previous": number },
-      "wip_opening": { "current": number, "previous": number },
-      "wip_closing": { "current": number, "previous": number }
-    }
-  },
-  "unmapped_ledgers": [
-    { "ledger_name": "string", "amount": number, "reason": "string" }
-  ],
-  "mapping_confidence": "high|medium|low",
-  "notes_to_preparer": "string"
-}
-
-Rules:
-- All amounts must be in INR as plain numbers (no commas, no symbols). Use 0 if not present.
-- Debit balances on liability/income heads = negative. Credit balances on asset/expense heads = negative.
-- Previous year data: if not in the export, use 0 for all previous year fields.
-- If a ledger is ambiguous, map it to the most likely head and add a note in notes_to_preparer.
-- If a ledger genuinely cannot be mapped, add it to unmapped_ledgers with the reason.
-- For Tally XML: the ledger balances are in <CLOSINGBALANCE> tags under each <LEDGER> element.
-- For CSV/Excel: treat each row as a ledger with name and closing balance columns.`;
-
-  const userMessage = `Entity: ${entityName}\nFinancial year end: ${fyEnd}\nPrevious year end: ${prevFyEnd}\n\nTALLY EXPORT DATA:\n${tallyData.slice(0, 80000)}`;
-
-  const response = await fetch(CLAUDE_API_URL, {
+  const response = await fetch(CLAUDE_MAP_API, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': ANTHROPIC_API_KEY,
-      'anthropic-version': '2023-06-01',
-      'anthropic-dangerous-direct-browser-access': 'true',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      model: 'claude-sonnet-4-6',
-      max_tokens: 4096,
-      system: systemPrompt,
-      messages: [{ role: 'user', content: userMessage }],
+      entityName,
+      fyEnd,
+      prevFyEnd,
+      tallyData: tallyData.slice(0, 80000),
     }),
   });
 
+  const data = await response.json().catch(() => ({}));
   if (!response.ok) {
-    const err = await response.json().catch(() => ({}));
-    throw new Error(err.error?.message || `HTTP ${response.status}`);
+    throw new Error(data.error || `HTTP ${response.status}`);
   }
-
-  const data = await response.json();
-  const rawText = data.content.find(b => b.type === 'text')?.text || '';
-  const clean = rawText.replace(/^```json\s*/i, '').replace(/\s*```$/, '').trim();
-
-  try {
-    return JSON.parse(clean);
-  } catch {
-    throw new Error('Claude returned invalid JSON. Raw response: ' + rawText.slice(0, 300));
-  }
+  return data;
 }
 
 function showTallyError(msg) {
@@ -2401,7 +2288,7 @@ tallySubmit.addEventListener('click', async () => {
   try {
     mappingResult = await callClaudeForMapping(fileText, entityName, fyEnd, prevFyEnd);
   } catch (err) {
-    showTallyError('Claude API error: ' + err.message + '. Check your API key.');
+    showTallyError('Mapping failed: ' + err.message);
     return;
   }
 
