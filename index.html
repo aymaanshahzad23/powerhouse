@@ -1495,24 +1495,13 @@ async function getFirebaseAuthHeaders(){
   }
 }
 
-function getSessionUser(){
-  try { return JSON.parse(sessionStorage.getItem('ph_user') || '{}'); }
-  catch { return {}; }
-}
-
-async function buildN8nPayload(extra = {}){
-  const profile = getSessionUser();
-  return {
+function buildN8nPayload({ test = false } = {}){
+  const payload = {
     source: 'powerhouse-dashboard',
     triggeredAt: new Date().toISOString(),
-    user: {
-      uid: profile.uid || null,
-      email: profile.email || null,
-      name: profile.name || null,
-      isDemo: !profile.uid || profile.isDemo === true,
-    },
-    ...extra,
   };
+  if (test) payload.test = true; // omit for production Execute workflow calls
+  return payload;
 }
 
 /* ==================== LIVE WORKSPACE SHEET ==================== */
@@ -1684,7 +1673,7 @@ async function executeWorkflow(){
     const res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', ...(await getFirebaseAuthHeaders()) },
-      body: JSON.stringify(await buildN8nPayload()),
+      body: JSON.stringify(buildN8nPayload()),
     });
     if (res.status !== 200) throw new Error('HTTP ' + res.status);
     workflowStatus.className = 'wf-status ok';
