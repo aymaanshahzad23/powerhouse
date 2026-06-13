@@ -19,9 +19,18 @@ exports.handler = async (event) => {
     return json(400, { error: 'jobId query parameter is required' });
   }
 
-  const job = await getJob(jobId, event);
+  let job;
+  try {
+    job = await getJob(jobId);
+  } catch (err) {
+    return json(500, { error: err.message || 'Could not read job status' });
+  }
+
   if (!job) {
-    return json(404, { error: 'Job not found or expired' });
+    return json(200, {
+      status: 'processing',
+      message: 'Job is starting…',
+    });
   }
 
   if (job.status === 'done') {

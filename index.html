@@ -1258,8 +1258,8 @@ table.preview .amt{font-family:var(--font-mono);font-size:.82rem;white-space:now
           </div>
 
           <div id="tally-unmapped-wrap" hidden style="margin-top:20px">
-            <p style="font-size:.88rem;font-weight:600;color:#C0392B;margin-bottom:10px">
-              ⚠ Ledgers Claude could not confidently map — review manually:
+            <p style="font-size:.88rem;font-weight:600;color:#856404;margin-bottom:10px">
+              ⚠ Items flagged for preparer review (check mapping notes below):
             </p>
             <div class="tbl-wrap">
               <table class="preview" id="tally-unmapped-table">
@@ -2185,15 +2185,11 @@ async function callClaudeForMapping(tallyData, entityName, fyEnd, prevFyEnd, fil
     const statusResp = await fetch(`${CLAUDE_MAP_STATUS_API}?jobId=${encodeURIComponent(jobId)}`);
     const statusData = await statusResp.json().catch(() => ({}));
 
-    if (statusResp.status === 404) {
-      if (polls <= 12 && typeof onProgress === 'function') {
-        onProgress('Starting mapping job…');
-      }
-      if (polls <= 12) continue;
-      throw new Error('Job not found or expired. Redeploy the site and try again.');
-    }
-
     if (!statusResp.ok) {
+      if (statusResp.status === 404) {
+        if (typeof onProgress === 'function') onProgress('Waiting for job to start…');
+        continue;
+      }
       throw new Error(tallyMappingErrorMessage(statusResp.status, statusData));
     }
 

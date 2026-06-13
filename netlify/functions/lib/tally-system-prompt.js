@@ -90,6 +90,7 @@ Rules:
 - Debit balances on liability/income heads = negative. Credit balances on asset/expense heads = negative.
 - Previous year data: if not in the export, use 0 for all previous year fields.
 - If a ledger is ambiguous, map it to the most likely head and add a note in notes_to_preparer.
+- Put a ledger in unmapped_ledgers ONLY if it cannot be assigned to any Schedule III head at all. Do NOT list ledgers here if they were mapped — even if mapping confidence is low; use notes_to_preparer for those review flags instead.
 - If a ledger genuinely cannot be mapped, add it to unmapped_ledgers with the reason.
 - For Tally XML: the ledger balances are in <CLOSINGBALANCE> tags under each <LEDGER> element.
 - For CSV/Excel: treat each row as a ledger with name and closing balance columns.`;

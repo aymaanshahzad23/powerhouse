@@ -3,51 +3,47 @@ const path = require('path');
 const os = require('os');
 
 const STORE_NAME = 'tally-claude-jobs';
+const TTL_SECONDS = 60 * 60;
 const TMP_DIR = path.join(os.tmpdir(), 'ph-tally-jobs');
-const IS_DEV = process.env.NETLIFY_DEV === 'true';
+
+function isLocalDev() {
+  return process.env.NETLIFY_DEV === 'true';
+}
 
 function tmpPath(jobId) {
   return path.join(TMP_DIR, `${jobId.replace(/[^a-zA-Z0-9_-]/g, '')}.json`);
 }
 
-function getBlobStore(event) {
-  const { connectLambda, getStore } = require('@netlify/blobs');
-  if (event && !IS_DEV) connectLambda(event);
-  return getStore(STORE_NAME);
+async function blobStore() {
+  const { getStore } = require('@netlify/blobs');
+  return getStore({ name: STORE_NAME, consistency: 'strong' });
 }
 
-async function setJobTmp(jobId, data) {
-  fs.mkdirSync(TMP_DIR, { recursive: true });
-  fs.writeFileSync(tmpPath(jobId), JSON.stringify(data));
-}
-
-async function setJob(jobId, data, event) {
+async function setJob(jobId, data) {
   try {
-    const store = getBlobStore(event);
+    const store = await blobStore();
     await store.setJSON(jobId, data, {
       metadata: { updatedAt: new Date().toISOString() },
+      ttl: TTL_SECONDS,
     });
     return;
   } catch (err) {
-    if (IS_DEV) {
-      await setJobTmp(jobId, data);
-      return;
+    if (!isLocalDev()) {
+      throw new Error('Job storage unavailable: ' + (err.message || 'Netlify Blobs error'));
     }
-    console.error('Blob setJob failed:', err);
-    throw new Error('Could not save mapping job. Netlify Blobs may be unavailable.');
+    fs.mkdirSync(TMP_DIR, { recursive: true });
+    fs.writeFileSync(tmpPath(jobId), JSON.stringify(data));
   }
 }
 
-async function getJob(jobId, event) {
+async function getJob(jobId) {
   try {
-    const store = getBlobStore(event);
-    const job = await store.get(jobId, { type: 'json' });
-    if (job) return job;
+    const store = await blobStore();
+    return store.get(jobId, { type: 'json' });
   } catch (err) {
-    if (!IS_DEV) console.error('Blob getJob failed:', err);
-  }
-
-  if (IS_DEV) {
+    if (!isLocalDev()) {
+      throw new Error('Job storage unavailable: ' + (err.message || 'Netlify Blobs error'));
+    }
     const file = tmpPath(jobId);
     if (!fs.existsSync(file)) return null;
     try {
@@ -56,8 +52,6 @@ async function getJob(jobId, event) {
       return null;
     }
   }
-
-  return null;
 }
 
 module.exports = { setJob, getJob };
