@@ -1055,7 +1055,7 @@ table.preview .amt{font-family:var(--font-mono);font-size:.82rem;white-space:now
 
         <div class="dcard">
           <div class="dcard-head"><h3>Recent activity</h3></div>
-          <div class="feed">
+          <div class="feed" id="activity-feed">
             <div class="feed-item t-done">Financial statements for <b>Mehta &amp; Co.</b> completed and delivered<span class="when">Today, 10:42 AM</span></div>
             <div class="feed-item t-upload">3 bank statements uploaded for <b>Sharma Traders</b><span class="when">Today, 9:15 AM</span></div>
             <div class="feed-item t-done">Income categorisation finished for <b>R.K. Industries</b> — 412 transactions<span class="when">Yesterday, 6:03 PM</span></div>
@@ -1577,7 +1577,7 @@ document.addEventListener('keydown', e => {
 });
 
 /* ==================== N8N CONNECTION ==================== */
-const N8N_STORAGE_KEY = 'ph_n8n_webhook';
+const N8N_STORAGE_KEY = 'ph_n8n_url';
 const n8nForm   = document.getElementById('n8n-form');
 const n8nInput  = document.getElementById('n8n-url-input');
 const n8nBadge  = document.getElementById('n8n-badge');
@@ -1585,6 +1585,8 @@ const n8nStatus = document.getElementById('n8n-status');
 const n8nTest   = document.getElementById('n8n-test');
 
 function getN8nUrl(){
+  const fromInput = n8nInput.value.trim();
+  if (fromInput) return fromInput;
   return localStorage.getItem(N8N_STORAGE_KEY) || N8N_WEBHOOK_URL;
 }
 
@@ -1667,11 +1669,40 @@ n8nTest.addEventListener('click', () =>
 /* ==================== EXECUTE N8N WORKFLOW ==================== */
 const runWorkflowBtn = document.getElementById('run-workflow');
 const workflowStatus = document.getElementById('workflow-status');
+const RUN_WORKFLOW_LABEL = '▶ Execute workflow';
 
-runWorkflowBtn.addEventListener('click', () =>
-  triggerN8n(workflowStatus, runWorkflowBtn,
-    buildN8nPayload(),
-    '✓ Workflow triggered — check n8n for the run.'));
+async function executeWorkflow(){
+  const url = n8nInput.value.trim() || localStorage.getItem(N8N_STORAGE_KEY) || '';
+  if (!url || !isValidWebhookUrl(url)){
+    workflowStatus.className = 'wf-status err';
+    workflowStatus.textContent = '✗ Could not reach the workflow. Make sure it\'s active in n8n.';
+    return;
+  }
+  runWorkflowBtn.disabled = true;
+  runWorkflowBtn.textContent = 'Running…';
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...(await getFirebaseAuthHeaders()) },
+      body: JSON.stringify(await buildN8nPayload()),
+    });
+    if (res.status !== 200) throw new Error('HTTP ' + res.status);
+    workflowStatus.className = 'wf-status ok';
+    workflowStatus.textContent = '✓ Reminders sent — your clients have been notified.';
+    const item = document.createElement('div');
+    item.className = 'feed-item t-done';
+    item.innerHTML = 'Filing reminders triggered manually<span class="when">Just now</span>';
+    document.getElementById('activity-feed').insertBefore(item, document.getElementById('activity-feed').firstChild);
+  } catch (_) {
+    workflowStatus.className = 'wf-status err';
+    workflowStatus.textContent = '✗ Could not reach the workflow. Make sure it\'s active in n8n.';
+  } finally {
+    runWorkflowBtn.disabled = false;
+    runWorkflowBtn.textContent = RUN_WORKFLOW_LABEL;
+  }
+}
+
+runWorkflowBtn.addEventListener('click', executeWorkflow);
 
 sheetForm.addEventListener('submit', e => {
   e.preventDefault();
