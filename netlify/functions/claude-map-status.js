@@ -21,7 +21,7 @@ exports.handler = async (event) => {
 
   let job;
   try {
-    job = await getJob(jobId);
+    job = await getJob(jobId, event);
   } catch (err) {
     return json(500, { error: err.message || 'Could not read job status' });
   }

@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
+const { connectLambda, getStore } = require('@netlify/blobs');
 
 const STORE_NAME = 'tally-claude-jobs';
 const TTL_SECONDS = 60 * 60;
@@ -14,21 +15,34 @@ function tmpPath(jobId) {
   return path.join(TMP_DIR, `${jobId.replace(/[^a-zA-Z0-9_-]/g, '')}.json`);
 }
 
-async function blobStore() {
-  const { getStore } = require('@netlify/blobs');
+function blobStore(event) {
+  if (isLocalDev()) {
+    throw new Error('local-tmp');
+  }
+
+  if (event) {
+    connectLambda(event);
+  }
+
+  const siteID = process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
+  const token = process.env.NETLIFY_BLOB_READ_WRITE_TOKEN;
+
+  if (siteID && token) {
+    return getStore({ name: STORE_NAME, consistency: 'strong', siteID, token });
+  }
+
   return getStore({ name: STORE_NAME, consistency: 'strong' });
 }
 
-async function setJob(jobId, data) {
+async function setJob(jobId, data, event) {
   try {
-    const store = await blobStore();
+    const store = blobStore(event);
     await store.setJSON(jobId, data, {
       metadata: { updatedAt: new Date().toISOString() },
       ttl: TTL_SECONDS,
     });
-    return;
   } catch (err) {
-    if (!isLocalDev()) {
+    if (!isLocalDev() && err.message !== 'local-tmp') {
       throw new Error('Job storage unavailable: ' + (err.message || 'Netlify Blobs error'));
     }
     fs.mkdirSync(TMP_DIR, { recursive: true });
@@ -36,12 +50,12 @@ async function setJob(jobId, data) {
   }
 }
 
-async function getJob(jobId) {
+async function getJob(jobId, event) {
   try {
-    const store = await blobStore();
+    const store = blobStore(event);
     return store.get(jobId, { type: 'json' });
   } catch (err) {
-    if (!isLocalDev()) {
+    if (!isLocalDev() && err.message !== 'local-tmp') {
       throw new Error('Job storage unavailable: ' + (err.message || 'Netlify Blobs error'));
     }
     const file = tmpPath(jobId);

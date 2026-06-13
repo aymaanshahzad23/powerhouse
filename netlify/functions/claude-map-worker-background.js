@@ -21,7 +21,7 @@ exports.handler = async (event) => {
 
   let job;
   try {
-    job = await getJob(jobId);
+    job = await getJob(jobId, event);
   } catch (err) {
     console.error('getJob failed:', err.message);
     return { statusCode: 500, body: err.message };
@@ -39,7 +39,7 @@ exports.handler = async (event) => {
       ...job,
       status: 'processing',
       message: 'Claude is mapping ledgers to Schedule III heads…',
-    });
+    }, event);
 
     const result = await mapTallyWithClaude({
       entityName,
@@ -53,13 +53,13 @@ exports.handler = async (event) => {
       status: 'done',
       result,
       finishedAt: new Date().toISOString(),
-    });
+    }, event);
   } catch (err) {
     await setJob(jobId, {
       status: 'error',
       error: err.message || 'Mapping failed',
       finishedAt: new Date().toISOString(),
-    }).catch(() => {});
+    }, event).catch(() => {});
   }
 
   return { statusCode: 202, body: JSON.stringify({ jobId, status: 'finished' }) };

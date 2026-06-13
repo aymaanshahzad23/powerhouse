@@ -68,7 +68,7 @@ exports.handler = async (event) => {
       message: 'Claude is mapping ledgers to Schedule III heads…',
       payload: { entityName, fyEnd, prevFyEnd, tallyData },
       startedAt: new Date().toISOString(),
-    });
+    }, event);
   } catch (err) {
     return json(500, { error: err.message || 'Could not create mapping job' });
   }
