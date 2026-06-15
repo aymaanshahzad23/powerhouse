@@ -1,14 +1,27 @@
-const systemPrompt = require('./tally-system-prompt');
+import { tallySystemPrompt } from './tally-system-prompt.ts';
 
-const MAX_TALLY_CHARS = 80000;
+export const MAX_TALLY_CHARS = 80000;
 
-async function mapTallyWithClaude({ entityName, fyEnd, prevFyEnd, tallyData, apiKey }) {
+export async function mapTallyWithClaude({
+  entityName,
+  fyEnd,
+  prevFyEnd,
+  tallyData,
+  apiKey,
+}: {
+  entityName: string;
+  fyEnd: string;
+  prevFyEnd: string;
+  tallyData: string;
+  apiKey: string;
+}): Promise<Record<string, unknown>> {
   const trimmed = String(tallyData || '').slice(0, MAX_TALLY_CHARS);
   if (!trimmed.trim()) {
     throw new Error('tallyData is required');
   }
 
-  const userMessage = `Entity: ${entityName}\nFinancial year end: ${fyEnd}\nPrevious year end: ${prevFyEnd}\n\nTALLY EXPORT DATA:\n${trimmed}`;
+  const userMessage =
+    `Entity: ${entityName}\nFinancial year end: ${fyEnd}\nPrevious year end: ${prevFyEnd}\n\nTALLY EXPORT DATA:\n${trimmed}`;
 
   const anthropicResp = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -20,7 +33,7 @@ async function mapTallyWithClaude({ entityName, fyEnd, prevFyEnd, tallyData, api
     body: JSON.stringify({
       model: 'claude-sonnet-4-6',
       max_tokens: 4096,
-      system: systemPrompt,
+      system: tallySystemPrompt,
       messages: [{ role: 'user', content: userMessage }],
     }),
   });
@@ -31,7 +44,8 @@ async function mapTallyWithClaude({ entityName, fyEnd, prevFyEnd, tallyData, api
     throw new Error(`Mapping service error (HTTP ${anthropicResp.status})`);
   }
 
-  const rawText = anthropicBody.content?.find((b) => b.type === 'text')?.text || '';
+  const rawText = (anthropicBody as { content?: { type: string; text?: string }[] })
+    .content?.find((b) => b.type === 'text')?.text || '';
   const clean = rawText.replace(/^```json\s*/i, '').replace(/\s*```$/, '').trim();
 
   try {
@@ -40,5 +54,3 @@ async function mapTallyWithClaude({ entityName, fyEnd, prevFyEnd, tallyData, api
     throw new Error('Invalid mapping response from service');
   }
 }
-
-module.exports = { mapTallyWithClaude, MAX_TALLY_CHARS };

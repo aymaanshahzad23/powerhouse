@@ -5,6 +5,7 @@ src
 public
 package.json
 package-lock.json
+supabase
 tsconfig.json
 next.config.ts
 next-env.d.ts

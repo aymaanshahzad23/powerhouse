@@ -1,0 +1,13 @@
+project_id = "dznmgjbtkumtjnhycxct"
+
+[api]
+enabled = true
+
+[db]
+major_version = 17
+
+[functions.tally-map-start]
+verify_jwt = false
+
+[functions.tally-map-status]
+verify_jwt = false

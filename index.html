@@ -1501,7 +1501,8 @@ table.tally-sheet-table td {
     <ul>
       <li><b>OpenAI</b> — document understanding and processing</li>
       <li><b>Anthropic</b> — document understanding and processing</li>
-      <li><b>Google Cloud / AWS</b> — hosting and storage (as applicable)</li>
+      <li><b>Supabase</b> — backend API and job storage for Tally conversion</li>
+      <li><b>Google (Firebase)</b> — sign-in authentication</li>
     </ul>
     <h2>6. Your Rights under the DPDP Act</h2>
     <p>Under India's Digital Personal Data Protection Act, 2023, you have the right to access your personal data, request correction or erasure, nominate a representative, and lodge a grievance. To exercise any of these rights, contact <span class="ph">[Contact Email]</span>.</p>
@@ -1532,7 +1533,8 @@ table.tally-sheet-table td {
     <ul>
       <li><b>OpenAI</b></li>
       <li><b>Anthropic</b></li>
-      <li><b><span class="ph">[Cloud Provider]</span></b> — hosting and storage</li>
+      <li><b>Supabase</b> — backend API and job storage</li>
+      <li><b>Google (Firebase)</b> — authentication</li>
     </ul>
     <p>The Processor will notify the Controller before adding or replacing sub-processors.</p>
     <h2>6. Breach Notification</h2>
@@ -1628,9 +1630,10 @@ const SHEET_URL = '';
 // Home tab instead (saved in the browser, used by the Execute workflow button).
 const N8N_WEBHOOK_URL = '';
 
-// Tally Converter — server-side mapping proxy (API key in Netlify env)
-const TALLY_MAP_START_API = '/api/claude-map-start';
-const TALLY_MAP_STATUS_API = '/api/claude-map-status';
+// Tally Converter — Supabase Edge Functions (API key in Supabase secrets)
+const SUPABASE_URL = 'https://dznmgjbtkumtjnhycxct.supabase.co';
+const TALLY_MAP_START_API = `${SUPABASE_URL}/functions/v1/tally-map-start`;
+const TALLY_MAP_STATUS_API = `${SUPABASE_URL}/functions/v1/tally-map-status`;
 const TEMPLATE_MAP_URL = 'template_map.json';
 // ────────────────────────────────────────────────────────────────────────────
 
@@ -2379,7 +2382,7 @@ function compressTallyForMapping(raw, filename) {
 
 function tallyMappingErrorMessage(status, data) {
   if (status === 504 || status === 502) {
-    return 'The server timed out starting the mapping job. Redeploy the site after the latest update, then try again.';
+    return 'The server timed out starting the mapping job. Check that Supabase Edge Functions are deployed, then try again.';
   }
   return data.error || `HTTP ${status}`;
 }

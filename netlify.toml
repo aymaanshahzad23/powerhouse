@@ -1,27 +1,14 @@
 # Static Powerhouse site (index.html at repo root — no build step)
 [build]
   publish = "."
-  functions = "netlify/functions"
   command = ""
-
-[functions]
-  # Sync functions (status poll) — background mapping runs up to 15 min
-  node_bundler = "esbuild"
 
 [dev]
   framework = "#static"
   publish = "."
-  functions = "netlify/functions"
   port = 8742
-  targetPort = 8742
 
-# Tally Converter — Claude proxy (key stays server-side)
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
-
-# SPA fallback (must come after /api/*)
+# SPA fallback
 [[redirects]]
   from = "/*"
   to = "/index.html"
