@@ -3,7 +3,10 @@
   "meta": {
     "entity_name": { "sheet": "Schedule III Balance Sheet (all", "cell": "A1" },
     "fy_end": { "sheet": "Schedule III Balance Sheet (all", "cell": "D4", "format": "indian_date" },
-    "prev_fy_end": { "sheet": "Schedule III Balance Sheet (all", "cell": "F4", "format": "indian_date" }
+    "prev_fy_end": { "sheet": "Schedule III Balance Sheet (all", "cell": "F4", "format": "indian_date" },
+    "balance_sheet_title": { "sheet": "Schedule III Balance Sheet (all", "cell": "A2", "format": "balance_sheet_heading" },
+    "pl_entity_name": { "sheet": "Statement of P&L", "cell": "A1" },
+    "pl_heading": { "sheet": "Statement of P&L", "cell": "A2", "format": "pl_heading" }
   },
   "balance_sheet": {
     "equity_and_liabilities.owners_capital": { "current": "D7", "previous": "F7", "sheet": "Schedule III Balance Sheet (all" },
@@ -34,7 +37,16 @@
     "employee_benefits_expense": { "current": "D12", "previous": "F12", "sheet": "Statement of P&L" },
     "finance_costs": { "current": "D13", "previous": "F13", "sheet": "Statement of P&L" },
     "depreciation_amortization": { "current": "D14", "previous": "F14", "sheet": "Statement of P&L" },
-    "other_expenses": { "current": "D15", "previous": "F15", "sheet": "Statement of P&L" }
+    "other_expenses": { "current": "D15", "previous": "F15", "sheet": "Statement of P&L" },
+    "total_income": { "current": "D8", "previous": "F8", "sheet": "Statement of P&L" },
+    "total_expenses": { "current": "D16", "previous": "F16", "sheet": "Statement of P&L" },
+    "profit_before_exceptional": { "current": "D18", "previous": "F18", "sheet": "Statement of P&L" },
+    "profit_before_extraordinary": { "current": "D22", "previous": "F22", "sheet": "Statement of P&L" },
+    "profit_before_remuneration": { "current": "D26", "previous": "F26", "sheet": "Statement of P&L" }
+  },
+  "balance_sheet_totals": {
+    "total_equity_and_liabilities": { "current": "D20", "previous": "F20", "sheet": "Schedule III Balance Sheet (all" },
+    "total_assets": { "current": "D41", "previous": "F41", "sheet": "Schedule III Balance Sheet (all" }
   },
   "notes": {
     "owners_capital_details": {

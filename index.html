@@ -202,6 +202,29 @@ h3{font-size:1.1rem;font-weight:700;letter-spacing:-0.01em}
   font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
   padding:3px 10px;border-radius:999px;
 }
+.nav-soon-badge{
+  margin-left:auto;background:var(--slate-light);color:var(--ink-light);
+  font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:2px 7px;border-radius:999px;flex-shrink:0;
+}
+.side-nav button.active .nav-soon-badge{background:rgba(66,79,209,.14);color:var(--teal-dark)}
+.tool-title-row{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px;
+}
+.tool-title-row .page-title{margin-bottom:0}
+.tool-coming-soon-card{
+  border:1.5px dashed var(--line);background:linear-gradient(180deg,var(--white) 0%,var(--ivory) 100%);
+}
+.tool-coming-soon{
+  text-align:center;padding:36px 28px 40px;max-width:520px;margin:0 auto;
+}
+.tool-coming-soon .cs-icon{
+  width:56px;height:56px;border-radius:50%;background:var(--teal-soft);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 18px;
+}
+.tool-coming-soon h3{font-size:1.15rem;margin-bottom:10px}
+.tool-coming-soon p{font-size:.92rem;color:var(--ink-mid);line-height:1.65;margin-bottom:12px}
+.tool-coming-soon .cs-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px}
 
 /* How it works */
 .steps-panel{
@@ -328,12 +351,6 @@ h3{font-size:1.1rem;font-weight:700;letter-spacing:-0.01em}
   transition:box-shadow .2s ease;
 }
 .demo-hint b{color:var(--ink-mid)}
-#demo-bypass{
-  width:100%;margin-top:6px;font-size:.8rem;
-  color:var(--ink-light);padding:8px;
-  border:1px dashed var(--line);
-}
-#demo-bypass:hover{color:var(--ink-mid);border-color:var(--ink-light);background:transparent;opacity:1}
 
 /* ============ DASHBOARD ============ */
 .dash{display:flex;min-height:100vh;background:var(--ivory)}
@@ -359,6 +376,32 @@ h3{font-size:1.1rem;font-weight:700;letter-spacing:-0.01em}
   background:var(--teal-soft);color:var(--teal);border-left-color:var(--teal);font-weight:600;
 }
 .side-nav button svg{flex-shrink:0}
+
+.dash-header{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:20px;
+  margin-bottom:28px;flex-wrap:wrap;
+}
+.dash-header-sub{font-size:.94rem;color:var(--ink-mid);margin-top:6px;max-width:520px}
+.credit-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--teal-soft);color:var(--teal-dark);
+  font-size:.82rem;font-weight:600;padding:10px 14px;border-radius:999px;
+  white-space:nowrap;
+}
+.credit-pill.exhausted{background:#FCEFEA;color:#9B3B26}
+.tool-gate{
+  margin:0 0 18px;padding:14px 16px;border-radius:var(--radius-sm);
+  background:var(--slate-light);border:1px solid var(--line);
+  font-size:.9rem;color:var(--ink-mid);
+}
+.tool-gate strong{color:var(--ink)}
+.tool-gate a{color:var(--teal);font-weight:600}
+.tool-gate.hidden{display:none !important}
+.tools-locked .tool-action[disabled],
+.tools-locked .dropzone{pointer-events:none;opacity:.55}
+.footer-team{margin-top:8px}
+.footer-team li{font-size:.88rem;color:var(--ink-mid);margin-bottom:6px}
+.footer-team a{color:var(--teal);font-weight:500}
 .side-user{border-top:1px solid var(--line);padding:18px 24px 0;display:flex;align-items:center;gap:12px}
 .avatar{
   width:40px;height:40px;border-radius:50%;background:var(--teal);color:#fff;
@@ -568,6 +611,33 @@ table.preview .amt{font-family:var(--font-mono);font-size:.82rem;white-space:now
 }
 .tally-input:focus { border-color: var(--teal); }
 
+.fin-detected-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: var(--ivory);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+.fin-detected-meta .fin-detected-copy {
+  font-size: .88rem;
+  color: var(--ink-mid);
+  line-height: 1.45;
+}
+.fin-detected-meta .fin-detected-copy strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.fin-meta-edit {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
 /* Tally conversion result */
 .tally-result-summary {
   display: grid;
@@ -666,6 +736,38 @@ table.tally-sheet-table td {
   color: var(--ink-light);
   font-size: .88rem;
 }
+
+/* Compliance reminders */
+.reminder-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}
+.reminder-step{background:var(--slate-light);border-radius:var(--radius-sm);padding:14px 16px;font-size:.82rem;color:var(--ink-mid);line-height:1.5}
+.reminder-step b{display:block;color:var(--ink);font-size:.88rem;margin-bottom:4px}
+.reminder-defaults-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px 18px;margin-top:12px}
+.reminder-type-toggles{display:flex;flex-wrap:wrap;gap:8px}
+.reminder-type-toggle{display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:var(--white);font-size:.82rem;font-weight:500;cursor:pointer;user-select:none}
+.reminder-type-toggle input{accent-color:var(--teal)}
+.reminder-type-toggle:has(input:checked){border-color:var(--teal);background:var(--teal-soft);color:var(--teal-dark)}
+.reminder-clients-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.reminder-clients-empty{text-align:center;padding:36px 20px;color:var(--ink-mid);font-size:.9rem;border:1.5px dashed var(--line);border-radius:var(--radius-sm);background:var(--ivory)}
+.reminder-clients-empty p{margin-top:8px;color:var(--ink-light);font-size:.84rem}
+table.reminder-clients{width:100%;border-collapse:collapse;font-size:.84rem}
+table.reminder-clients th,table.reminder-clients td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+table.reminder-clients th{font-size:.74rem;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-light);font-weight:600}
+table.reminder-clients tr.expanded > td{background:var(--ivory)}
+.reminder-summary-chips{display:flex;flex-wrap:wrap;gap:6px}
+.reminder-chip{display:inline-block;padding:3px 9px;border-radius:999px;background:var(--teal-soft);color:var(--teal-dark);font-size:.74rem;font-weight:600}
+.reminder-chip.off{background:var(--slate-light);color:var(--ink-light)}
+.reminder-detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;padding:4px 0 8px}
+.reminder-detail-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px}
+.reminder-detail-card h4{font-size:.8rem;margin-bottom:10px;color:var(--ink)}
+.reminder-detail-card label{display:block;font-size:.72rem;color:var(--ink-light);margin-bottom:4px}
+.reminder-detail-card input[type="date"],.reminder-detail-card input[type="number"],.reminder-detail-card input[type="text"],.reminder-detail-card input[type="email"]{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:.84rem}
+.reminder-detail-card input:focus{border-color:var(--teal);outline:none}
+.reminder-detail-card .toggle-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:.82rem;font-weight:500}
+.reminder-actions{display:flex;gap:8px;flex-wrap:wrap}
+.reminder-icon-btn{padding:6px 10px;border-radius:8px;font-size:.78rem;font-weight:600;color:var(--ink-mid);background:var(--slate-light)}
+.reminder-icon-btn:hover{background:var(--teal-soft);color:var(--teal)}
+.reminder-icon-btn.danger:hover{background:#FCEFEA;color:#9B3B26}
+@media (max-width:900px){.reminder-steps{grid-template-columns:1fr}}
 
 /* dashboard mobile top bar */
 .dash-topbar{display:none}
@@ -781,7 +883,7 @@ table.tally-sheet-table td {
         </div>
         <p class="trust-line">Built for Chartered Accountant practices across India</p>
         <div class="stat-strip">
-          <div class="stat"><span class="num">2 hr → 8 min</span><span class="lbl">Statement conversion</span></div>
+          <div class="stat"><span class="num">2 hr → 8 min</span><span class="lbl">TB → NCE conversion</span></div>
           <div class="stat"><span class="num">100%</span><span class="lbl">Audit-ready output</span></div>
           <div class="stat"><span class="num">0</span><span class="lbl">New tools to learn</span></div>
         </div>
@@ -912,8 +1014,9 @@ table.tally-sheet-table td {
           <h3>Chartered Accountants</h3>
           <p>Our first focus: the repetitive document work inside Indian CA practices.</p>
           <ul>
-            <li>Financial statements prepared from trial balances, mapped to Schedule III automatically</li>
-            <li>Bank statements converted and categorised for income computation in minutes</li>
+            <li>Trial balances converted to NCE Schedule III templates automatically</li>
+            <li>Bank statement categorisation for income computation <span style="color:var(--ink-light)">(coming soon)</span></li>
+            <li>GST, ITR, and TDS reminders — upload a client list, customise each one, send via n8n</li>
             <li>Output formatted to your firm's templates — audit-ready, every time</li>
           </ul>
           <button class="btn btn-primary js-open-signin" style="align-self:flex-start">Get early access</button>
@@ -1017,6 +1120,15 @@ table.tally-sheet-table td {
             <li><a href="#" data-legal="msa">Service Agreement / MSA</a></li>
           </ul>
         </nav>
+        <nav class="footer-col" aria-label="Team">
+          <h4>Team</h4>
+          <ul class="footer-team">
+            <li><a href="mailto:shreyas@powerhousetech.in">Shreyas Sinha</a> — shreyas@powerhousetech.in</li>
+            <li><a href="mailto:aymaan.shahzad@powerhousetech.in">Aymaan Shahzad</a> — aymaan.shahzad@powerhousetech.in</li>
+            <li><a href="mailto:anubhav.agrawal@powerhousetech.in">Anubhav Agrawal</a> — anubhav.agrawal@powerhousetech.in</li>
+            <li><a href="mailto:siddhant.gada@powerhousetech.in">Siddhant Gada</a> — siddhant.gada@powerhousetech.in</li>
+          </ul>
+        </nav>
         <nav class="footer-col" aria-label="Company">
           <h4>Company</h4>
           <ul>
@@ -1029,7 +1141,7 @@ table.tally-sheet-table td {
       <div class="footer-info">
         <span><b>Company:</b> [Company Name]</span>
         <span><b>Brand / Product:</b> Powerhouse ([Product Name])</span>
-        <span><b>Contact:</b> support@[domain].com</span>
+        <span><b>Contact:</b> <a href="mailto:support@powerhousetech.in" style="color:var(--teal)">support@powerhousetech.in</a></span>
         <span><b>Legal:</b> legal@[domain].com</span>
         <span><b>Privacy:</b> privacy@[domain].com</span>
         <span><b>Website:</b> [domain.com]</span>
@@ -1057,7 +1169,7 @@ table.tally-sheet-table td {
       <svg width="30" height="30" aria-hidden="true"><use href="#logo-mark"/></svg>
     </div>
     <h2 id="signin-title">Sign in to Powerhouse</h2>
-    <p class="modal-sub">Securely log in with your Google account</p>
+    <p class="modal-sub">Sign in with Google to access your complimentary workspace run.</p>
 
     <button id="google-signin-btn" class="btn-google">
       <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true">
@@ -1070,9 +1182,8 @@ table.tally-sheet-table td {
     </button>
 
     <div class="demo-hint">
-      <b>Demo mode:</b> use <em>Continue with Google</em> for real sign-in via Firebase, or the demo bypass below to explore without an account.
+      <b>Invite-only access.</b> Use the Google account your Powerhouse link was sent to. Tools are not available without signing in.
     </div>
-    <button id="demo-bypass" class="btn btn-ghost">Enter demo workspace →</button>
   </div>
 </div>
 
@@ -1086,24 +1197,18 @@ table.tally-sheet-table td {
       </a>
       <p class="side-label">Tools</p>
       <nav class="side-nav" aria-label="Dashboard tools">
-        <button class="active" data-tab="tab-home">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          Home
-        </button>
-        <button data-tab="tab-financial">
+        <button class="active" data-tab="tab-financial" title="Trial balance → NCE Schedule III template">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>
-          Financial Statements
+          TB → NCE Template
         </button>
-        <button data-tab="tab-bank">
+        <button data-tab="tab-reminders" title="GST, ITR, and TDS filing reminders">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          Compliance Reminders
+        </button>
+        <button data-tab="tab-bank" title="Bank statement PDF → income categories (coming soon)">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>
-          Bank Statements
-        </button>
-        <button data-tab="tab-tally">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 0-2-2V9m0 0h18"/>
-          </svg>
-          Tally Converter
+          Bank Categoriser
+          <span class="nav-soon-badge">Soon</span>
         </button>
       </nav>
       <div class="side-user">
@@ -1125,17 +1230,102 @@ table.tally-sheet-table td {
 
     <main class="dash-main">
 
-      <!-- TAB: HOME -->
-      <section class="tab-section active" id="tab-home">
-        <h1 class="page-title" id="greeting">Good morning 👋</h1>
-        <p class="page-sub">Here's what's happening in your workspace today.</p>
+      <div class="dash-header">
+        <div>
+          <h1 class="page-title" id="greeting">Welcome back</h1>
+          <p class="dash-header-sub" id="dash-header-sub">
+            Your workspace includes one complimentary run across our tools — use it on whichever workflow you want to try first.
+          </p>
+        </div>
+        <div class="credit-pill" id="credit-pill" title="Complimentary runs">Checking access…</div>
+      </div>
+
+      <div class="tool-gate hidden" id="tool-gate"></div>
+
+      <!-- TAB: COMPLIANCE REMINDERS -->
+      <section class="tab-section" id="tab-reminders">
+        <h2 class="page-title" style="font-size:1.45rem;margin-bottom:8px">Client Compliance Reminders</h2>
+        <p class="page-sub">
+          Download our client template, upload your list, customise what to remind and when — then trigger your n8n workflow to send the emails.
+        </p>
+
+        <div class="reminder-steps">
+          <div class="reminder-step"><b>1. Client list</b>Template has name &amp; email only — everything else you set here.</div>
+          <div class="reminder-step"><b>2. Reminder rules</b>Pick compliance types, due dates, and how many days before to send.</div>
+          <div class="reminder-step"><b>3. Send</b>Connect n8n and trigger — your workflow receives one object per client with full config.</div>
+        </div>
+
+        <div class="dcard" id="reminder-clients-card">
+          <div class="dcard-head">
+            <h3>Client list</h3>
+            <button type="button" class="sheet-change-btn" id="reminder-template-download">Download template ↗</button>
+          </div>
+          <p class="sheet-note">The template only includes <b>Client Name</b> and <b>Email</b>. Fill it in Excel or Google Sheets, then upload here.</p>
+          <div class="dropzone" id="reminder-dropzone" tabindex="0" role="button" aria-label="Upload client list">
+            <div class="dz-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#424FD1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+            </div>
+            <p><b>Click to upload</b> or drag and drop your filled client list</p>
+            <p class="dz-hint">Excel (.xlsx) or CSV · name &amp; email columns only</p>
+            <input type="file" id="reminder-input" accept=".xlsx,.xls,.csv" hidden>
+          </div>
+          <div class="file-list" id="reminder-files"></div>
+          <p class="status-msg" id="reminder-upload-status"></p>
+        </div>
+
+        <div class="dcard" id="reminder-defaults-card" hidden>
+          <div class="dcard-head">
+            <h3>Default reminder settings</h3>
+            <button type="button" class="sheet-change-btn" id="reminder-apply-defaults">Apply to all clients</button>
+          </div>
+          <p class="sheet-note">Defaults apply when you upload a file. You can still customise each client in the table below.</p>
+          <div class="reminder-defaults-grid">
+            <div>
+              <label class="tally-label">Compliance types to include</label>
+              <div class="reminder-type-toggles" id="reminder-default-types"></div>
+            </div>
+            <div class="tally-field">
+              <label class="tally-label" for="reminder-default-days">Days before due date to send</label>
+              <input class="tally-input" id="reminder-default-days" type="number" min="0" max="90" value="7">
+            </div>
+          </div>
+        </div>
+
+        <div class="dcard" id="reminder-table-card" hidden>
+          <div class="reminder-clients-head">
+            <div>
+              <h3 style="font-size:1rem;font-weight:700">Review &amp; customise</h3>
+              <p class="sheet-note" style="margin:4px 0 0" id="reminder-client-count">0 clients</p>
+            </div>
+            <button type="button" class="sheet-change-btn" id="reminder-add-client">+ Add client</button>
+          </div>
+          <div class="tbl-wrap">
+            <table class="reminder-clients" id="reminder-clients-table">
+              <thead>
+                <tr>
+                  <th>Client</th>
+                  <th>Email</th>
+                  <th>Active reminders</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="reminder-clients-body"></tbody>
+            </table>
+          </div>
+          <div class="reminder-clients-empty" id="reminder-clients-empty" hidden>
+            <p><b>No clients yet</b></p>
+            <p>Upload a filled template or add a client manually.</p>
+          </div>
+        </div>
 
         <div class="dcard" id="n8n-card">
           <div class="dcard-head">
             <h3>n8n connection</h3>
             <span class="chip gray" id="n8n-badge">Not connected</span>
           </div>
-          <p class="sheet-note">Paste your n8n workflow's webhook URL (Webhook node → Production URL). The Execute workflow button uses this connection.</p>
+          <p class="sheet-note">Paste your n8n workflow's webhook URL (Webhook node → Production URL). Send reminders posts the full client + reminder config to this webhook.</p>
           <form class="n8n-form" id="n8n-form">
             <input id="n8n-url-input" type="url" placeholder="https://your-instance.app.n8n.cloud/webhook/…" autocomplete="off">
             <button type="submit" class="btn btn-primary" style="padding:11px 22px;flex-shrink:0">Save</button>
@@ -1144,178 +1334,28 @@ table.tally-sheet-table td {
           <p class="wf-status" id="n8n-status" style="margin:12px 0 0"></p>
         </div>
 
-        <div class="dcard" id="sheet-card">
+        <div class="dcard" id="reminder-send-card" hidden>
           <div class="dcard-head">
-            <h3>Live workspace sheet</h3>
-            <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-              <a id="sheet-link" href="#" target="_blank" rel="noopener"
-                 style="font-size:.82rem;font-weight:600;color:var(--teal);display:none">
-                Open in Sheets ↗
-              </a>
-              <button id="sheet-expand" class="sheet-change-btn" style="display:none">Expand ⤢</button>
-              <button id="sheet-change" class="sheet-change-btn" style="display:none">Change</button>
-              <span class="live-badge"><span class="dot"></span>Live</span>
-              <button id="run-workflow" class="btn btn-primary" style="padding:9px 18px;font-size:.84rem">▶ Execute workflow</button>
-            </div>
+            <h3>Send reminders</h3>
+            <button id="run-workflow" class="btn btn-primary tool-action" style="padding:9px 18px;font-size:.84rem" disabled>▶ Send reminders</button>
           </div>
-          <p class="sheet-note">This sheet feeds your n8n workflow — data added or updated here is picked up by the automation automatically.</p>
+          <p class="sheet-note" id="reminder-send-summary">Configure at least one client with an email and an active reminder before sending.</p>
           <p id="workflow-status" class="wf-status"></p>
-          <div id="sheet-wrap" class="sheet-wrap" hidden>
-            <iframe id="sheet-frame" title="Live workspace spreadsheet"></iframe>
-          </div>
-          <p class="sheet-resize-hint" id="sheet-resize-hint" hidden>Sheet is read-only here — click it (or Expand) to edit in full screen</p>
-          <!-- shown until a sheet is connected -->
-          <div id="sheet-placeholder" class="sheet-connect">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#9899AB" stroke-width="1.5"
-              stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="2"/>
-              <path d="M3 9h18M3 15h18M9 3v18"/>
-            </svg>
-            <p class="t1">Connect your live sheet</p>
-            <p class="t2">Paste a Google Sheets link below — the sheet appears right here and stays fully interactive.</p>
-            <form id="sheet-form" class="sheet-form">
-              <input id="sheet-url-input" type="url" placeholder="https://docs.google.com/spreadsheets/d/…" autocomplete="off" required>
-              <button type="submit" class="btn btn-primary" style="padding:11px 22px;flex-shrink:0">Connect</button>
-            </form>
-            <p id="sheet-error" class="sheet-error" hidden>That doesn't look like a Google Sheets link — paste the full URL from your browser's address bar.</p>
-          </div>
-        </div>
-
-        <div class="dcard">
-          <div class="dcard-head"><h3>Recent activity</h3></div>
-          <div class="feed" id="activity-feed">
-            <div class="feed-item t-done">Financial statements for <b>Mehta &amp; Co.</b> completed and delivered<span class="when">Today, 10:42 AM</span></div>
-            <div class="feed-item t-upload">3 bank statements uploaded for <b>Sharma Traders</b><span class="when">Today, 9:15 AM</span></div>
-            <div class="feed-item t-done">Income categorisation finished for <b>R.K. Industries</b> — 412 transactions<span class="when">Yesterday, 6:03 PM</span></div>
-            <div class="feed-item t-info">New template added: <b>Schedule III (FY 2025-26)</b><span class="when">Yesterday, 2:30 PM</span></div>
-            <div class="feed-item t-upload">Trial balance uploaded for <b>Verma Associates</b><span class="when">Tuesday, 4:48 PM</span></div>
-          </div>
         </div>
       </section>
 
-      <!-- TAB: FINANCIAL STATEMENTS -->
-      <section class="tab-section" id="tab-financial">
-        <h1 class="page-title">Financial Statements</h1>
-        <p class="page-sub">Upload a trial balance — get back Schedule III financial statements, formatted to your firm's template.</p>
-
-        <div class="dcard">
-          <div class="dropzone" id="fin-dropzone" tabindex="0" role="button" aria-label="Upload trial balance files">
-            <div class="dz-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#424FD1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            </div>
-            <p><b>Click to upload</b> or drag and drop your trial balance</p>
-            <p class="dz-hint">Excel, CSV or Tally export · up to 25 MB per file</p>
-            <input type="file" id="fin-input" multiple accept=".xlsx,.xls,.csv,.pdf" hidden>
-          </div>
-          <div class="file-list" id="fin-files"></div>
-          <button class="btn btn-primary" id="fin-submit" disabled style="opacity:.5">Process &amp; email me the statements</button>
-          <p class="status-msg" id="fin-status"></p>
-        </div>
-
-        <div class="dcard">
-          <div class="dcard-head"><h3>How this works</h3></div>
-          <div class="mini-steps">
-            <div class="mini-step"><span class="n">1</span><h4>Upload your trial balance</h4><p>Any format your accounting software exports — Excel, CSV or Tally.</p></div>
-            <div class="mini-step"><span class="n">2</span><h4>We map every ledger line</h4><p>Each item is classified to the correct Schedule III head, automatically.</p></div>
-            <div class="mini-step"><span class="n">3</span><h4>Receive finished statements</h4><p>Balance Sheet, P&amp;L and notes — in your firm's exact template.</p></div>
-          </div>
-        </div>
-
-        <div class="dcard">
-          <div class="dcard-head"><h3>Preview — ledger mapping</h3><span class="chip gray">Sample data</span></div>
-          <div class="tbl-wrap">
-            <table class="preview">
-              <thead>
-                <tr><th>Ledger item</th><th>Amount (₹)</th><th>Mapped to</th><th>Status</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>Sundry Debtors</td><td class="amt">24,18,450.00</td><td><span class="chip">Trade Receivables</span></td><td><span class="chip green">Mapped</span></td></tr>
-                <tr><td>HDFC Bank — Current A/c</td><td class="amt">8,72,310.55</td><td><span class="chip">Cash &amp; Cash Equivalents</span></td><td><span class="chip green">Mapped</span></td></tr>
-                <tr><td>Plant &amp; Machinery</td><td class="amt">61,40,000.00</td><td><span class="chip">Property, Plant &amp; Equipment</span></td><td><span class="chip green">Mapped</span></td></tr>
-                <tr><td>Sundry Creditors</td><td class="amt">17,96,220.00</td><td><span class="chip">Trade Payables</span></td><td><span class="chip green">Mapped</span></td></tr>
-                <tr><td>GST Payable</td><td class="amt">2,34,118.00</td><td><span class="chip">Other Current Liabilities</span></td><td><span class="chip green">Mapped</span></td></tr>
-                <tr><td>Salaries &amp; Wages</td><td class="amt">14,60,500.00</td><td><span class="chip">Employee Benefit Expenses</span></td><td><span class="chip green">Mapped</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- TAB: BANK STATEMENTS -->
-      <section class="tab-section" id="tab-bank">
-        <h1 class="page-title">Bank Statements</h1>
-        <p class="page-sub">Upload bank statement PDFs — get back clean, categorised transactions ready for income computation.</p>
-
-        <div class="dcard">
-          <div class="dropzone" id="bank-dropzone" tabindex="0" role="button" aria-label="Upload bank statement files">
-            <div class="dz-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#424FD1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            </div>
-            <p><b>Click to upload</b> or drag and drop bank statements</p>
-            <p class="dz-hint">PDF, Excel or CSV · all major Indian banks supported</p>
-            <input type="file" id="bank-input" multiple accept=".pdf,.xlsx,.xls,.csv" hidden>
-          </div>
-          <div class="file-list" id="bank-files"></div>
-          <button class="btn btn-primary" id="bank-submit" disabled style="opacity:.5">Categorise &amp; email me the summary</button>
-          <p class="status-msg" id="bank-status"></p>
-        </div>
-
-        <div class="dcard">
-          <div class="dcard-head"><h3>Preview — income categorisation</h3><span class="chip gray">Sample data</span></div>
-          <div class="tbl-wrap">
-            <table class="preview">
-              <thead>
-                <tr><th>Date</th><th>Description</th><th>Amount (₹)</th><th>Category</th></tr>
-              </thead>
-              <tbody>
-                <tr><td class="amt">04-04-2026</td><td>NEFT CR — APEX CONSULTING LLP</td><td class="amt">1,85,000.00</td><td><span class="chip">Professional Fees</span></td></tr>
-                <tr><td class="amt">07-04-2026</td><td>INT CREDIT — SB ACCOUNT</td><td class="amt">4,212.00</td><td><span class="chip">Interest Income</span></td></tr>
-                <tr><td class="amt">11-04-2026</td><td>RENT APR — 14B LINK ROAD</td><td class="amt">42,000.00</td><td><span class="chip">Rental Income</span></td></tr>
-                <tr><td class="amt">15-04-2026</td><td>UPI CR — RAVI ENTERPRISES INV#2241</td><td class="amt">96,400.00</td><td><span class="chip">Business Receipts</span></td></tr>
-                <tr><td class="amt">21-04-2026</td><td>DIVIDEND — INFY</td><td class="amt">7,850.00</td><td><span class="chip">Dividend Income</span></td></tr>
-                <tr><td class="amt">28-04-2026</td><td>IMPS CR — SELF TRANSFER</td><td class="amt">50,000.00</td><td><span class="chip gray">Excluded — Contra</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- TAB: TALLY CONVERTER -->
-      <section class="tab-section" id="tab-tally">
-        <h1 class="page-title">Tally Converter</h1>
+      <!-- TAB: TB → NCE TEMPLATE -->
+      <section class="tab-section active" id="tab-financial">
+        <h2 class="page-title" style="font-size:1.45rem;margin-bottom:8px">Trial Balance → NCE Template</h2>
         <p class="page-sub">
-          Upload a Tally export — get back a fully filled Schedule III financial statement
-          in the standard non-corporate entities format, ready to review and sign off.
+          Upload a trial balance or Tally export — get back a filled Schedule III workbook
+          in the non-corporate entities (NCE) format, ready to review and sign off.
         </p>
 
-        <div class="dcard" id="tally-entity-card">
-          <div class="dcard-head"><h3>Entity details</h3></div>
-          <p class="sheet-note">These appear on the cover of the financial statements.</p>
-          <div class="tally-meta-grid">
-            <div class="tally-field">
-              <label class="tally-label" for="t-entity-name">Entity name</label>
-              <input class="tally-input" id="t-entity-name" type="text"
-                placeholder="e.g. M/s Sharma &amp; Associates">
-            </div>
-            <div class="tally-field">
-              <label class="tally-label" for="t-fy-end">Financial year end</label>
-              <input class="tally-input" id="t-fy-end" type="date" value="2026-03-31">
-            </div>
-            <div class="tally-field">
-              <label class="tally-label" for="t-prev-fy-end">Previous year end</label>
-              <input class="tally-input" id="t-prev-fy-end" type="date" value="2025-03-31">
-            </div>
-            <div class="tally-field">
-              <label class="tally-label" for="t-currency">Currency</label>
-              <input class="tally-input" id="t-currency" type="text" value="INR" maxlength="3">
-            </div>
-          </div>
-        </div>
-
         <div class="dcard">
-          <div class="dcard-head"><h3>Upload Tally export</h3></div>
+          <div class="dcard-head"><h3>Upload trial balance</h3></div>
           <div class="dropzone" id="tally-dropzone" tabindex="0" role="button"
-            aria-label="Upload Tally export file">
+            aria-label="Upload trial balance file">
             <div class="dz-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#424FD1"
                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1324,14 +1364,35 @@ table.tally-sheet-table td {
                 <line x1="12" y1="3" x2="12" y2="15"/>
               </svg>
             </div>
-            <p><b>Click to upload</b> or drag and drop your Tally export</p>
+            <p><b>Click to upload</b> or drag and drop your trial balance</p>
             <p class="dz-hint">Tally XML · Excel (.xlsx / .xls) · CSV · up to 25 MB</p>
             <input type="file" id="tally-input"
               accept=".xml,.xlsx,.xls,.csv,.txt" hidden>
           </div>
           <div class="file-list" id="tally-files"></div>
-          <button class="btn btn-primary" id="tally-submit" disabled style="opacity:.5">
-            Convert to financial statements
+
+          <div id="fin-detected-meta" class="fin-detected-meta" hidden>
+            <p class="fin-detected-copy" id="fin-detected-copy">Reading file…</p>
+            <button type="button" class="sheet-change-btn" id="fin-edit-meta-btn">Edit details</button>
+          </div>
+
+          <div id="fin-meta-edit" class="fin-meta-edit" hidden>
+            <div class="tally-meta-grid">
+              <div class="tally-field">
+                <label class="tally-label" for="t-entity-name">Entity name</label>
+                <input class="tally-input" id="t-entity-name" type="text"
+                  placeholder="Filled from your file when possible">
+              </div>
+              <div class="tally-field">
+                <label class="tally-label" for="t-fy-end">Financial year end</label>
+                <input class="tally-input" id="t-fy-end" type="date">
+              </div>
+            </div>
+            <p class="sheet-note" style="margin-top:10px">Previous year is set automatically (one year earlier).</p>
+          </div>
+
+          <button class="btn btn-primary tool-action" id="tally-submit" disabled style="opacity:.5;margin-top:16px">
+            Convert to NCE template
           </button>
           <p class="status-msg" id="tally-status"></p>
         </div>
@@ -1359,6 +1420,18 @@ table.tally-sheet-table td {
               <span class="k">Match quality</span>
               <span class="v" id="tally-sum-quality">—</span>
             </div>
+            <div class="tally-summary-item" id="tally-sum-net-wrap" hidden>
+              <span class="k">Net profit / (loss)</span>
+              <span class="v" id="tally-sum-net">—</span>
+            </div>
+            <div class="tally-summary-item" id="tally-sum-suspense-wrap" hidden>
+              <span class="k">BS suspense plug</span>
+              <span class="v" id="tally-sum-suspense">—</span>
+            </div>
+          </div>
+
+          <div id="tally-suspense-callout" class="fin-detected-meta" hidden style="margin-bottom:18px;border-color:#F0E2B6;background:#FFFBF0">
+            <p class="fin-detected-copy" id="tally-suspense-copy"></p>
           </div>
 
           <div class="tbl-wrap" id="tally-preview-wrap">
@@ -1373,6 +1446,20 @@ table.tally-sheet-table td {
               </thead>
               <tbody id="tally-preview-body"></tbody>
             </table>
+          </div>
+
+          <div id="tally-adjustments-wrap" hidden style="margin-top:20px">
+            <p style="font-size:.88rem;font-weight:600;color:#424FD1;margin-bottom:10px">
+              Balance sheet adjustment
+            </p>
+            <div class="tbl-wrap">
+              <table class="preview" id="tally-adjustments-table">
+                <thead>
+                  <tr><th>Line item</th><th>Was (₹)</th><th>Corrected (₹)</th><th>Why</th></tr>
+                </thead>
+                <tbody id="tally-adjustments-body"></tbody>
+              </table>
+            </div>
           </div>
 
           <div id="tally-unmapped-wrap" hidden style="margin-top:20px">
@@ -1404,8 +1491,8 @@ table.tally-sheet-table td {
           <div class="mini-steps">
             <div class="mini-step">
               <span class="n">1</span>
-              <h4>Upload your Tally export</h4>
-              <p>XML, Excel or CSV — whatever Tally generates from your trial balance or ledger report.</p>
+              <h4>Upload your trial balance</h4>
+              <p>Tally XML, Excel or CSV — we detect the financial year from the file.</p>
             </div>
             <div class="mini-step">
               <span class="n">2</span>
@@ -1414,7 +1501,7 @@ table.tally-sheet-table td {
             </div>
             <div class="mini-step">
               <span class="n">3</span>
-              <h4>Download filled statements</h4>
+              <h4>Download filled NCE workbook</h4>
               <p>The official non-corporate entities template, filled with your numbers, ready for review.</p>
             </div>
           </div>
@@ -1433,6 +1520,44 @@ table.tally-sheet-table td {
           <div class="tally-sheet-tabs" id="tally-sheet-tabs" hidden></div>
           <div class="tally-sheet-frame" id="tally-sheet-frame">
             <p class="tally-template-status" id="tally-template-status">Loading template preview…</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB: BANK CATEGORISER (locked — not ready) -->
+      <section class="tab-section" id="tab-bank">
+        <div class="tool-title-row">
+          <h2 class="page-title" style="font-size:1.45rem">Bank Statement Categoriser</h2>
+          <span class="soon-badge">Coming soon</span>
+        </div>
+        <p class="page-sub">
+          Upload bank statement PDFs and get categorised transactions for income computation — this workflow is still in development.
+        </p>
+
+        <div class="dcard tool-coming-soon-card">
+          <div class="tool-coming-soon">
+            <div class="cs-icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#424FD1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <h3>Not available in the workspace yet</h3>
+            <p>
+              We're building PDF parsing and income-head categorisation for ITR workflows.
+              It isn't ready for workspace runs — your complimentary run won't be used here.
+            </p>
+            <p>
+              For now, try <button type="button" class="sheet-change-btn" data-switch-tab="tab-financial">TB → NCE Template</button>
+              for trial balance conversion, or
+              <button type="button" class="sheet-change-btn" data-switch-tab="tab-reminders">Compliance Reminders</button>
+              for client follow-ups.
+            </p>
+            <div class="cs-actions">
+              <a class="btn btn-primary" href="mailto:aymaan.shahzad@powerhousetech.in?subject=Powerhouse%20Bank%20Categoriser%20early%20access">
+                Request early access
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -1459,7 +1584,7 @@ table.tally-sheet-table td {
     <p class="meta">Effective Date: <span class="ph">[Effective Date]</span></p>
     <p>These Terms of Service ("Terms") govern your access to and use of <b>Powerhouse</b> (<span class="ph">[Product Name]</span>), operated by <span class="ph">[Company Name]</span> ("we", "us", "our"). By creating an account or using the service, you agree to these Terms.</p>
     <h2>1. Description of Services</h2>
-    <p><span class="ph">[Description of Services]</span> — Powerhouse provides workflow automation for Chartered Accountant practices, including conversion of trial balances into Schedule III financial statements, bank statement conversion and income categorisation, and related document-processing automations connected to your workspace.</p>
+    <p><span class="ph">[Description of Services]</span> — Powerhouse provides workflow automation for Chartered Accountant practices, including trial-balance-to-NCE-template conversion, bank statement categorisation for income computation, client compliance reminders, and related document-processing automations connected to your workspace.</p>
     <h2>2. Accounts</h2>
     <p>You sign in using your Google account. You are responsible for maintaining the security of your account and for all activity that occurs under it. You must provide accurate information and use the service only for lawful purposes.</p>
     <h2>3. Disclaimer of Professional Advice</h2>
@@ -1620,20 +1745,15 @@ window.dispatchEvent(new CustomEvent('ph-firebase-ready'));
 // Google sign-in is handled by Firebase Auth (see Firebase module above).
 // Enable Google provider: Firebase Console → Authentication → Sign-in method.
 
-// Optional: hardcode a default Google Sheets URL here. Normally you don't need
-// to — paste the sheet link directly into the "Live workspace sheet" card on
-// the dashboard instead (it's saved in the browser and survives reloads).
-const SHEET_URL = '';
-
-// n8n: optional hardcoded default for the workflow webhook URL. Normally you
-// don't need to — paste it into the "n8n connection" panel on the dashboard
-// Home tab instead (saved in the browser, used by the Execute workflow button).
+// Optional: hardcoded default for the n8n workflow webhook URL.
 const N8N_WEBHOOK_URL = '';
 
-// Tally Converter — Supabase Edge Functions (API key in Supabase secrets)
+// TB → NCE Template — Supabase Edge Functions (API key in Supabase secrets)
 const SUPABASE_URL = 'https://msratyvmnuvozuthgkmi.supabase.co';
 const TALLY_MAP_START_API = `${SUPABASE_URL}/functions/v1/tally-map-start`;
 const TALLY_MAP_STATUS_API = `${SUPABASE_URL}/functions/v1/tally-map-status`;
+const CREDITS_API = `${SUPABASE_URL}/functions/v1/user-credits`;
+const TEAM_CONTACT_EMAIL = 'aymaan.shahzad@powerhousetech.in';
 const TEMPLATE_MAP_URL = 'template_map.json';
 // ────────────────────────────────────────────────────────────────────────────
 
@@ -1664,7 +1784,22 @@ document.addEventListener('keydown', e => {
 });
 
 /* ==================== AUTH ==================== */
+let currentUser = null;
+let creditState = { loaded: false, can_run: false, runs_remaining: 0, runs_used: 0 };
+
+function showLanding(){
+  dashboard.hidden = true;
+  landing.hidden = false;
+  document.body.classList.add('landing-visible');
+  currentUser = null;
+}
+
 function enterDashboard(user){
+  if (!user?.email || !user?.uid) {
+    openSignin();
+    return;
+  }
+  currentUser = user;
   sessionStorage.setItem('ph_user', JSON.stringify(user));
   closeSignin();
   landing.hidden = true;
@@ -1672,6 +1807,7 @@ function enterDashboard(user){
   document.body.classList.remove('landing-visible');
   window.scrollTo(0, 0);
   populateUser(user);
+  refreshCredits();
 }
 
 function populateUser(user){
@@ -1698,6 +1834,122 @@ function firebaseUserToProfile(user){
     email: user.email || '',
     picture: user.photoURL || null,
   };
+}
+
+function creditsExhaustedHtml(){
+  return `You've used your complimentary workspace run. If this saved you time — or you want to keep going — we'd love to hear from you. `
+    + `<a href="mailto:${TEAM_CONTACT_EMAIL}?subject=Powerhouse%20early%20access">Reach out to the team</a> and we'll set up continued access for your practice.`;
+}
+
+function updateCreditsUI(){
+  const pill = document.getElementById('credit-pill');
+  const gate = document.getElementById('tool-gate');
+  const dashMain = document.querySelector('.dash-main');
+
+  if (!creditState.loaded) {
+    pill.textContent = 'Checking access…';
+    pill.classList.remove('exhausted');
+    gate.classList.add('hidden');
+    dashMain?.classList.remove('tools-locked');
+    return;
+  }
+
+  if (creditState.can_run) {
+    pill.textContent = creditState.runs_remaining === 1
+      ? '1 complimentary run available'
+      : `${creditState.runs_remaining} runs available`;
+    pill.classList.remove('exhausted');
+    gate.classList.add('hidden');
+    dashMain?.classList.remove('tools-locked');
+    return;
+  }
+
+  pill.textContent = 'Complimentary run used';
+  pill.classList.add('exhausted');
+  gate.innerHTML = creditsExhaustedHtml();
+  gate.classList.remove('hidden');
+  dashMain?.classList.add('tools-locked');
+}
+
+async function refreshCredits(){
+  creditState = { loaded: false, can_run: false, runs_remaining: 0, runs_used: 0 };
+  updateCreditsUI();
+
+  const headers = await getFirebaseAuthHeaders();
+  if (!headers.Authorization) {
+    creditState.loaded = true;
+    updateCreditsUI();
+    return;
+  }
+
+  try {
+    const res = await fetch(CREDITS_API, { headers });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    creditState = {
+      loaded: true,
+      can_run: Boolean(data.can_run),
+      runs_remaining: Number(data.runs_remaining ?? 0),
+      runs_used: Number(data.runs_used ?? 0),
+      last_tool_used: data.last_tool_used || null,
+    };
+  } catch (err) {
+    console.error('Credit check failed:', err);
+    creditState = { loaded: true, can_run: false, runs_remaining: 0, runs_used: 0 };
+  }
+  updateCreditsUI();
+}
+
+async function consumeRunCredit(tool){
+  if (!currentUser?.uid) {
+    openSignin();
+    return false;
+  }
+  if (creditState.loaded && !creditState.can_run) {
+    updateCreditsUI();
+    return false;
+  }
+
+  const headers = {
+    'Content-Type': 'application/json',
+    ...(await getFirebaseAuthHeaders()),
+  };
+  if (!headers.Authorization) {
+    openSignin();
+    return false;
+  }
+
+  try {
+    const res = await fetch(CREDITS_API, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ action: 'consume', tool }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (res.status === 402) {
+      creditState = {
+        loaded: true,
+        can_run: false,
+        runs_remaining: Number(data.runs_remaining ?? 0),
+        runs_used: Number(data.runs_used ?? 0),
+      };
+      updateCreditsUI();
+      return false;
+    }
+    if (!res.ok) throw new Error(data.error || data.message || 'HTTP ' + res.status);
+    creditState = {
+      loaded: true,
+      can_run: Boolean(data.can_run),
+      runs_remaining: Number(data.runs_remaining ?? 0),
+      runs_used: Number(data.runs_used ?? 0),
+    };
+    updateCreditsUI();
+    return true;
+  } catch (err) {
+    console.error('Could not consume run credit:', err);
+    alert(err.message || 'We could not verify your workspace access. Please sign in again and retry.');
+    return false;
+  }
 }
 
 const googleBtn = document.getElementById('google-signin-btn');
@@ -1749,32 +2001,24 @@ function setupFirebaseAuth(){
       sessionRestored = true;
       return;
     }
-    if (!sessionRestored){
-      const saved = sessionStorage.getItem('ph_user');
-      if (saved){
-        try { enterDashboard(JSON.parse(saved)); } catch (_) { sessionStorage.removeItem('ph_user'); }
-      }
-      sessionRestored = true;
+    sessionStorage.removeItem('ph_user');
+    if (sessionRestored || !dashboard.hidden) {
+      showLanding();
     }
+    sessionRestored = true;
   });
 
   document.getElementById('signout').addEventListener('click', async () => {
     sessionStorage.removeItem('ph_user');
+    currentUser = null;
     try { await signOut(auth); } catch (err) { console.error('Firebase sign-out error:', err); }
-    dashboard.hidden = true;
-    landing.hidden = false;
-    document.body.classList.add('landing-visible');
+    showLanding();
     window.scrollTo(0, 0);
   });
 }
 
 if (window.phFirebaseAuth) setupFirebaseAuth();
 else window.addEventListener('ph-firebase-ready', setupFirebaseAuth);
-
-// Demo bypass — same path as a successful Google login (no Firebase uid)
-document.getElementById('demo-bypass').addEventListener('click', () => {
-  enterDashboard({ name: 'Demo User', email: 'demo@powerhousetech.in', picture: null, isDemo: true });
-});
 
 async function getFirebaseAuthHeaders(){
   const user = window.phFirebaseAuth?.auth?.currentUser;
@@ -1792,71 +2036,445 @@ function buildN8nPayload({ test = false } = {}){
   const payload = {
     source: 'powerhouse-dashboard',
     triggeredAt: new Date().toISOString(),
+    defaults: readReminderDefaultsFromUI(),
+    clients: test ? [] : buildReminderDispatchList(),
   };
-  if (test) payload.test = true; // omit for production Execute workflow calls
+  if (test) payload.test = true;
   return payload;
 }
 
-/* ==================== LIVE WORKSPACE SHEET ==================== */
-const SHEET_STORAGE_KEY = 'ph_sheet_url';
-const sheetCard        = document.getElementById('sheet-card');
-const sheetWrap        = document.getElementById('sheet-wrap');
-const sheetFrame       = document.getElementById('sheet-frame');
-const sheetPlaceholder = document.getElementById('sheet-placeholder');
-const sheetLink        = document.getElementById('sheet-link');
-const sheetChange      = document.getElementById('sheet-change');
-const sheetExpand      = document.getElementById('sheet-expand');
-const sheetResizeHint  = document.getElementById('sheet-resize-hint');
-const sheetForm        = document.getElementById('sheet-form');
-const sheetInput       = document.getElementById('sheet-url-input');
-const sheetError       = document.getElementById('sheet-error');
+/* ==================== COMPLIANCE REMINDERS ==================== */
+const REMINDER_TYPES = [
+  { id: 'gst', label: 'GST filing' },
+  { id: 'itr', label: 'ITR filing' },
+  { id: 'tds', label: 'TDS payment / return' },
+  { id: 'advance_tax', label: 'Advance tax' },
+  { id: 'roc', label: 'ROC / annual compliance' },
+];
 
-// Turn any Google Sheets URL (edit link or published link) into an embeddable one
-function toSheetEmbedUrl(raw){
-  let url;
-  try { url = new URL(raw.trim()); } catch { return null; }
-  if (url.hostname !== 'docs.google.com' || !url.pathname.startsWith('/spreadsheets/')) return null;
-  // Published-to-web links embed as-is
-  if (url.pathname.includes('/pubhtml')){
-    url.searchParams.set('widget', 'true');
-    url.searchParams.set('headers', 'false');
-    return url.toString();
+let reminderClients = [];
+let reminderExpandedId = null;
+let reminderUploadFile = null;
+
+function reminderId() {
+  return 'r_' + Math.random().toString(36).slice(2, 10);
+}
+
+function readReminderDefaultsFromUI() {
+  const daysBefore = Math.max(0, Number(document.getElementById('reminder-default-days')?.value) || 7);
+  const types = {};
+  REMINDER_TYPES.forEach(({ id }) => {
+    types[id] = Boolean(document.querySelector(`#reminder-default-types input[data-type="${id}"]`)?.checked);
+  });
+  return { daysBefore, types };
+}
+
+function createReminderConfig(defaults) {
+  const cfg = {};
+  REMINDER_TYPES.forEach(({ id }) => {
+    cfg[id] = {
+      enabled: Boolean(defaults.types[id]),
+      dueDate: '',
+      daysBefore: defaults.daysBefore,
+    };
+  });
+  return cfg;
+}
+
+function newReminderClient(name, email, defaults) {
+  return {
+    id: reminderId(),
+    name: (name || '').trim(),
+    email: (email || '').trim(),
+    reminders: createReminderConfig(defaults),
+  };
+}
+
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function computeSendOn(dueDate, daysBefore) {
+  if (!dueDate) return null;
+  const due = new Date(dueDate + 'T00:00:00');
+  if (Number.isNaN(due.getTime())) return null;
+  due.setDate(due.getDate() - (Number(daysBefore) || 0));
+  return due.toISOString().slice(0, 10);
+}
+
+function buildReminderDispatchList() {
+  return reminderClients
+    .filter((c) => c.name && isValidEmail(c.email))
+    .map((client) => {
+      const reminders = REMINDER_TYPES
+        .map(({ id, label }) => {
+          const row = client.reminders[id];
+          if (!row?.enabled || !row.dueDate) return null;
+          return {
+            type: id,
+            label,
+            dueDate: row.dueDate,
+            daysBefore: Number(row.daysBefore) || 0,
+            sendOn: computeSendOn(row.dueDate, row.daysBefore),
+          };
+        })
+        .filter(Boolean);
+      return { name: client.name, email: client.email, reminders };
+    })
+    .filter((c) => c.reminders.length > 0);
+}
+
+function validateReminderDispatch() {
+  const dispatch = buildReminderDispatchList();
+  if (!dispatch.length) {
+    return { ok: false, message: 'Add at least one client with a valid email and one active reminder with a due date.' };
   }
-  const m = url.pathname.match(/\/spreadsheets\/(?:u\/\d+\/)?d\/([\w-]+)/);
-  if (!m) return null;
-  // widget=true + rm=minimal gives an interactive sheet without the full Sheets chrome
-  return 'https://docs.google.com/spreadsheets/d/' + m[1] + '/edit?widget=true&headers=false&rm=minimal';
+  const invalid = reminderClients.filter((c) => c.email && !isValidEmail(c.email));
+  if (invalid.length) {
+    return { ok: false, message: `${invalid.length} client(s) have an invalid email address — fix them before sending.` };
+  }
+  return { ok: true, dispatch };
 }
 
-function connectSheet(raw, persist){
-  const embed = toSheetEmbedUrl(raw);
-  if (!embed) return false;
-  sheetFrame.src = embed;
-  sheetWrap.hidden = false;
-  sheetResizeHint.hidden = false;
-  sheetPlaceholder.hidden = true;
-  sheetLink.href = raw;
-  sheetLink.style.display = '';
-  sheetChange.style.display = '';
-  sheetExpand.style.display = '';
-  if (persist) localStorage.setItem(SHEET_STORAGE_KEY, raw);
-  return true;
+function updateReminderSendUI() {
+  const validation = validateReminderDispatch();
+  const summary = document.getElementById('reminder-send-summary');
+  const sendBtn = document.getElementById('run-workflow');
+  const sendCard = document.getElementById('reminder-send-card');
+  const hasClients = reminderClients.length > 0;
+
+  document.getElementById('reminder-defaults-card').hidden = !hasClients;
+  document.getElementById('reminder-table-card').hidden = !hasClients;
+  sendCard.hidden = !hasClients;
+
+  document.getElementById('reminder-client-count').textContent =
+    `${reminderClients.length} client${reminderClients.length === 1 ? '' : 's'}`;
+
+  if (!hasClients) {
+    summary.textContent = 'Upload a client list or add clients manually to configure reminders.';
+    sendBtn.disabled = true;
+    return;
+  }
+
+  if (validation.ok) {
+    const n = validation.dispatch.length;
+    const totalReminders = validation.dispatch.reduce((s, c) => s + c.reminders.length, 0);
+    summary.textContent = `Ready to send ${totalReminders} reminder${totalReminders === 1 ? '' : 's'} across ${n} client${n === 1 ? '' : 's'}.`;
+    sendBtn.disabled = false;
+    sendBtn.style.opacity = '1';
+  } else {
+    summary.textContent = validation.message;
+    sendBtn.disabled = true;
+    sendBtn.style.opacity = '.5';
+  }
 }
 
-function setSheetExpanded(on){
-  sheetCard.classList.toggle('sheet-expanded', on);
-  document.body.classList.toggle('sheet-fullscreen', on);
-  sheetExpand.textContent = on ? 'Collapse ⤡' : 'Expand ⤢';
+function renderDefaultTypeToggles() {
+  const wrap = document.getElementById('reminder-default-types');
+  if (!wrap || wrap.childElementCount) return;
+  wrap.innerHTML = REMINDER_TYPES.map(({ id, label }) => `
+    <label class="reminder-type-toggle">
+      <input type="checkbox" data-type="${id}" ${['gst', 'itr', 'tds'].includes(id) ? 'checked' : ''}>
+      ${label}
+    </label>`).join('');
+  wrap.querySelectorAll('input').forEach((input) => {
+    input.addEventListener('change', () => {
+      if (!reminderClients.length) return;
+      if (confirm('Apply the updated default types to all clients? This resets per-type settings.')) {
+        applyDefaultsToAllClients();
+      }
+    });
+  });
 }
-sheetExpand.addEventListener('click', () =>
-  setSheetExpanded(!sheetCard.classList.contains('sheet-expanded')));
-// Collapsed sheet is a static preview — clicking anywhere on it opens edit mode
-sheetWrap.addEventListener('click', () => {
-  if (!sheetCard.classList.contains('sheet-expanded')) setSheetExpanded(true);
-});
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') setSheetExpanded(false);
-});
+
+function applyDefaultsToAllClients() {
+  const defaults = readReminderDefaultsFromUI();
+  reminderClients = reminderClients.map((c) => ({
+    ...c,
+    reminders: createReminderConfig(defaults),
+  }));
+  renderReminderClientsTable();
+  updateReminderSendUI();
+}
+
+function reminderSummaryHtml(client) {
+  const chips = REMINDER_TYPES.map(({ id, label }) => {
+    const row = client.reminders[id];
+    if (!row?.enabled) return `<span class="reminder-chip off">${label}</span>`;
+    const when = row.dueDate
+      ? `${row.daysBefore}d before ${row.dueDate}`
+      : 'due date needed';
+    return `<span class="reminder-chip" title="${escapeHtml(when)}">${label}</span>`;
+  }).join('');
+  return `<div class="reminder-summary-chips">${chips}</div>`;
+}
+
+function reminderDetailHtml(client) {
+  const cards = `
+    <div class="reminder-detail-card" style="grid-column:1/-1">
+      <h4>Client details</h4>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div>
+          <label>Client name</label>
+          <input type="text" class="rem-name" data-client="${client.id}" value="${escapeHtml(client.name)}">
+        </div>
+        <div>
+          <label>Email</label>
+          <input type="email" class="rem-email" data-client="${client.id}" value="${escapeHtml(client.email)}">
+        </div>
+      </div>
+    </div>` + REMINDER_TYPES.map(({ id, label }) => {
+    const row = client.reminders[id];
+    return `
+      <div class="reminder-detail-card" data-client="${client.id}" data-type="${id}">
+        <label class="toggle-row">
+          <input type="checkbox" class="rem-type-enable" data-client="${client.id}" data-type="${id}" ${row.enabled ? 'checked' : ''}>
+          ${label}
+        </label>
+        <label>Due date</label>
+        <input type="date" class="rem-due" data-client="${client.id}" data-type="${id}" value="${row.dueDate || ''}" ${row.enabled ? '' : 'disabled'}>
+        <label style="margin-top:8px">Days before due to send</label>
+        <input type="number" class="rem-days" data-client="${client.id}" data-type="${id}" min="0" max="90" value="${row.daysBefore ?? 7}" ${row.enabled ? '' : 'disabled'}>
+      </div>`;
+  }).join('');
+  return `<tr class="reminder-detail-row" data-detail-for="${client.id}"><td colspan="4"><div class="reminder-detail-grid">${cards}</div></td></tr>`;
+}
+
+function renderReminderClientsTable() {
+  const body = document.getElementById('reminder-clients-body');
+  const empty = document.getElementById('reminder-clients-empty');
+  const table = document.getElementById('reminder-clients-table');
+  body.innerHTML = '';
+
+  if (!reminderClients.length) {
+    empty.hidden = false;
+    table.hidden = true;
+    updateReminderSendUI();
+    return;
+  }
+
+  empty.hidden = true;
+  table.hidden = false;
+
+  reminderClients.forEach((client) => {
+    const tr = document.createElement('tr');
+    if (reminderExpandedId === client.id) tr.classList.add('expanded');
+    tr.innerHTML = `
+      <td><strong>${escapeHtml(client.name || '—')}</strong></td>
+      <td>${escapeHtml(client.email || '—')}</td>
+      <td>${reminderSummaryHtml(client)}</td>
+      <td>
+        <div class="reminder-actions">
+          <button type="button" class="reminder-icon-btn rem-expand" data-id="${client.id}">
+            ${reminderExpandedId === client.id ? 'Close' : 'Customise'}
+          </button>
+          <button type="button" class="reminder-icon-btn danger rem-remove" data-id="${client.id}">Remove</button>
+        </div>
+      </td>`;
+    body.appendChild(tr);
+    if (reminderExpandedId === client.id) {
+      body.insertAdjacentHTML('beforeend', reminderDetailHtml(client));
+    }
+  });
+
+  body.querySelectorAll('.rem-expand').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      reminderExpandedId = reminderExpandedId === btn.dataset.id ? null : btn.dataset.id;
+      renderReminderClientsTable();
+    });
+  });
+  body.querySelectorAll('.rem-remove').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      reminderClients = reminderClients.filter((c) => c.id !== btn.dataset.id);
+      if (reminderExpandedId === btn.dataset.id) reminderExpandedId = null;
+      renderReminderClientsTable();
+      updateReminderSendUI();
+    });
+  });
+  body.querySelectorAll('.rem-name').forEach((input) => {
+    input.addEventListener('change', () => {
+      const client = reminderClients.find((c) => c.id === input.dataset.client);
+      if (!client) return;
+      client.name = input.value.trim();
+      renderReminderClientsTable();
+    });
+  });
+  body.querySelectorAll('.rem-email').forEach((input) => {
+    input.addEventListener('change', () => {
+      const client = reminderClients.find((c) => c.id === input.dataset.client);
+      if (!client) return;
+      client.email = input.value.trim();
+      renderReminderClientsTable();
+      updateReminderSendUI();
+    });
+  });
+  body.querySelectorAll('.rem-type-enable').forEach((input) => {
+    input.addEventListener('change', () => {
+      const client = reminderClients.find((c) => c.id === input.dataset.client);
+      if (!client) return;
+      client.reminders[input.dataset.type].enabled = input.checked;
+      renderReminderClientsTable();
+      updateReminderSendUI();
+    });
+  });
+  body.querySelectorAll('.rem-due').forEach((input) => {
+    input.addEventListener('change', () => {
+      const client = reminderClients.find((c) => c.id === input.dataset.client);
+      if (!client) return;
+      client.reminders[input.dataset.type].dueDate = input.value;
+      renderReminderClientsTable();
+      updateReminderSendUI();
+    });
+  });
+  body.querySelectorAll('.rem-days').forEach((input) => {
+    input.addEventListener('change', () => {
+      const client = reminderClients.find((c) => c.id === input.dataset.client);
+      if (!client) return;
+      client.reminders[input.dataset.type].daysBefore = Number(input.value) || 0;
+      renderReminderClientsTable();
+      updateReminderSendUI();
+    });
+  });
+
+  updateReminderSendUI();
+}
+
+function normalizeHeader(h) {
+  return String(h || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function parseClientRows(matrix) {
+  if (!matrix.length) return [];
+  const headers = matrix[0].map(normalizeHeader);
+  const nameIdx = headers.findIndex((h) => /^(client)?name$/.test(h) || h.includes('clientname'));
+  const emailIdx = headers.findIndex((h) => h.includes('email'));
+  if (nameIdx < 0 || emailIdx < 0) {
+    throw new Error('Could not find Client Name and Email columns. Use the downloaded template.');
+  }
+  const out = [];
+  for (let i = 1; i < matrix.length; i++) {
+    const row = matrix[i];
+    const name = String(row[nameIdx] ?? '').trim();
+    const email = String(row[emailIdx] ?? '').trim();
+    if (!name && !email) continue;
+    out.push({ name, email });
+  }
+  return out;
+}
+
+async function parseReminderClientFile(file) {
+  const name = file.name.toLowerCase();
+  if (name.endsWith('.csv')) {
+    const text = await file.text();
+    const rows = text.split(/\r?\n/).filter((l) => l.trim()).map((l) => l.split(',').map((c) => c.trim().replace(/^"|"$/g, '')));
+    return parseClientRows(rows);
+  }
+  await ensureXLSX();
+  const wb = XLSX.read(await file.arrayBuffer(), { type: 'array' });
+  const sheet = wb.Sheets[wb.SheetNames[0]];
+  const matrix = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
+  return parseClientRows(matrix);
+}
+
+async function downloadReminderClientTemplate() {
+  await ensureXLSX();
+  const wb = XLSX.utils.book_new();
+  const rows = [
+    ['Client Name', 'Email'],
+    ['Acme Traders', 'client@example.com'],
+    ['Brightway Consultants', 'contact@brightway.in'],
+  ];
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), 'Clients');
+  const out = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+  const blob = new Blob([out], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'Powerhouse_Client_List_Template.xlsx';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function renderReminderFileList() {
+  const list = document.getElementById('reminder-files');
+  list.innerHTML = '';
+  if (!reminderUploadFile) return;
+  const row = document.createElement('div');
+  row.className = 'file-row';
+  row.innerHTML = `
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#424FD1" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    <span class="fname">${escapeHtml(reminderUploadFile.name)}</span>
+    <span class="fsize">${formatSize(reminderUploadFile.size)}</span>
+    <button class="fremove" type="button" aria-label="Remove file">×</button>`;
+  row.querySelector('.fremove').addEventListener('click', () => {
+    reminderUploadFile = null;
+    renderReminderFileList();
+  });
+  list.appendChild(row);
+}
+
+function initComplianceRemindersUI() {
+  renderDefaultTypeToggles();
+
+  document.getElementById('reminder-template-download')?.addEventListener('click', () => {
+    downloadReminderClientTemplate().catch((err) => alert('Could not build template: ' + err.message));
+  });
+
+  document.getElementById('reminder-apply-defaults')?.addEventListener('click', applyDefaultsToAllClients);
+
+  document.getElementById('reminder-add-client')?.addEventListener('click', () => {
+    const defaults = readReminderDefaultsFromUI();
+    reminderClients.push(newReminderClient('New client', '', defaults));
+    reminderExpandedId = reminderClients[reminderClients.length - 1].id;
+    renderReminderClientsTable();
+  });
+
+  const dropzone = document.getElementById('reminder-dropzone');
+  const input = document.getElementById('reminder-input');
+  const uploadStatus = document.getElementById('reminder-upload-status');
+
+  async function ingestFile(file) {
+    uploadStatus.className = 'status-msg processing';
+    uploadStatus.innerHTML = '<span class="spin"></span> Reading client list…';
+    try {
+      const rows = await parseReminderClientFile(file);
+      if (!rows.length) throw new Error('No client rows found.');
+      const defaults = readReminderDefaultsFromUI();
+      reminderClients = rows.map((r) => newReminderClient(r.name, r.email, defaults));
+      reminderUploadFile = file;
+      renderReminderFileList();
+      renderReminderClientsTable();
+      uploadStatus.className = 'status-msg done';
+      uploadStatus.textContent = `✓ Loaded ${reminderClients.length} client${reminderClients.length === 1 ? '' : 's'} — customise reminders below.`;
+    } catch (err) {
+      uploadStatus.className = 'status-msg';
+      uploadStatus.style.color = '#C0392B';
+      uploadStatus.textContent = '✗ ' + err.message;
+    }
+  }
+
+  dropzone?.addEventListener('click', () => input?.click());
+  dropzone?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input?.click(); }
+  });
+  input?.addEventListener('change', () => {
+    if (input.files?.[0]) ingestFile(input.files[0]);
+    input.value = '';
+  });
+  ['dragenter', 'dragover'].forEach((ev) => dropzone?.addEventListener(ev, (e) => {
+    e.preventDefault(); dropzone.classList.add('dragover');
+  }));
+  ['dragleave', 'drop'].forEach((ev) => dropzone?.addEventListener(ev, (e) => {
+    e.preventDefault(); dropzone.classList.remove('dragover');
+  }));
+  dropzone?.addEventListener('drop', (e) => {
+    const file = e.dataTransfer?.files?.[0];
+    if (file) ingestFile(file);
+  });
+
+  updateReminderSendUI();
+}
+
+initComplianceRemindersUI();
 
 /* ==================== N8N CONNECTION ==================== */
 const N8N_STORAGE_KEY = 'ph_n8n_url';
@@ -1903,7 +2521,7 @@ n8nForm.addEventListener('submit', e => {
   localStorage.setItem(N8N_STORAGE_KEY, raw);
   refreshN8nUI();
   n8nStatus.className = 'wf-status ok';
-  n8nStatus.textContent = '✓ Webhook saved. Use Test to verify the connection, or Execute workflow on the sheet card.';
+  n8nStatus.textContent = '✓ Webhook saved. Use Test to verify the connection, then send reminders below.';
 });
 
 // Shared trigger used by both the Test button and Execute workflow
@@ -1951,64 +2569,53 @@ n8nTest.addEventListener('click', () =>
 /* ==================== EXECUTE N8N WORKFLOW ==================== */
 const runWorkflowBtn = document.getElementById('run-workflow');
 const workflowStatus = document.getElementById('workflow-status');
-const RUN_WORKFLOW_LABEL = '▶ Execute workflow';
+const RUN_WORKFLOW_LABEL = '▶ Send reminders';
 
 async function executeWorkflow(){
-  const url = n8nInput.value.trim() || localStorage.getItem(N8N_STORAGE_KEY) || '';
-  if (!url || !isValidWebhookUrl(url)){
+  if (!currentUser?.uid) { openSignin(); return; }
+
+  const validation = validateReminderDispatch();
+  if (!validation.ok) {
     workflowStatus.className = 'wf-status err';
-    workflowStatus.textContent = '✗ Could not reach the workflow. Make sure it\'s active in n8n.';
+    workflowStatus.textContent = '✗ ' + validation.message;
     return;
   }
+
+  if (!(await consumeRunCredit('reminders'))) return;
+
+  const url = getN8nUrl();
+  if (!url || !isValidWebhookUrl(url)){
+    workflowStatus.className = 'wf-status err';
+    workflowStatus.textContent = '✗ Connect your n8n webhook before sending.';
+    return;
+  }
+
   runWorkflowBtn.disabled = true;
   runWorkflowBtn.textContent = 'Running…';
+  workflowStatus.className = 'wf-status run';
+  workflowStatus.innerHTML = '<span class="spin"></span> Sending to n8n…';
+
   try {
     const res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', ...(await getFirebaseAuthHeaders()) },
       body: JSON.stringify(buildN8nPayload()),
     });
-    if (res.status !== 200) throw new Error('HTTP ' + res.status);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const n = validation.dispatch.length;
+    const total = validation.dispatch.reduce((s, c) => s + c.reminders.length, 0);
     workflowStatus.className = 'wf-status ok';
-    workflowStatus.textContent = '✓ Reminders sent — your clients have been notified.';
-    const item = document.createElement('div');
-    item.className = 'feed-item t-done';
-    item.innerHTML = 'Filing reminders triggered manually<span class="when">Just now</span>';
-    document.getElementById('activity-feed').insertBefore(item, document.getElementById('activity-feed').firstChild);
-  } catch (_) {
+    workflowStatus.textContent = `✓ Sent ${total} reminder${total === 1 ? '' : 's'} for ${n} client${n === 1 ? '' : 's'} to your n8n workflow.`;
+  } catch (err) {
     workflowStatus.className = 'wf-status err';
-    workflowStatus.textContent = '✗ Could not reach the workflow. Make sure it\'s active in n8n.';
+    workflowStatus.textContent = '✗ Could not reach the workflow (' + err.message + '). Check the URL and that the workflow is active.';
   } finally {
-    runWorkflowBtn.disabled = false;
+    updateReminderSendUI();
     runWorkflowBtn.textContent = RUN_WORKFLOW_LABEL;
   }
 }
 
 runWorkflowBtn.addEventListener('click', executeWorkflow);
-
-sheetForm.addEventListener('submit', e => {
-  e.preventDefault();
-  const ok = connectSheet(sheetInput.value, true);
-  sheetError.hidden = ok;
-});
-
-// Swap to a different sheet: bring the form back, prefilled with the current URL
-sheetChange.addEventListener('click', () => {
-  setSheetExpanded(false);
-  sheetInput.value = localStorage.getItem(SHEET_STORAGE_KEY) || '';
-  sheetError.hidden = true;
-  sheetWrap.hidden = true;
-  sheetResizeHint.hidden = true;
-  sheetPlaceholder.hidden = false;
-  sheetLink.style.display = 'none';
-  sheetChange.style.display = 'none';
-  sheetExpand.style.display = 'none';
-  sheetInput.focus();
-});
-
-// Restore on load: a sheet connected from the UI wins over the optional constant
-const savedSheet = localStorage.getItem(SHEET_STORAGE_KEY) || SHEET_URL;
-if (savedSheet) connectSheet(savedSheet, false);
 
 /* ==================== MOBILE NAV ==================== */
 const hamburger = document.getElementById('hamburger');
@@ -2027,11 +2634,19 @@ document.querySelectorAll('.side-nav button').forEach(btn => {
     btn.classList.add('active');
     document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
     document.getElementById(btn.dataset.tab).classList.add('active');
-    if (btn.dataset.tab === 'tab-tally') initTallyTemplatePreview();
+    if (btn.dataset.tab === 'tab-financial') initTallyTemplatePreview();
     // Desktop scrolls .dash-main; mobile (sidebar as top bar) scrolls the window
     document.querySelector('.dash-main').scrollTop = 0;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+});
+
+function switchDashboardTab(tabId){
+  const btn = document.querySelector(`.side-nav button[data-tab="${tabId}"]`);
+  if (btn) btn.click();
+}
+document.querySelectorAll('[data-switch-tab]').forEach(el => {
+  el.addEventListener('click', () => switchDashboardTab(el.dataset.switchTab));
 });
 
 /* ==================== FILE UPLOADERS ==================== */
@@ -2092,11 +2707,13 @@ function setupUploader({ dropzoneId, inputId, listId, submitId, statusId, proces
     dropzone.addEventListener(ev, e => { e.preventDefault(); dropzone.classList.remove('dragover'); }));
   dropzone.addEventListener('drop', e => addFiles(e.dataTransfer.files));
 
-  submit.addEventListener('click', () => {
+  submit.addEventListener('click', async () => {
     if (!files.length) return;
+    if (!currentUser?.uid) { openSignin(); return; }
+    if (!(await consumeRunCredit('bank_statements'))) return;
+
     const n = files.length;
-    const user = JSON.parse(sessionStorage.getItem('ph_user') || '{}');
-    const emailStr = user.email || 'your registered email';
+    const emailStr = currentUser.email || 'your registered email';
     submit.disabled = true;
     submit.style.opacity = '.5';
 
@@ -2121,20 +2738,9 @@ function setupUploader({ dropzoneId, inputId, listId, submitId, statusId, proces
   });
 }
 
-setupUploader({
-  dropzoneId: 'fin-dropzone', inputId: 'fin-input', listId: 'fin-files',
-  submitId: 'fin-submit', statusId: 'fin-status',
-  processingMessage: 'Mapping each ledger line to Schedule III heads and checking totals…',
-  doneMessage: '✓ Done — your financial statements are being prepared. We\'ll email the finished file to {email} when it\'s ready.',
-});
-setupUploader({
-  dropzoneId: 'bank-dropzone', inputId: 'bank-input', listId: 'bank-files',
-  submitId: 'bank-submit', statusId: 'bank-status',
-  processingMessage: 'Sorting every credit into income heads and separating non-income entries…',
-  doneMessage: '✓ Done — your income summary is being prepared, with large credits flagged for review. We\'ll email {email} when it\'s ready.',
-});
+/* Bank Categoriser — locked until backend is ready (no uploader wired) */
 
-/* ==================== TALLY CONVERTER ==================== */
+/* ==================== TB → NCE TEMPLATE ==================== */
 let templateMapCache = null;
 let templateWorkbookCache = null;
 let tallyTemplatePreviewReady = false;
@@ -2160,11 +2766,270 @@ function getByPath(obj, path) {
   return path.split('.').reduce((o, k) => (o == null ? undefined : o[k]), obj);
 }
 
+const PL_LINE_KEYS = [
+  'revenue_from_operations', 'other_income', 'cost_of_goods_sold', 'employee_benefits_expense',
+  'finance_costs', 'depreciation_amortization', 'other_expenses',
+];
+const PL_COMPUTED_KEYS = new Set([
+  'total_income', 'total_expenses', 'profit_before_exceptional',
+  'profit_before_extraordinary', 'profit_before_remuneration',
+]);
+const BS_LIAB_KEYS = [
+  'owners_capital', 'long_term_borrowings', 'other_long_term_liabilities', 'long_term_provisions',
+  'short_term_borrowings', 'trade_payables', 'other_current_liabilities', 'short_term_provisions',
+];
+const BS_ASSET_KEYS = [
+  'property_plant_equipment', 'intangible_assets', 'capital_wip', 'non_current_investments',
+  'long_term_loans_advances', 'other_non_current_assets', 'current_investments', 'inventories',
+  'trade_receivables', 'cash_and_bank', 'short_term_loans_advances', 'other_current_assets',
+];
+
+function roundMoney(n) {
+  return Math.round(n * 100) / 100;
+}
+
+function periodVal(node, period) {
+  const n = Number(node?.[period]);
+  return Number.isFinite(n) ? n : 0;
+}
+
+function plLineVal(pl, key, period) {
+  return periodVal(getByPath(pl, key), period);
+}
+
+function computePlDerived(pl) {
+  const out = { current: {}, previous: {} };
+  ['current', 'previous'].forEach((period) => {
+    const totalIncome = roundMoney(
+      plLineVal(pl, 'revenue_from_operations', period) + plLineVal(pl, 'other_income', period),
+    );
+    const totalExpenses = roundMoney(PL_LINE_KEYS.slice(2).reduce(
+      (sum, key) => sum + plLineVal(pl, key, period), 0,
+    ));
+    const profitBefore = roundMoney(totalIncome - totalExpenses);
+    out[period] = { totalIncome, totalExpenses, profitBefore };
+  });
+  return out;
+}
+
+function computeBsTotals(bs) {
+  const out = {
+    liabilities: { current: 0, previous: 0 },
+    assets: { current: 0, previous: 0 },
+  };
+  if (!bs?.equity_and_liabilities || !bs?.assets) return out;
+  ['current', 'previous'].forEach((period) => {
+    out.liabilities[period] = roundMoney(BS_LIAB_KEYS.reduce(
+      (sum, key) => sum + periodVal(bs.equity_and_liabilities[key], period), 0,
+    ));
+    out.assets[period] = roundMoney(BS_ASSET_KEYS.reduce(
+      (sum, key) => sum + periodVal(bs.assets[key], period), 0,
+    ));
+  });
+  return out;
+}
+
+function reconcileMappingResult(result) {
+  const out = structuredClone(result);
+  const adjustments = [];
+
+  const bs = out.balance_sheet;
+  if (bs?.equity_and_liabilities && bs.assets) {
+    ['current', 'previous'].forEach((period) => {
+      const totalLiab = roundMoney(BS_LIAB_KEYS.reduce((s, k) => s + periodVal(bs.equity_and_liabilities[k], period), 0));
+      const totalAssets = roundMoney(BS_ASSET_KEYS.reduce((s, k) => s + periodVal(bs.assets[k], period), 0));
+      const diff = roundMoney(totalAssets - totalLiab);
+      if (Math.abs(diff) > 1) {
+        const ocl = bs.equity_and_liabilities.other_current_liabilities || { current: 0, previous: 0 };
+        const from = periodVal(ocl, period);
+        const to = roundMoney(from + diff);
+        adjustments.push({
+          field: 'Other current liabilities',
+          from,
+          to,
+          reason: 'Books imbalance (suspense) added so assets = liabilities',
+        });
+        bs.equity_and_liabilities.other_current_liabilities = ocl;
+        ocl[period] = to;
+      }
+    });
+  }
+
+  if (adjustments.length) out.mapping_adjustments = adjustments;
+  return out;
+}
+
 function formatIndianDate(isoDate) {
   const d = new Date(isoDate + 'T00:00:00');
   const months = ['January','February','March','April','May','June',
     'July','August','September','October','November','December'];
   return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+const MONTH_NAME_TO_NUM = {
+  january: 1, jan: 1, february: 2, feb: 2, march: 3, mar: 3,
+  april: 4, apr: 4, may: 5, june: 6, jun: 6, july: 7, jul: 7,
+  august: 8, aug: 8, september: 9, sep: 9, sept: 9,
+  october: 10, oct: 10, november: 11, nov: 11, december: 12, dec: 12,
+};
+
+function defaultFyEndIso() {
+  const now = new Date();
+  const fyYear = now.getMonth() < 3 ? now.getFullYear() : now.getFullYear() + 1;
+  return `${fyYear}-03-31`;
+}
+
+function toIsoDate(day, month, year) {
+  const dd = String(day).padStart(2, '0');
+  const mm = String(month).padStart(2, '0');
+  return `${year}-${mm}-${dd}`;
+}
+
+function prevFyEndIso(isoDate) {
+  const [y, m, d] = isoDate.split('-').map(Number);
+  if (!y || !m || !d) return defaultFyEndIso();
+  return toIsoDate(d, m, y - 1);
+}
+
+function detectStatementMeta(raw) {
+  let fyEnd = null;
+
+  const dmy = raw.match(
+    /(?:balance\s+sheet|as\s+on|year\s+ended)[^\d]{0,40}(\d{1,2})[-/.](\d{1,2})[-/.](\d{4})/i,
+  );
+  if (dmy) fyEnd = toIsoDate(dmy[1], dmy[2], dmy[3]);
+
+  if (!fyEnd) {
+    const named = raw.match(
+      /year\s+ended[^\d]{0,20}(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]+)\s+(\d{4})/i,
+    );
+    if (named) {
+      const month = MONTH_NAME_TO_NUM[named[2].toLowerCase()];
+      if (month) fyEnd = toIsoDate(named[1], month, named[3]);
+    }
+  }
+
+  if (!fyEnd) {
+    const march = raw.match(/31(?:st)?\s+mar(?:ch)?\s+(\d{4})/i);
+    if (march) fyEnd = `${march[1]}-03-31`;
+  }
+
+  let entityName = '';
+  const tallyCompany = raw.match(/<COMPANY[^>]*>[\s\S]*?<NAME[^>]*>([^<]+)<\/NAME>/i);
+  if (tallyCompany) entityName = tallyCompany[1].trim();
+
+  if (!entityName) {
+    const sheetMatch = raw.match(/--- Sheet: (?:bs|pl|trial balance) ---\s*\r?\n/i);
+    if (sheetMatch) {
+      const start = sheetMatch.index + sheetMatch[0].length;
+      const firstLine = raw.slice(start).split(/\r?\n/).find((l) => l.trim());
+      if (firstLine) {
+        const candidate = firstLine.split(',')[0].replace(/^"|"$/g, '').trim();
+        const skip = /^(balance\s+sheet|liabilit|asset|trial\s+balance|particular|ledger|amount|debit|credit|year\s+ended|profit)/i;
+        if (candidate.length >= 3 && !skip.test(candidate)) entityName = candidate;
+      }
+    }
+  }
+
+  const fy = fyEnd || defaultFyEndIso();
+  return {
+    entityName,
+    fyEnd: fy,
+    prevFyEnd: prevFyEndIso(fy),
+    fyDetected: Boolean(fyEnd),
+  };
+}
+
+function resolveStatementMeta(result, hints) {
+  const fyEnd = result.fy_end || hints.fyEnd;
+  const prevFyEnd = result.prev_fy_end || prevFyEndIso(fyEnd);
+  const entityName = (result.entity_name || hints.entityName || 'Entity Name').trim();
+  return { entityName, fyEnd, prevFyEnd };
+}
+
+let finStatementMeta = {
+  entityName: '',
+  fyEnd: defaultFyEndIso(),
+  prevFyEnd: prevFyEndIso(defaultFyEndIso()),
+  fyDetected: false,
+};
+let tallyFileTextCache = '';
+
+function syncMetaEditFields() {
+  document.getElementById('t-entity-name').value = finStatementMeta.entityName;
+  document.getElementById('t-fy-end').value = finStatementMeta.fyEnd;
+}
+
+function renderDetectedMetaCopy() {
+  const copy = document.getElementById('fin-detected-copy');
+  const fyLabel = formatIndianDate(finStatementMeta.fyEnd);
+  const fyNote = finStatementMeta.fyDetected
+    ? 'detected from file'
+    : 'default — edit if needed';
+  if (finStatementMeta.entityName) {
+    copy.innerHTML = `<strong>${escapeHtml(finStatementMeta.entityName)}</strong><br>Year ended ${fyLabel} <span style="color:var(--ink-light)">(${fyNote})</span>`;
+  } else {
+    copy.innerHTML = `Year ended <strong>${fyLabel}</strong> <span style="color:var(--ink-light)">(${fyNote})</span><br>Entity name will be read from your ledgers.`;
+  }
+}
+
+function clearStatementMetaUi() {
+  tallyFileTextCache = '';
+  finStatementMeta = {
+    entityName: '',
+    fyEnd: defaultFyEndIso(),
+    prevFyEnd: prevFyEndIso(defaultFyEndIso()),
+    fyDetected: false,
+  };
+  document.getElementById('fin-detected-meta').hidden = true;
+  document.getElementById('fin-meta-edit').hidden = true;
+  document.getElementById('fin-edit-meta-btn').textContent = 'Edit details';
+  syncMetaEditFields();
+}
+
+function getStatementMeta() {
+  const editOpen = !document.getElementById('fin-meta-edit').hidden;
+  if (editOpen) {
+    const fyEnd = document.getElementById('t-fy-end').value || finStatementMeta.fyEnd;
+    return {
+      entityName: document.getElementById('t-entity-name').value.trim(),
+      fyEnd,
+      prevFyEnd: prevFyEndIso(fyEnd),
+    };
+  }
+  return {
+    entityName: finStatementMeta.entityName,
+    fyEnd: finStatementMeta.fyEnd,
+    prevFyEnd: finStatementMeta.prevFyEnd,
+  };
+}
+
+async function refreshStatementMetaFromFile() {
+  const banner = document.getElementById('fin-detected-meta');
+  if (!tallyFiles.length) {
+    clearStatementMetaUi();
+    return;
+  }
+
+  banner.hidden = false;
+  document.getElementById('fin-detected-copy').textContent = 'Reading file…';
+
+  try {
+    tallyFileTextCache = await readTallyFile(tallyFiles[0]);
+    finStatementMeta = detectStatementMeta(tallyFileTextCache);
+    syncMetaEditFields();
+    renderDetectedMetaCopy();
+  } catch {
+    finStatementMeta = {
+      entityName: '',
+      fyEnd: defaultFyEndIso(),
+      prevFyEnd: prevFyEndIso(defaultFyEndIso()),
+      fyDetected: false,
+    };
+    document.getElementById('fin-detected-copy').textContent =
+      'Could not read file details — you can still generate, or use Edit details.';
+    syncMetaEditFields();
+  }
 }
 
 function formatIndian(num) {
@@ -2313,6 +3178,8 @@ function renderTallyFiles() {
   const has = tallyFiles.length > 0;
   tallySubmit.disabled = !has;
   tallySubmit.style.opacity = has ? '1' : '.5';
+  if (has) refreshStatementMetaFromFile();
+  else clearStatementMetaUi();
 }
 
 tallyDropzone.addEventListener('click', () => tallyInput.click());
@@ -2334,6 +3201,20 @@ tallyInput.addEventListener('change', () => {
 tallyDropzone.addEventListener('drop', e => {
   tallyFiles = Array.from(e.dataTransfer.files);
   renderTallyFiles();
+});
+
+document.getElementById('fin-edit-meta-btn').addEventListener('click', () => {
+  const panel = document.getElementById('fin-meta-edit');
+  const btn = document.getElementById('fin-edit-meta-btn');
+  const open = panel.hidden;
+  panel.hidden = !open;
+  btn.textContent = open ? 'Hide details' : 'Edit details';
+  if (open) syncMetaEditFields();
+});
+
+document.getElementById('t-fy-end').addEventListener('change', () => {
+  const fyEnd = document.getElementById('t-fy-end').value;
+  if (fyEnd) finStatementMeta.prevFyEnd = prevFyEndIso(fyEnd);
 });
 
 async function readTallyFile(file) {
@@ -2466,6 +3347,37 @@ async function buildAndShowResult(result, entityName, fyEnd, prevFyEnd) {
   document.getElementById('tally-sum-lines').textContent = String((map.preview_rows || []).length);
   document.getElementById('tally-sum-quality').textContent = qualityLabel;
 
+  const plDerived = computePlDerived(result.profit_and_loss || {});
+  const netProfit = plDerived.current.profitBefore;
+  const netWrap = document.getElementById('tally-sum-net-wrap');
+  const netEl = document.getElementById('tally-sum-net');
+  if (Number.isFinite(netProfit)) {
+    netWrap.hidden = false;
+    netEl.textContent = `₹ ${formatIndian(netProfit)}`;
+    netEl.style.color = netProfit < 0 ? '#9B3B26' : '';
+  } else {
+    netWrap.hidden = true;
+  }
+
+  const adjustments = result.mapping_adjustments || [];
+  const suspenseAdj = adjustments.find((a) => /suspense|imbalance/i.test(a.reason || ''));
+  const suspenseWrap = document.getElementById('tally-sum-suspense-wrap');
+  const suspenseEl = document.getElementById('tally-sum-suspense');
+  const suspenseCallout = document.getElementById('tally-suspense-callout');
+  const suspenseCopy = document.getElementById('tally-suspense-copy');
+  if (suspenseAdj) {
+    const plug = roundMoney(suspenseAdj.to - suspenseAdj.from);
+    suspenseWrap.hidden = false;
+    suspenseEl.textContent = `₹ ${formatIndian(plug)}`;
+    suspenseCallout.hidden = false;
+    suspenseCopy.innerHTML = `This trial balance did not foot — <strong>₹ ${formatIndian(plug)}</strong> was added to `
+      + `<strong>Other current liabilities</strong> as a suspense plug so the balance sheet balances. `
+      + `Review before sign-off.`;
+  } else {
+    suspenseWrap.hidden = true;
+    suspenseCallout.hidden = true;
+  }
+
   const badge = document.getElementById('tally-result-badge');
   badge.textContent = 'Ready';
   badge.className = result.mapping_confidence === 'low'
@@ -2501,9 +3413,44 @@ async function buildAndShowResult(result, entityName, fyEnd, prevFyEnd) {
     tbody.appendChild(tr);
   });
 
+  const derivedRows = [
+    { label: 'Total income', sheet: 'P&L', value: plDerived.current.totalIncome, previous: plDerived.previous.totalIncome },
+    { label: 'Total expenses', sheet: 'P&L', value: plDerived.current.totalExpenses, previous: plDerived.previous.totalExpenses },
+    { label: 'Net profit / (loss)', sheet: 'P&L', value: plDerived.current.profitBefore, previous: plDerived.previous.profitBefore },
+  ];
+  derivedRows.forEach(({ label, sheet, value, previous }) => {
+    const tr = document.createElement('tr');
+    tr.className = 'preview-derived';
+    tr.innerHTML = `
+      <td><strong>${label}</strong></td>
+      <td><span class="chip">${sheet}</span></td>
+      <td class="amt"><strong>₹ ${formatIndian(value)}</strong></td>
+      <td class="amt"><strong>₹ ${formatIndian(previous)}</strong></td>`;
+    tbody.appendChild(tr);
+  });
+
   const unmappedWrap = document.getElementById('tally-unmapped-wrap');
   const unmappedBody = document.getElementById('tally-unmapped-body');
   unmappedBody.innerHTML = '';
+
+  const adjWrap = document.getElementById('tally-adjustments-wrap');
+  const adjBody = document.getElementById('tally-adjustments-body');
+  adjBody.innerHTML = '';
+  if (adjustments.length > 0) {
+    adjWrap.hidden = false;
+    adjustments.forEach(({ field, from, to, reason }) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${escapeHtml(field)}</td>
+        <td class="amt">₹ ${formatIndian(from)}</td>
+        <td class="amt">₹ ${formatIndian(to)}</td>
+        <td style="font-size:.85rem;color:var(--ink-mid)">${escapeHtml(reason)}</td>`;
+      adjBody.appendChild(tr);
+    });
+  } else {
+    adjWrap.hidden = true;
+  }
+
   const unmapped = (result.unmapped_ledgers || []).filter(({ ledger_name, amount }) =>
     ledger_name && (amount !== 0 && amount != null),
   );
@@ -2546,9 +3493,10 @@ async function buildFilledXLSX(result, meta) {
     delete ws[cellRef].f;
   }
 
-  function applyPeriodMapping(section, dataObj) {
+  function applyPeriodMapping(section, dataObj, { skipKeys = null } = {}) {
     Object.entries(section).forEach(([key, cfg]) => {
       if (key === 'owners_capital_details') return;
+      if (skipKeys?.has(key)) return;
       const node = getByPath(dataObj, key);
       if (!node || typeof node !== 'object') return;
       if (cfg.current) setCell(cfg.sheet, cfg.current, node.current ?? 0);
@@ -2556,15 +3504,59 @@ async function buildFilledXLSX(result, meta) {
     });
   }
 
-  // Meta fields
-  Object.entries(map.meta).forEach(([key, cfg]) => {
-    let val = meta[key === 'entity_name' ? 'entityName' : key === 'fy_end' ? 'fyEnd' : 'prevFyEnd'];
-    if (cfg.format === 'indian_date') val = formatIndianDate(val);
-    setCell(cfg.sheet, cfg.cell, val);
-  });
+  function applyMetaFields(metaCfg, meta) {
+    Object.entries(metaCfg).forEach(([key, cfg]) => {
+      let val;
+      if (key === 'entity_name' || key === 'pl_entity_name') val = meta.entityName;
+      else if (key === 'fy_end') val = formatIndianDate(meta.fyEnd);
+      else if (key === 'prev_fy_end') val = formatIndianDate(meta.prevFyEnd);
+      else if (cfg.format === 'balance_sheet_heading') val = `Balance Sheet as at ${formatIndianDate(meta.fyEnd)}`;
+      else if (cfg.format === 'pl_heading') val = `Statement of Profit and Loss for the year ended ${formatIndianDate(meta.fyEnd)}`;
+      else val = meta[key];
+      setCell(cfg.sheet, cfg.cell, val);
+    });
+  }
+
+  function writePlComputed(pl) {
+    if (!pl) return;
+    const derived = computePlDerived(pl);
+    const sheet = 'Statement of P&L';
+    ['current', 'previous'].forEach((period) => {
+      const col = period === 'current' ? 'D' : 'F';
+      const { totalIncome, totalExpenses, profitBefore } = derived[period];
+      setCell(sheet, `${col}8`, totalIncome);
+      setCell(sheet, `${col}16`, totalExpenses);
+      setCell(sheet, `${col}18`, profitBefore);
+      setCell(sheet, `${col}22`, profitBefore);
+      setCell(sheet, `${col}26`, profitBefore);
+    });
+  }
+
+  function writeBsComputed(bs) {
+    if (!bs) return;
+    const totals = computeBsTotals(bs);
+    const sheet = 'Schedule III Balance Sheet (all';
+    setCell(sheet, 'D20', totals.liabilities.current);
+    setCell(sheet, 'F20', totals.liabilities.previous);
+    setCell(sheet, 'D41', totals.assets.current);
+    setCell(sheet, 'F41', totals.assets.previous);
+  }
+
+  applyMetaFields(map.meta, meta);
 
   applyPeriodMapping(map.balance_sheet, result.balance_sheet);
-  applyPeriodMapping(map.profit_and_loss, result.profit_and_loss);
+  applyPeriodMapping(map.profit_and_loss, result.profit_and_loss, { skipKeys: PL_COMPUTED_KEYS });
+  writePlComputed(result.profit_and_loss);
+  writeBsComputed(result.balance_sheet);
+
+  if (map.balance_sheet_totals) {
+    const totals = computeBsTotals(result.balance_sheet);
+    Object.entries(map.balance_sheet_totals).forEach(([key, cfg]) => {
+      const val = key.includes('assets') ? totals.assets : totals.liabilities;
+      if (cfg.current) setCell(cfg.sheet, cfg.current, val.current);
+      if (cfg.previous) setCell(cfg.sheet, cfg.previous, val.previous);
+    });
+  }
 
   // Notes — flat period mappings
   Object.entries(map.notes).forEach(([key, cfg]) => {
@@ -2597,10 +3589,10 @@ async function buildFilledXLSX(result, meta) {
 
 tallySubmit.addEventListener('click', async () => {
   if (!tallyFiles.length) return;
+  if (!currentUser?.uid) { openSignin(); return; }
+  if (!(await consumeRunCredit('financial_statements'))) return;
 
-  const entityName = document.getElementById('t-entity-name').value.trim() || 'Entity Name';
-  const fyEnd      = document.getElementById('t-fy-end').value || '2026-03-31';
-  const prevFyEnd  = document.getElementById('t-prev-fy-end').value || '2025-03-31';
+  const hints = getStatementMeta();
 
   tallySubmit.disabled = true;
   tallySubmit.style.opacity = '.5';
@@ -2608,14 +3600,17 @@ tallySubmit.addEventListener('click', async () => {
 
   tallyStatus.className = 'status-msg processing';
   tallyStatus.style.color = '';
-  tallyStatus.innerHTML = '<span class="spin"></span> <b>Reading file…</b> Parsing your Tally export.';
+  tallyStatus.innerHTML = '<span class="spin"></span> <b>Reading file…</b> Parsing your trial balance.';
 
-  let fileText = '';
-  try {
-    fileText = await readTallyFile(tallyFiles[0]);
-  } catch (err) {
-    showTallyError('Could not read the file. Make sure it is a valid Tally XML, Excel, or CSV export.');
-    return;
+  let fileText = tallyFileTextCache;
+  if (!fileText) {
+    try {
+      fileText = await readTallyFile(tallyFiles[0]);
+      tallyFileTextCache = fileText;
+    } catch (err) {
+      showTallyError('Could not read the file. Make sure it is a valid Tally XML, Excel, or CSV export.');
+      return;
+    }
   }
 
   tallyStatus.innerHTML = '<span class="spin"></span> <b>Mapping ledgers…</b> Matching each line to Schedule III heads.';
@@ -2624,9 +3619,9 @@ tallySubmit.addEventListener('click', async () => {
   try {
     mappingResult = await runTallyMapping(
       fileText,
-      entityName,
-      fyEnd,
-      prevFyEnd,
+      hints.entityName || 'Entity Name',
+      hints.fyEnd,
+      hints.prevFyEnd,
       tallyFiles[0].name,
       (msg) => {
         tallyStatus.innerHTML = `<span class="spin"></span> <b>Still working…</b> ${msg} Large exports can take 1–2 minutes.`;
@@ -2637,17 +3632,23 @@ tallySubmit.addEventListener('click', async () => {
     return;
   }
 
-  tallyStatus.innerHTML = '<span class="spin"></span> <b>Building statements…</b> Filling the template.';
+  mappingResult = reconcileMappingResult(mappingResult);
+  const meta = resolveStatementMeta(mappingResult, hints);
+  finStatementMeta = { ...finStatementMeta, ...meta, fyDetected: finStatementMeta.fyDetected };
+  syncMetaEditFields();
+  renderDetectedMetaCopy();
+
+  tallyStatus.innerHTML = '<span class="spin"></span> <b>Converting to NCE template…</b> Filling the workbook.';
 
   try {
-    await buildAndShowResult(mappingResult, entityName, fyEnd, prevFyEnd);
+    await buildAndShowResult(mappingResult, meta.entityName, meta.fyEnd, meta.prevFyEnd);
   } catch (err) {
     showTallyError('Error building the output file: ' + err.message);
     return;
   }
 
   tallyStatus.className = 'status-msg done';
-  tallyStatus.innerHTML = '✓ Conversion complete — review the mapping below and download your statements.';
+  tallyStatus.innerHTML = '✓ Conversion complete — review the mapping below and download your NCE workbook.';
   tallySubmit.disabled = false;
   tallySubmit.style.opacity = '1';
 });
@@ -2678,6 +3679,7 @@ document.getElementById('tally-download').addEventListener('click', async () => 
 document.getElementById('tally-reset').addEventListener('click', () => {
   tallyFiles = [];
   renderTallyFiles();
+  clearStatementMetaUi();
   tallyStatus.textContent = '';
   tallyStatus.className = 'status-msg';
   tallyStatus.style.color = '';
@@ -2736,6 +3738,10 @@ document.querySelectorAll('[data-legal]').forEach(el => {
   });
 });
 document.getElementById('legal-close').addEventListener('click', closeLegal);
+
+if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+  window.__phDev = { buildFilledXLSX, buildAndShowResult, reconcileMappingResult };
+}
 </script>
 </body>
 </html>
