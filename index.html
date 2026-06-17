@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Powerhouse — workflow automation for Chartered Accountant practices in India. We turn repetitive manual work into simple, reliable automations.">
-<title>Powerhouse — Automation studio for CA practices</title>
+<meta name="description" content="Powerhouse: workflow automation for Chartered Accountant practices in India. We turn repetitive manual work into simple, reliable automations.">
+<title>Powerhouse: Automation studio for CA practices</title>
 <link rel="icon" type="image/png" sizes="512x512" href="favicon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" sizes="512x512" href="favicon.png">
@@ -738,14 +738,9 @@ table.tally-sheet-table td {
 }
 
 /* Compliance reminders */
-.reminder-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}
+.reminder-steps{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:22px}
 .reminder-step{background:var(--slate-light);border-radius:var(--radius-sm);padding:14px 16px;font-size:.82rem;color:var(--ink-mid);line-height:1.5}
 .reminder-step b{display:block;color:var(--ink);font-size:.88rem;margin-bottom:4px}
-.reminder-defaults-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px 18px;margin-top:12px}
-.reminder-type-toggles{display:flex;flex-wrap:wrap;gap:8px}
-.reminder-type-toggle{display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:var(--white);font-size:.82rem;font-weight:500;cursor:pointer;user-select:none}
-.reminder-type-toggle input{accent-color:var(--teal)}
-.reminder-type-toggle:has(input:checked){border-color:var(--teal);background:var(--teal-soft);color:var(--teal-dark)}
 .reminder-clients-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
 .reminder-clients-empty{text-align:center;padding:36px 20px;color:var(--ink-mid);font-size:.9rem;border:1.5px dashed var(--line);border-radius:var(--radius-sm);background:var(--ivory)}
 .reminder-clients-empty p{margin-top:8px;color:var(--ink-light);font-size:.84rem}
@@ -767,7 +762,42 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
 .reminder-icon-btn{padding:6px 10px;border-radius:8px;font-size:.78rem;font-weight:600;color:var(--ink-mid);background:var(--slate-light)}
 .reminder-icon-btn:hover{background:var(--teal-soft);color:var(--teal)}
 .reminder-icon-btn.danger:hover{background:#FCEFEA;color:#9B3B26}
+.reminder-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+.reminder-toolbar input[type="search"]{flex:1;min-width:180px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;font-size:.86rem}
+.reminder-toolbar input[type="search"]:focus{border-color:var(--teal);outline:none}
+.reminder-upload-warnings{margin-top:10px;padding:12px 14px;border-radius:var(--radius-sm);background:#FFF8E6;border:1px solid #E8D9A0;font-size:.82rem;color:#6B5A1E;line-height:1.5}
+.reminder-upload-warnings ul{margin:6px 0 0 18px}
+.reminder-upload-warnings.ok{background:var(--teal-soft);border-color:#B8E0D8;color:var(--teal-dark)}
+table.reminder-clients tr.row-warn td{background:#FFFBF5}
+table.reminder-clients tr.row-error td{background:#FCEFEA}
+.reminder-payload-preview{margin-top:14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--slate-light);max-height:360px;overflow:auto}
+.reminder-payload-preview pre{margin:0;padding:14px;font-size:.72rem;line-height:1.45;white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.reminder-send-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.reminder-issue-tag{display:inline-block;font-size:.7rem;font-weight:600;color:#9B3B26;margin-left:6px}
+.reminder-add-item-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;align-items:center}
+.reminder-items-panel{grid-column:1/-1;padding:4px 0 8px}
+.reminder-items-intro{font-size:.82rem;color:var(--ink-mid);line-height:1.5;margin:0 0 12px;padding:10px 12px;background:var(--slate-light);border-radius:var(--radius-sm)}
+.reminder-item-card{border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px;margin-bottom:10px;background:var(--white)}
+.reminder-item-card-top{display:grid;grid-template-columns:1fr 36px;gap:10px;align-items:start;margin-bottom:10px}
+.reminder-item-card-top label{display:block;font-size:.72rem;font-weight:600;color:var(--ink);margin-bottom:4px}
+.reminder-item-dates{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.reminder-item-dates label{display:block;font-size:.72rem;font-weight:600;color:var(--ink);margin-bottom:2px}
+.reminder-item-dates .field-hint{font-size:.7rem;color:var(--ink-light);margin-bottom:6px;line-height:1.35}
+.reminder-item-card input[type="text"],.reminder-item-card input[type="date"]{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:.84rem}
+.reminder-item-card input:focus{border-color:var(--teal);outline:none}
+.reminder-item-remove{width:36px;height:36px;border-radius:8px;background:var(--slate-light);color:var(--ink-mid);font-size:1.1rem;line-height:1}
+.reminder-item-remove:hover{background:#FCEFEA;color:#9B3B26}
+@media (max-width:640px){
+  .reminder-item-dates{grid-template-columns:1fr}
+}
 @media (max-width:900px){.reminder-steps{grid-template-columns:1fr}}
+@media (max-width:640px){
+  table.reminder-clients thead{display:none}
+  table.reminder-clients tr.client-row{display:block;border-bottom:1px solid var(--line);padding:10px 0}
+  table.reminder-clients tr.client-row td{display:block;border:none;padding:4px 12px}
+  table.reminder-clients tr.client-row td:last-child{padding-top:8px}
+  .reminder-detail-grid{grid-template-columns:1fr}
+}
 
 /* dashboard mobile top bar */
 .dash-topbar{display:none}
@@ -876,7 +906,7 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
       <div>
         <span class="eyebrow"><span class="dot"></span>Automation studio for CA practices</span>
         <h1>The quiet engine behind your busiest workflows</h1>
-        <p class="hero-sub">We turn the repetitive, manual work inside your CA practice into simple, reliable automations — so your team spends time on real work, not busywork.</p>
+        <p class="hero-sub">We turn the repetitive, manual work inside your CA practice into simple, reliable automations, so your team spends time on real work, not busywork.</p>
         <div class="hero-ctas">
           <button class="btn btn-primary btn-lg js-open-signin">Sign in to your workspace</button>
           <a href="#how-it-works" class="btn btn-ghost btn-lg">See how it works</a>
@@ -986,7 +1016,7 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
             </svg>
           </div>
           <h3>We build the automation</h3>
-          <p>We design and ship a reliable automation tailored to your exact process — no generic software, no forced new workflow.</p>
+          <p>We design and ship a reliable automation tailored to your exact process, with no generic software, no forced new workflow.</p>
         </article>
         <article class="card">
           <div class="icon-circle">
@@ -995,7 +1025,7 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
             </svg>
           </div>
           <h3>You receive finished work</h3>
-          <p>Drop your files in, and the completed, audit-ready output lands back with you — checked, formatted, and ready to file.</p>
+          <p>Drop your files in, and the completed, audit-ready output lands back with you, checked, formatted, and ready to file.</p>
         </article>
       </div>
     </div>
@@ -1016,15 +1046,15 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
           <ul>
             <li>Trial balances converted to NCE Schedule III templates automatically</li>
             <li>Bank statement categorisation for income computation <span style="color:var(--ink-light)">(coming soon)</span></li>
-            <li>GST, ITR, and TDS reminders — upload a client list, customise each one, send via n8n</li>
-            <li>Output formatted to your firm's templates — audit-ready, every time</li>
+            <li>GST, ITR, and TDS reminders: upload a client list, customise each one, send via n8n</li>
+            <li>Output formatted to your firm's templates, audit-ready, every time</li>
           </ul>
           <button class="btn btn-primary js-open-signin" style="align-self:flex-start">Get early access</button>
         </article>
         <div class="mini-grid">
           <article class="mini-card">
             <h3>Finance teams</h3>
-            <p>Reconciliations, reporting packs, and month-end grunt work — automated.</p>
+            <p>Reconciliations, reporting packs, and month-end grunt work, automated.</p>
           </article>
           <article class="mini-card">
             <h3>Legal practices</h3>
@@ -1123,10 +1153,10 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
         <nav class="footer-col" aria-label="Team">
           <h4>Team</h4>
           <ul class="footer-team">
-            <li><a href="mailto:shreyas@powerhousetech.in">Shreyas Sinha</a> — shreyas@powerhousetech.in</li>
-            <li><a href="mailto:aymaan.shahzad@powerhousetech.in">Aymaan Shahzad</a> — aymaan.shahzad@powerhousetech.in</li>
-            <li><a href="mailto:anubhav.agrawal@powerhousetech.in">Anubhav Agrawal</a> — anubhav.agrawal@powerhousetech.in</li>
-            <li><a href="mailto:siddhant.gada@powerhousetech.in">Siddhant Gada</a> — siddhant.gada@powerhousetech.in</li>
+            <li><a href="mailto:shreyas@powerhousetech.in">Shreyas Sinha</a>: shreyas@powerhousetech.in</li>
+            <li><a href="mailto:aymaan.shahzad@powerhousetech.in">Aymaan Shahzad</a>: aymaan.shahzad@powerhousetech.in</li>
+            <li><a href="mailto:anubhav.agrawal@powerhousetech.in">Anubhav Agrawal</a>: anubhav.agrawal@powerhousetech.in</li>
+            <li><a href="mailto:siddhant.gada@powerhousetech.in">Siddhant Gada</a>: siddhant.gada@powerhousetech.in</li>
           </ul>
         </nav>
         <nav class="footer-col" aria-label="Company">
@@ -1234,7 +1264,7 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
         <div>
           <h1 class="page-title" id="greeting">Welcome back</h1>
           <p class="dash-header-sub" id="dash-header-sub">
-            Your workspace includes one complimentary run across our tools — use it on whichever workflow you want to try first.
+            Your workspace includes one complimentary run across our tools. Use it on whichever workflow you want to try first.
           </p>
         </div>
         <div class="credit-pill" id="credit-pill" title="Complimentary runs">Checking access…</div>
@@ -1246,13 +1276,12 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
       <section class="tab-section" id="tab-reminders">
         <h2 class="page-title" style="font-size:1.45rem;margin-bottom:8px">Client Compliance Reminders</h2>
         <p class="page-sub">
-          Download our client template, upload your list, customise what to remind and when — then trigger your n8n workflow to send the emails.
+          Upload your client list, then tell each client what to file, when the filing is due, and when you need their documents. One email per client, sent when you click Send.
         </p>
 
         <div class="reminder-steps">
-          <div class="reminder-step"><b>1. Client list</b>Template has name &amp; email only — everything else you set here.</div>
-          <div class="reminder-step"><b>2. Reminder rules</b>Pick compliance types, due dates, and how many days before to send.</div>
-          <div class="reminder-step"><b>3. Send</b>Connect n8n and trigger — your workflow receives one object per client with full config.</div>
+          <div class="reminder-step"><b>1. Client list</b>Upload CSV or Excel (name and email only), or add clients manually.</div>
+          <div class="reminder-step"><b>2. Set dates &amp; send</b>For each compliance item: filing due date (official deadline) and documents needed by (when the client must send papers). Then send the email.</div>
         </div>
 
         <div class="dcard" id="reminder-clients-card">
@@ -1272,25 +1301,8 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
             <input type="file" id="reminder-input" accept=".xlsx,.xls,.csv" hidden>
           </div>
           <div class="file-list" id="reminder-files"></div>
+          <div class="reminder-upload-warnings" id="reminder-upload-warnings" hidden></div>
           <p class="status-msg" id="reminder-upload-status"></p>
-        </div>
-
-        <div class="dcard" id="reminder-defaults-card" hidden>
-          <div class="dcard-head">
-            <h3>Default reminder settings</h3>
-            <button type="button" class="sheet-change-btn" id="reminder-apply-defaults">Apply to all clients</button>
-          </div>
-          <p class="sheet-note">Defaults apply when you upload a file. You can still customise each client in the table below.</p>
-          <div class="reminder-defaults-grid">
-            <div>
-              <label class="tally-label">Compliance types to include</label>
-              <div class="reminder-type-toggles" id="reminder-default-types"></div>
-            </div>
-            <div class="tally-field">
-              <label class="tally-label" for="reminder-default-days">Days before due date to send</label>
-              <input class="tally-input" id="reminder-default-days" type="number" min="0" max="90" value="7">
-            </div>
-          </div>
         </div>
 
         <div class="dcard" id="reminder-table-card" hidden>
@@ -1298,8 +1310,14 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
             <div>
               <h3 style="font-size:1rem;font-weight:700">Review &amp; customise</h3>
               <p class="sheet-note" style="margin:4px 0 0" id="reminder-client-count">0 clients</p>
+              <p class="sheet-note" style="margin:2px 0 0">Click <b>Customise</b> to set filing dates and when you need documents from each client.</p>
             </div>
             <button type="button" class="sheet-change-btn" id="reminder-add-client">+ Add client</button>
+          </div>
+          <div class="reminder-toolbar">
+            <input type="search" id="reminder-search" placeholder="Search by name or email…" aria-label="Search clients">
+            <button type="button" class="sheet-change-btn" id="reminder-expand-all">Expand all</button>
+            <button type="button" class="sheet-change-btn" id="reminder-collapse-all">Collapse all</button>
           </div>
           <div class="tbl-wrap">
             <table class="reminder-clients" id="reminder-clients-table">
@@ -1307,7 +1325,7 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
                 <tr>
                   <th>Client</th>
                   <th>Email</th>
-                  <th>Active reminders</th>
+                  <th>Compliance items</th>
                   <th></th>
                 </tr>
               </thead>
@@ -1325,7 +1343,7 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
             <h3>n8n connection</h3>
             <span class="chip gray" id="n8n-badge">Not connected</span>
           </div>
-          <p class="sheet-note">Paste your n8n workflow's webhook URL (Webhook node → Production URL). Send reminders posts the full client + reminder config to this webhook.</p>
+          <p class="sheet-note">Paste your n8n workflow webhook URL (Webhook node → Production URL). The Powerhouse default is prefilled; change it if you use a different workflow.</p>
           <form class="n8n-form" id="n8n-form">
             <input id="n8n-url-input" type="url" placeholder="https://your-instance.app.n8n.cloud/webhook/…" autocomplete="off">
             <button type="submit" class="btn btn-primary" style="padding:11px 22px;flex-shrink:0">Save</button>
@@ -1337,9 +1355,17 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
         <div class="dcard" id="reminder-send-card" hidden>
           <div class="dcard-head">
             <h3>Send reminders</h3>
-            <button id="run-workflow" class="btn btn-primary tool-action" style="padding:9px 18px;font-size:.84rem" disabled>▶ Send reminders</button>
+            <div class="reminder-send-actions">
+              <button type="button" id="reminder-preview-btn" class="btn btn-ghost" style="padding:9px 16px;font-size:.84rem">Preview payload</button>
+              <button type="button" id="reminder-dry-run" class="btn btn-ghost" style="padding:9px 16px;font-size:.84rem">Dry run</button>
+              <button id="run-workflow" class="btn btn-primary tool-action" style="padding:9px 18px;font-size:.84rem" disabled>▶ Send reminders</button>
+            </div>
           </div>
-          <p class="sheet-note" id="reminder-send-summary">Configure at least one client with an email and an active reminder before sending.</p>
+          <p class="sheet-note" id="reminder-send-summary">Add at least one client with a valid email and one compliance item (name, filing due date, documents needed by) before sending.</p>
+          <p class="sheet-note" style="margin-top:6px">The email goes out <b>when you click Send</b> below. The dates you set are what the client reads in the message — not when the email is delivered.</p>
+          <div class="reminder-payload-preview" id="reminder-payload-preview" hidden>
+            <pre id="reminder-payload-json"></pre>
+          </div>
           <p id="workflow-status" class="wf-status"></p>
         </div>
       </section>
@@ -1348,7 +1374,7 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
       <section class="tab-section active" id="tab-financial">
         <h2 class="page-title" style="font-size:1.45rem;margin-bottom:8px">Trial Balance → NCE Template</h2>
         <p class="page-sub">
-          Upload a trial balance or Tally export — get back a filled Schedule III workbook
+          Upload a trial balance or Tally export and get back a filled Schedule III workbook
           in the non-corporate entities (NCE) format, ready to review and sign off.
         </p>
 
@@ -1406,27 +1432,27 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
           <div class="tally-result-summary" id="tally-result-summary">
             <div class="tally-summary-item">
               <span class="k">Entity</span>
-              <span class="v" id="tally-sum-entity">—</span>
+              <span class="v" id="tally-sum-entity">N/A</span>
             </div>
             <div class="tally-summary-item">
               <span class="k">Financial year</span>
-              <span class="v" id="tally-sum-fy">—</span>
+              <span class="v" id="tally-sum-fy">N/A</span>
             </div>
             <div class="tally-summary-item">
               <span class="k">Line items mapped</span>
-              <span class="v" id="tally-sum-lines">—</span>
+              <span class="v" id="tally-sum-lines">N/A</span>
             </div>
             <div class="tally-summary-item">
               <span class="k">Match quality</span>
-              <span class="v" id="tally-sum-quality">—</span>
+              <span class="v" id="tally-sum-quality">N/A</span>
             </div>
             <div class="tally-summary-item" id="tally-sum-net-wrap" hidden>
               <span class="k">Net profit / (loss)</span>
-              <span class="v" id="tally-sum-net">—</span>
+              <span class="v" id="tally-sum-net">N/A</span>
             </div>
             <div class="tally-summary-item" id="tally-sum-suspense-wrap" hidden>
               <span class="k">BS suspense plug</span>
-              <span class="v" id="tally-sum-suspense">—</span>
+              <span class="v" id="tally-sum-suspense">N/A</span>
             </div>
           </div>
 
@@ -1492,12 +1518,12 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
             <div class="mini-step">
               <span class="n">1</span>
               <h4>Upload your trial balance</h4>
-              <p>Tally XML, Excel or CSV — we detect the financial year from the file.</p>
+              <p>Tally XML, Excel or CSV. We detect the financial year from the file.</p>
             </div>
             <div class="mini-step">
               <span class="n">2</span>
               <h4>Map every ledger</h4>
-              <p>Each ledger head is matched to its correct Schedule III line item — Balance Sheet and P&amp;L.</p>
+              <p>Each ledger head is matched to its correct Schedule III line item for the Balance Sheet and P&amp;L.</p>
             </div>
             <div class="mini-step">
               <span class="n">3</span>
@@ -1515,7 +1541,7 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
             </a>
           </div>
           <p class="sheet-note">
-            This is the workbook you receive — switch tabs to preview each sheet before you convert.
+            This is the workbook you receive. Switch tabs to preview each sheet before you convert.
           </p>
           <div class="tally-sheet-tabs" id="tally-sheet-tabs" hidden></div>
           <div class="tally-sheet-frame" id="tally-sheet-frame">
@@ -1524,14 +1550,14 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
         </div>
       </section>
 
-      <!-- TAB: BANK CATEGORISER (locked — not ready) -->
+      <!-- TAB: BANK CATEGORISER (locked; not ready) -->
       <section class="tab-section" id="tab-bank">
         <div class="tool-title-row">
           <h2 class="page-title" style="font-size:1.45rem">Bank Statement Categoriser</h2>
           <span class="soon-badge">Coming soon</span>
         </div>
         <p class="page-sub">
-          Upload bank statement PDFs and get categorised transactions for income computation — this workflow is still in development.
+          Upload bank statement PDFs and get categorised transactions for income computation. This workflow is still in development.
         </p>
 
         <div class="dcard tool-coming-soon-card">
@@ -1545,7 +1571,7 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
             <h3>Not available in the workspace yet</h3>
             <p>
               We're building PDF parsing and income-head categorisation for ITR workflows.
-              It isn't ready for workspace runs — your complimentary run won't be used here.
+              It isn't ready for workspace runs. Your complimentary run won't be used here.
             </p>
             <p>
               For now, try <button type="button" class="sheet-change-btn" data-switch-tab="tab-financial">TB → NCE Template</button>
@@ -1584,7 +1610,7 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
     <p class="meta">Effective Date: <span class="ph">[Effective Date]</span></p>
     <p>These Terms of Service ("Terms") govern your access to and use of <b>Powerhouse</b> (<span class="ph">[Product Name]</span>), operated by <span class="ph">[Company Name]</span> ("we", "us", "our"). By creating an account or using the service, you agree to these Terms.</p>
     <h2>1. Description of Services</h2>
-    <p><span class="ph">[Description of Services]</span> — Powerhouse provides workflow automation for Chartered Accountant practices, including trial-balance-to-NCE-template conversion, bank statement categorisation for income computation, client compliance reminders, and related document-processing automations connected to your workspace.</p>
+    <p><span class="ph">[Description of Services]</span>: Powerhouse provides workflow automation for Chartered Accountant practices, including trial-balance-to-NCE-template conversion, bank statement categorisation for income computation, client compliance reminders, and related document-processing automations connected to your workspace.</p>
     <h2>2. Accounts</h2>
     <p>You sign in using your Google account. You are responsible for maintaining the security of your account and for all activity that occurs under it. You must provide accurate information and use the service only for lawful purposes.</p>
     <h2>3. Disclaimer of Professional Advice</h2>
@@ -1592,9 +1618,9 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
     <h2>4. Your Data</h2>
     <p>You retain all rights to the files you upload. Our use of your data is described in the <a href="#" data-legal="privacy" style="color:var(--teal);font-weight:600">Privacy Policy</a> and, for customers, the Data Processing Agreement.</p>
     <h2>5. Limitation of Liability</h2>
-    <p><span class="ph">[Limitation of Liability]</span> — To the maximum extent permitted by law, our total aggregate liability arising out of or relating to the service shall not exceed the fees paid by you in the twelve (12) months preceding the event giving rise to the claim. We are not liable for indirect, incidental, special, or consequential damages, or for loss of profits, data, or goodwill.</p>
+    <p><span class="ph">[Limitation of Liability]</span>: To the maximum extent permitted by law, our total aggregate liability arising out of or relating to the service shall not exceed the fees paid by you in the twelve (12) months preceding the event giving rise to the claim. We are not liable for indirect, incidental, special, or consequential damages, or for loss of profits, data, or goodwill.</p>
     <h2>6. Account Termination</h2>
-    <p><span class="ph">[Account Termination Process]</span> — You may stop using the service at any time and request account deletion by writing to <span class="ph">[Contact Email]</span>. We may suspend or terminate accounts that violate these Terms after reasonable notice. Upon termination, your data is deleted in line with our retention policy described in the Privacy Policy.</p>
+    <p><span class="ph">[Account Termination Process]</span>: You may stop using the service at any time and request account deletion by writing to <span class="ph">[Contact Email]</span>. We may suspend or terminate accounts that violate these Terms after reasonable notice. Upon termination, your data is deleted in line with our retention policy described in the Privacy Policy.</p>
     <h2>7. Changes to These Terms</h2>
     <p>We may update these Terms from time to time. Material changes will be notified via the service or email before they take effect.</p>
     <h2>8. Governing Law &amp; Jurisdiction</h2>
@@ -1610,24 +1636,24 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
     <p>This Privacy Policy explains how <span class="ph">[Company Name]</span> collects, uses, and protects your information when you use Powerhouse. For privacy questions, contact <span class="ph">[Contact Email]</span> or privacy@<span class="ph">[domain]</span>.com.</p>
     <h2>1. Data We Collect</h2>
     <ul>
-      <li><b>Name</b> — from your Google account when you sign in</li>
-      <li><b>Email</b> — from your Google account when you sign in</li>
-      <li><b>Google Account Information</b> — profile picture and basic profile data provided by Google Sign-In (we never see your password)</li>
-      <li><b>Uploaded Files</b> — trial balances, bank statements, and other documents you submit for processing</li>
+      <li><b>Name</b>: from your Google account when you sign in</li>
+      <li><b>Email</b>: from your Google account when you sign in</li>
+      <li><b>Google Account Information</b>: profile picture and basic profile data provided by Google Sign-In (we never see your password)</li>
+      <li><b>Uploaded Files</b>: trial balances, bank statements, and other documents you submit for processing</li>
     </ul>
     <h2>2. Purpose of Collection</h2>
-    <p><span class="ph">[Purpose of Collection]</span> — We use this data to operate your workspace, process the documents you upload, deliver finished output to your email, provide support, and improve the reliability of our automations. We do not sell your data.</p>
+    <p><span class="ph">[Purpose of Collection]</span>: We use this data to operate your workspace, process the documents you upload, deliver finished output to your email, provide support, and improve the reliability of our automations. We do not sell your data.</p>
     <h2>3. Data Retention</h2>
-    <p><span class="ph">[Data Retention Period]</span> — Uploaded files are retained only as long as needed to deliver the processed output, and account data is retained while your account is active. After account closure, data is deleted within our standard deletion timeline.</p>
+    <p><span class="ph">[Data Retention Period]</span>: Uploaded files are retained only as long as needed to deliver the processed output, and account data is retained while your account is active. After account closure, data is deleted within our standard deletion timeline.</p>
     <h2>4. Data Deletion Requests</h2>
     <p>You may request deletion of your data at any time by emailing <span class="ph">[Data Deletion Request Email]</span>. We will confirm completion of the deletion.</p>
     <h2>5. Third-Party Providers</h2>
     <p>We use the following sub-processors to deliver the service:</p>
     <ul>
-      <li><b>OpenAI</b> — document understanding and processing</li>
-      <li><b>Anthropic</b> — document understanding and processing</li>
-      <li><b>Supabase</b> — backend API and job storage for Tally conversion</li>
-      <li><b>Google (Firebase)</b> — sign-in authentication</li>
+      <li><b>OpenAI</b>: document understanding and processing</li>
+      <li><b>Anthropic</b>: document understanding and processing</li>
+      <li><b>Supabase</b>: backend API and job storage for Tally conversion</li>
+      <li><b>Google (Firebase)</b>: sign-in authentication</li>
     </ul>
     <h2>6. Your Rights under the DPDP Act</h2>
     <p>Under India's Digital Personal Data Protection Act, 2023, you have the right to access your personal data, request correction or erasure, nominate a representative, and lodge a grievance. To exercise any of these rights, contact <span class="ph">[Contact Email]</span>.</p>
@@ -1643,11 +1669,11 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
     <p class="meta">Between the Data Controller and the Data Processor</p>
     <p>This Data Processing Agreement ("DPA") forms part of the service agreement between <span class="ph">[CA Firm Name]</span> (the "<b>Data Controller</b>") and <span class="ph">[Your Company Name]</span> (the "<b>Data Processor</b>").</p>
     <h2>1. Service Description</h2>
-    <p><span class="ph">[Service Description]</span> — The Processor provides document-processing automation, converting financial documents supplied by the Controller into structured, audit-ready output.</p>
+    <p><span class="ph">[Service Description]</span>: The Processor provides document-processing automation, converting financial documents supplied by the Controller into structured, audit-ready output.</p>
     <h2>2. Categories of Data Processed</h2>
-    <p><span class="ph">[Categories of Data Processed]</span> — Client financial records contained in trial balances and bank statements, including names, account details, and transaction data of the Controller's clients.</p>
+    <p><span class="ph">[Categories of Data Processed]</span>: Client financial records contained in trial balances and bank statements, including names, account details, and transaction data of the Controller's clients.</p>
     <h2>3. Security Measures</h2>
-    <p><span class="ph">[Security Measures]</span> — The Processor maintains encryption of data in transit and at rest, role-based access controls, audit logging, and staff confidentiality obligations.</p>
+    <p><span class="ph">[Security Measures]</span>: The Processor maintains encryption of data in transit and at rest, role-based access controls, audit logging, and staff confidentiality obligations.</p>
     <h2>4. Data Retention &amp; Deletion</h2>
     <ul>
       <li>Retention period: <span class="ph">[Data Retention Period]</span></li>
@@ -1658,8 +1684,8 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
     <ul>
       <li><b>OpenAI</b></li>
       <li><b>Anthropic</b></li>
-      <li><b>Supabase</b> — backend API and job storage</li>
-      <li><b>Google (Firebase)</b> — authentication</li>
+      <li><b>Supabase</b>: backend API and job storage</li>
+      <li><b>Google (Firebase)</b>: authentication</li>
     </ul>
     <p>The Processor will notify the Controller before adding or replacing sub-processors.</p>
     <h2>6. Breach Notification</h2>
@@ -1674,7 +1700,7 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
     <p class="meta">Start Date: <span class="ph">[Start Date]</span></p>
     <p>This Master Service Agreement ("Agreement") is entered into between <span class="ph">[Your Company Name]</span> ("Provider") and <span class="ph">[Client Name]</span>, having its registered office at <span class="ph">[Client Address]</span> ("Client").</p>
     <h2>1. Services</h2>
-    <p><span class="ph">[Service Description]</span> — The Provider will deliver workflow automation services as described in the applicable order form or statement of work.</p>
+    <p><span class="ph">[Service Description]</span>: The Provider will deliver workflow automation services as described in the applicable order form or statement of work.</p>
     <h2>2. Fees &amp; Payment</h2>
     <ul>
       <li>Fees: <span class="ph">[Fees / Pricing]</span></li>
@@ -1683,15 +1709,15 @@ table.reminder-clients tr.expanded > td{background:var(--ivory)}
     <h2>3. Term &amp; Termination</h2>
     <p>This Agreement begins on <span class="ph">[Start Date]</span> and continues until terminated. Either party may terminate with <span class="ph">[Termination Notice Period]</span> written notice. Termination does not relieve the Client of fees accrued before the effective date of termination.</p>
     <h2>4. Limitation of Liability</h2>
-    <p><span class="ph">[Liability Cap]</span> — Each party's total aggregate liability under this Agreement is capped at the fees paid by the Client in the twelve (12) months preceding the claim. Neither party is liable for indirect or consequential damages.</p>
+    <p><span class="ph">[Liability Cap]</span>: Each party's total aggregate liability under this Agreement is capped at the fees paid by the Client in the twelve (12) months preceding the claim. Neither party is liable for indirect or consequential damages.</p>
     <h2>5. Intellectual Property</h2>
-    <p><span class="ph">[IP Ownership Clause]</span> — The Client retains all rights to its data and documents. The Provider retains all rights to the platform, automations, and any pre-existing or independently developed technology. Deliverables specific to the Client are licensed to the Client for its internal business use.</p>
+    <p><span class="ph">[IP Ownership Clause]</span>: The Client retains all rights to its data and documents. The Provider retains all rights to the platform, automations, and any pre-existing or independently developed technology. Deliverables specific to the Client are licensed to the Client for its internal business use.</p>
     <h2>6. Confidentiality</h2>
-    <p><span class="ph">[Confidentiality Clause]</span> — Each party will protect the other's confidential information with at least the same care it uses for its own, and use it only to perform under this Agreement. This obligation survives termination for three (3) years.</p>
+    <p><span class="ph">[Confidentiality Clause]</span>: Each party will protect the other's confidential information with at least the same care it uses for its own, and use it only to perform under this Agreement. This obligation survives termination for three (3) years.</p>
     <h2>7. Data Protection</h2>
     <p>The parties' data-protection obligations are set out in the Data Processing Agreement, which is incorporated into this Agreement by reference.</p>
     <h2>8. Governing Law</h2>
-    <p><span class="ph">[Governing Law]</span> — This Agreement is governed by the laws of India, with exclusive jurisdiction of the courts at Bhopal, Madhya Pradesh.</p>
+    <p><span class="ph">[Governing Law]</span>: This Agreement is governed by the laws of India, with exclusive jurisdiction of the courts at Bhopal, Madhya Pradesh.</p>
     <h2>9. Signatories</h2>
     <div class="sig-grid">
       <div class="sig-box">
@@ -1746,9 +1772,9 @@ window.dispatchEvent(new CustomEvent('ph-firebase-ready'));
 // Enable Google provider: Firebase Console → Authentication → Sign-in method.
 
 // Optional: hardcoded default for the n8n workflow webhook URL.
-const N8N_WEBHOOK_URL = '';
+const N8N_WEBHOOK_URL = 'https://aymaanshahzad23.app.n8n.cloud/webhook/ca-filing-reminder';
 
-// TB → NCE Template — Supabase Edge Functions (API key in Supabase secrets)
+// TB → NCE Template: Supabase Edge Functions (API key in Supabase secrets)
 const SUPABASE_URL = 'https://msratyvmnuvozuthgkmi.supabase.co';
 const TALLY_MAP_START_API = `${SUPABASE_URL}/functions/v1/tally-map-start`;
 const TALLY_MAP_STATUS_API = `${SUPABASE_URL}/functions/v1/tally-map-status`;
@@ -1837,7 +1863,7 @@ function firebaseUserToProfile(user){
 }
 
 function creditsExhaustedHtml(){
-  return `You've used your complimentary workspace run. If this saved you time — or you want to keep going — we'd love to hear from you. `
+  return `You've used your complimentary workspace run. If this saved you time, or you want to keep going, we'd love to hear from you. `
     + `<a href="mailto:${TEAM_CONTACT_EMAIL}?subject=Powerhouse%20early%20access">Reach out to the team</a> and we'll set up continued access for your practice.`;
 }
 
@@ -1986,8 +2012,8 @@ function setupFirebaseAuth(){
         return;
       }
       const msg = err.code === 'auth/unauthorized-domain'
-        ? 'Domain not authorized — add it in Firebase Console'
-        : 'Sign-in failed — try again';
+        ? 'Domain not authorized. Add it in Firebase Console'
+        : 'Sign-in failed. Try again';
       showGoogleBtnError(msg);
       console.error('Firebase sign-in error:', err);
     } finally {
@@ -2032,18 +2058,20 @@ async function getFirebaseAuthHeaders(){
   }
 }
 
-function buildN8nPayload({ test = false } = {}){
+function buildN8nPayload({ test = false, dryRun = false } = {}){
   const payload = {
     source: 'powerhouse-dashboard',
     triggeredAt: new Date().toISOString(),
-    defaults: readReminderDefaultsFromUI(),
+    triggeredBy: currentUser?.email || null,
     clients: test ? [] : buildReminderDispatchList(),
   };
   if (test) payload.test = true;
+  if (dryRun) payload.dryRun = true;
   return payload;
 }
 
 /* ==================== COMPLIANCE REMINDERS ==================== */
+/** Quick labels when adding a reminder; user edits name and dates per client. */
 const REMINDER_TYPES = [
   { id: 'gst', label: 'GST filing' },
   { id: 'itr', label: 'ITR filing' },
@@ -2054,71 +2082,135 @@ const REMINDER_TYPES = [
 
 let reminderClients = [];
 let reminderExpandedId = null;
+let reminderExpandedAll = false;
+let reminderSearchQuery = '';
 let reminderUploadFile = null;
+let reminderTableBound = false;
 
 function reminderId() {
   return 'r_' + Math.random().toString(36).slice(2, 10);
 }
 
-function readReminderDefaultsFromUI() {
-  const daysBefore = Math.max(0, Number(document.getElementById('reminder-default-days')?.value) || 7);
-  const types = {};
-  REMINDER_TYPES.forEach(({ id }) => {
-    types[id] = Boolean(document.querySelector(`#reminder-default-types input[data-type="${id}"]`)?.checked);
-  });
-  return { daysBefore, types };
+function createReminderItem({ templateId = null, label = '', filingDueDate = '', documentsDueBy = '' } = {}) {
+  return {
+    id: reminderId(),
+    templateId,
+    label: String(label || '').trim(),
+    filingDueDate: filingDueDate || '',
+    documentsDueBy: documentsDueBy || '',
+  };
 }
 
-function createReminderConfig(defaults) {
-  const cfg = {};
-  REMINDER_TYPES.forEach(({ id }) => {
-    cfg[id] = {
-      enabled: Boolean(defaults.types[id]),
-      dueDate: '',
-      daysBefore: defaults.daysBefore,
-    };
-  });
-  return cfg;
+function reminderFilingDate(row) {
+  return row.filingDueDate || row.dueDate || '';
 }
 
-function newReminderClient(name, email, defaults) {
+function reminderDocumentsDue(row) {
+  return row.documentsDueBy || row.reminderDate || '';
+}
+
+function normalizeReminderItem(row) {
+  if (!row.filingDueDate && row.dueDate) row.filingDueDate = row.dueDate;
+  if (!row.documentsDueBy && row.reminderDate) row.documentsDueBy = row.reminderDate;
+  if (!row.documentsDueBy && row.filingDueDate && row.daysBefore != null) {
+    const due = new Date(row.filingDueDate + 'T00:00:00');
+    if (!Number.isNaN(due.getTime())) {
+      due.setDate(due.getDate() - (Number(row.daysBefore) || 0));
+      row.documentsDueBy = due.toISOString().slice(0, 10);
+    }
+  }
+  delete row.dueDate;
+  delete row.reminderDate;
+  delete row.daysBefore;
+  return row;
+}
+
+function getClientReminderItems(client) {
+  if (Array.isArray(client.reminderItems)) {
+    client.reminderItems.forEach(normalizeReminderItem);
+    return client.reminderItems;
+  }
+  client.reminderItems = [];
+  return client.reminderItems;
+}
+
+function newReminderClient(name, email) {
   return {
     id: reminderId(),
     name: (name || '').trim(),
     email: (email || '').trim(),
-    reminders: createReminderConfig(defaults),
+    reminderItems: [],
   };
+}
+
+function addReminderItemToClient(client, pick) {
+  const items = getClientReminderItems(client);
+  if (pick === 'custom') {
+    items.push(createReminderItem({ label: '' }));
+    return;
+  }
+  const tmpl = REMINDER_TYPES.find((t) => t.id === pick);
+  if (!tmpl) return;
+  items.push(createReminderItem({ templateId: tmpl.id, label: tmpl.label }));
 }
 
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-function computeSendOn(dueDate, daysBefore) {
-  if (!dueDate) return null;
-  const due = new Date(dueDate + 'T00:00:00');
-  if (Number.isNaN(due.getTime())) return null;
-  due.setDate(due.getDate() - (Number(daysBefore) || 0));
-  return due.toISOString().slice(0, 10);
+function normalizeEmail(email) {
+  return String(email || '').trim().toLowerCase();
+}
+
+function buildEmailCounts() {
+  const counts = {};
+  reminderClients.forEach((c) => {
+    const key = normalizeEmail(c.email);
+    if (key) counts[key] = (counts[key] || 0) + 1;
+  });
+  return counts;
+}
+
+function getClientIssues(client) {
+  const issues = [];
+  const email = client.email.trim();
+  if (email && !isValidEmail(email)) issues.push('invalid-email');
+  if (!client.name.trim()) issues.push('missing-name');
+  const counts = buildEmailCounts();
+  if (email && counts[normalizeEmail(email)] > 1) issues.push('duplicate-email');
+  const hasReady = getClientReminderItems(client).some(
+    (row) => row.label.trim() && reminderFilingDate(row) && reminderDocumentsDue(row));
+  if (email && isValidEmail(email) && !hasReady) issues.push('no-active-reminder');
+  return issues;
+}
+
+function clientIssueLabel(issue) {
+  if (issue === 'invalid-email') return 'Invalid email';
+  if (issue === 'missing-name') return 'Name missing';
+  if (issue === 'duplicate-email') return 'Duplicate email';
+  if (issue === 'no-active-reminder') return 'Filing date or documents date missing';
+  return issue;
+}
+
+function getFilteredReminderClients() {
+  const q = reminderSearchQuery.trim().toLowerCase();
+  if (!q) return reminderClients;
+  return reminderClients.filter((c) =>
+    c.name.toLowerCase().includes(q) || c.email.toLowerCase().includes(q));
 }
 
 function buildReminderDispatchList() {
   return reminderClients
     .filter((c) => c.name && isValidEmail(c.email))
     .map((client) => {
-      const reminders = REMINDER_TYPES
-        .map(({ id, label }) => {
-          const row = client.reminders[id];
-          if (!row?.enabled || !row.dueDate) return null;
-          return {
-            type: id,
-            label,
-            dueDate: row.dueDate,
-            daysBefore: Number(row.daysBefore) || 0,
-            sendOn: computeSendOn(row.dueDate, row.daysBefore),
-          };
-        })
-        .filter(Boolean);
+      const reminders = getClientReminderItems(client)
+        .filter((row) => row.label.trim() && reminderFilingDate(row) && reminderDocumentsDue(row))
+        .map((row) => ({
+          type: row.templateId || 'custom',
+          label: row.label.trim(),
+          filingDueDate: reminderFilingDate(row),
+          documentsDueBy: reminderDocumentsDue(row),
+        }));
       return { name: client.name, email: client.email, reminders };
     })
     .filter((c) => c.reminders.length > 0);
@@ -2127,13 +2219,65 @@ function buildReminderDispatchList() {
 function validateReminderDispatch() {
   const dispatch = buildReminderDispatchList();
   if (!dispatch.length) {
-    return { ok: false, message: 'Add at least one client with a valid email and one active reminder with a due date.' };
+    const missingDates = reminderClients.filter((c) =>
+      c.email && isValidEmail(c.email) && getClientIssues(c).includes('no-active-reminder')).length;
+    if (missingDates) {
+      return { ok: false, message: `${missingDates} client(s) need at least one compliance item with a name, filing due date, and documents needed by date.` };
+    }
+    return { ok: false, message: 'Add at least one client with a valid email and one complete compliance item (name, filing due date, documents needed by).' };
   }
   const invalid = reminderClients.filter((c) => c.email && !isValidEmail(c.email));
   if (invalid.length) {
-    return { ok: false, message: `${invalid.length} client(s) have an invalid email address — fix them before sending.` };
+    return { ok: false, message: `${invalid.length} client(s) have an invalid email address. Fix them before sending.` };
+  }
+  const dupes = reminderClients.filter((c) => getClientIssues(c).includes('duplicate-email'));
+  if (dupes.length) {
+    return { ok: false, message: `${dupes.length} client(s) share a duplicate email. Keep one row per email.` };
   }
   return { ok: true, dispatch };
+}
+
+function renderUploadWarnings(report) {
+  const box = document.getElementById('reminder-upload-warnings');
+  if (!box) return;
+  if (!report) {
+    box.hidden = true;
+    box.innerHTML = '';
+    return;
+  }
+  const parts = [];
+  if (report.loaded) parts.push(`Loaded <b>${report.loaded}</b> client${report.loaded === 1 ? '' : 's'}.`);
+  if (report.skipped) parts.push(`Skipped <b>${report.skipped}</b> row${report.skipped === 1 ? '' : 's'}.`);
+  if (report.duplicateInFile.length) {
+    parts.push(`Duplicate emails (kept first): ${report.duplicateInFile.map((r) => escapeHtml(r.email)).join(', ')}`);
+  }
+  if (report.invalidEmails.length) {
+    parts.push(`Invalid emails: ${report.invalidEmails.map((r) => escapeHtml(r.email || '(blank)')).join(', ')}`);
+  }
+  if (report.missingNames.length) {
+    parts.push(`${report.missingNames.length} row(s) had no name (marked as "Client").`);
+  }
+  box.hidden = false;
+  box.className = 'reminder-upload-warnings' + (report.skipped ? '' : ' ok');
+  box.innerHTML = parts.map((p) => `<div>${p}</div>`).join('');
+}
+
+function updateReminderPayloadPreview() {
+  const wrap = document.getElementById('reminder-payload-preview');
+  const pre = document.getElementById('reminder-payload-json');
+  if (!wrap || wrap.hidden || !pre) return;
+  pre.textContent = JSON.stringify(buildN8nPayload(), null, 2);
+}
+
+function toggleReminderPayloadPreview() {
+  const wrap = document.getElementById('reminder-payload-preview');
+  const pre = document.getElementById('reminder-payload-json');
+  if (!wrap || !pre) return;
+  wrap.hidden = !wrap.hidden;
+  if (!wrap.hidden) {
+    pre.textContent = JSON.stringify(buildN8nPayload(), null, 2);
+    wrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
 }
 
 function updateReminderSendUI() {
@@ -2143,7 +2287,6 @@ function updateReminderSendUI() {
   const sendCard = document.getElementById('reminder-send-card');
   const hasClients = reminderClients.length > 0;
 
-  document.getElementById('reminder-defaults-card').hidden = !hasClients;
   document.getElementById('reminder-table-card').hidden = !hasClients;
   sendCard.hidden = !hasClients;
 
@@ -2159,7 +2302,7 @@ function updateReminderSendUI() {
   if (validation.ok) {
     const n = validation.dispatch.length;
     const totalReminders = validation.dispatch.reduce((s, c) => s + c.reminders.length, 0);
-    summary.textContent = `Ready to send ${totalReminders} reminder${totalReminders === 1 ? '' : 's'} across ${n} client${n === 1 ? '' : 's'}.`;
+    summary.textContent = `Ready to send ${n} email${n === 1 ? '' : 's'} (${totalReminders} compliance item${totalReminders === 1 ? '' : 's'} total). One consolidated email per client — delivered when you click Send.`;
     sendBtn.disabled = false;
     sendBtn.style.opacity = '1';
   } else {
@@ -2167,77 +2310,185 @@ function updateReminderSendUI() {
     sendBtn.disabled = true;
     sendBtn.style.opacity = '.5';
   }
+  updateReminderPayloadPreview();
 }
 
-function renderDefaultTypeToggles() {
-  const wrap = document.getElementById('reminder-default-types');
-  if (!wrap || wrap.childElementCount) return;
-  wrap.innerHTML = REMINDER_TYPES.map(({ id, label }) => `
-    <label class="reminder-type-toggle">
-      <input type="checkbox" data-type="${id}" ${['gst', 'itr', 'tds'].includes(id) ? 'checked' : ''}>
-      ${label}
-    </label>`).join('');
-  wrap.querySelectorAll('input').forEach((input) => {
-    input.addEventListener('change', () => {
-      if (!reminderClients.length) return;
-      if (confirm('Apply the updated default types to all clients? This resets per-type settings.')) {
-        applyDefaultsToAllClients();
-      }
-    });
-  });
-}
-
-function applyDefaultsToAllClients() {
-  const defaults = readReminderDefaultsFromUI();
-  reminderClients = reminderClients.map((c) => ({
-    ...c,
-    reminders: createReminderConfig(defaults),
-  }));
-  renderReminderClientsTable();
-  updateReminderSendUI();
+function formatReminderChipDate(iso) {
+  if (!iso) return '';
+  const p = iso.split('-');
+  if (p.length !== 3) return iso;
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  return `${Number(p[2])} ${months[Number(p[1]) - 1]}`;
 }
 
 function reminderSummaryHtml(client) {
-  const chips = REMINDER_TYPES.map(({ id, label }) => {
-    const row = client.reminders[id];
-    if (!row?.enabled) return `<span class="reminder-chip off">${label}</span>`;
-    const when = row.dueDate
-      ? `${row.daysBefore}d before ${row.dueDate}`
-      : 'due date needed';
-    return `<span class="reminder-chip" title="${escapeHtml(when)}">${label}</span>`;
+  const items = getClientReminderItems(client);
+  if (!items.length) {
+    return '<div class="reminder-summary-chips"><span class="reminder-chip off">No items yet</span></div>';
+  }
+  const chips = items.map((row) => {
+    const label = row.label.trim() || 'Untitled';
+    const filing = reminderFilingDate(row);
+    const docs = reminderDocumentsDue(row);
+    if (!filing || !docs) {
+      return `<span class="reminder-chip off" title="Filing due date and documents needed by are required">${escapeHtml(label)}</span>`;
+    }
+    const when = `Docs by ${formatReminderChipDate(docs)}, filing ${formatReminderChipDate(filing)}`;
+    return `<span class="reminder-chip" title="${escapeHtml(when)}">${escapeHtml(label)}</span>`;
   }).join('');
   return `<div class="reminder-summary-chips">${chips}</div>`;
 }
 
+function reminderAddItemControlsHtml(clientId) {
+  const options = REMINDER_TYPES.map(({ id, label }) =>
+    `<option value="${id}">${escapeHtml(label)}</option>`).join('');
+  return `
+    <div class="reminder-add-item-row">
+      <select class="rem-add-pick" data-client="${clientId}" style="flex:1;min-width:160px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:.84rem">
+        <option value="">Add compliance item…</option>
+        ${options}
+        <option value="custom">Custom (name it yourself)</option>
+      </select>
+      <button type="button" class="sheet-change-btn rem-add-item-btn" data-client="${clientId}">Add</button>
+    </div>`;
+}
+
 function reminderDetailHtml(client) {
-  const cards = `
-    <div class="reminder-detail-card" style="grid-column:1/-1">
-      <h4>Client details</h4>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+  const items = getClientReminderItems(client);
+  const itemRows = items.length ? items.map((row) => `
+    <div class="reminder-item-card">
+      <div class="reminder-item-card-top">
         <div>
-          <label>Client name</label>
-          <input type="text" class="rem-name" data-client="${client.id}" value="${escapeHtml(client.name)}">
+          <label>Compliance item</label>
+          <input type="text" class="rem-label" data-client="${client.id}" data-item="${row.id}"
+            value="${escapeHtml(row.label)}" placeholder="e.g. GST filing, GSTR-3B, Form 16…">
+        </div>
+        <button type="button" class="reminder-item-remove rem-remove-item" data-client="${client.id}" data-item="${row.id}" title="Remove item">×</button>
+      </div>
+      <div class="reminder-item-dates">
+        <div>
+          <label>Filing due date</label>
+          <p class="field-hint">Official deadline for this return or payment.</p>
+          <input type="date" class="rem-filing" data-client="${client.id}" data-item="${row.id}" value="${reminderFilingDate(row)}">
         </div>
         <div>
-          <label>Email</label>
-          <input type="email" class="rem-email" data-client="${client.id}" value="${escapeHtml(client.email)}">
+          <label>Documents needed by</label>
+          <p class="field-hint">Date the client must send you documents. Shown in the email — not when it is sent.</p>
+          <input type="date" class="rem-docs" data-client="${client.id}" data-item="${row.id}" value="${reminderDocumentsDue(row)}">
         </div>
       </div>
-    </div>` + REMINDER_TYPES.map(({ id, label }) => {
-    const row = client.reminders[id];
-    return `
-      <div class="reminder-detail-card" data-client="${client.id}" data-type="${id}">
-        <label class="toggle-row">
-          <input type="checkbox" class="rem-type-enable" data-client="${client.id}" data-type="${id}" ${row.enabled ? 'checked' : ''}>
-          ${label}
-        </label>
-        <label>Due date</label>
-        <input type="date" class="rem-due" data-client="${client.id}" data-type="${id}" value="${row.dueDate || ''}" ${row.enabled ? '' : 'disabled'}>
-        <label style="margin-top:8px">Days before due to send</label>
-        <input type="number" class="rem-days" data-client="${client.id}" data-type="${id}" min="0" max="90" value="${row.daysBefore ?? 7}" ${row.enabled ? '' : 'disabled'}>
-      </div>`;
-  }).join('');
-  return `<tr class="reminder-detail-row" data-detail-for="${client.id}"><td colspan="4"><div class="reminder-detail-grid">${cards}</div></td></tr>`;
+    </div>`).join('') : '<p class="sheet-note" style="margin:8px 0">No compliance items for this client yet. Add one below.</p>';
+
+  return `<tr class="reminder-detail-row" data-detail-for="${client.id}"><td colspan="4">
+    <div class="reminder-detail-grid">
+      <div class="reminder-detail-card" style="grid-column:1/-1">
+        <h4>Client details</h4>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div>
+            <label>Client name</label>
+            <input type="text" class="rem-name" data-client="${client.id}" value="${escapeHtml(client.name)}">
+          </div>
+          <div>
+            <label>Email</label>
+            <input type="email" class="rem-email" data-client="${client.id}" value="${escapeHtml(client.email)}">
+          </div>
+        </div>
+      </div>
+      <div class="reminder-items-panel">
+        <h4 style="font-size:.88rem;margin-bottom:8px">Compliance items for this client</h4>
+        <p class="reminder-items-intro">Each item becomes one section in the client&apos;s email. Set when the filing is due and when you need their documents — the email itself is sent when you click <b>Send reminders</b> at the bottom of the page.</p>
+        ${itemRows}
+        ${reminderAddItemControlsHtml(client.id)}
+      </div>
+    </div>
+  </td></tr>`;
+}
+
+function bindReminderTableEvents() {
+  if (reminderTableBound) return;
+  const body = document.getElementById('reminder-clients-body');
+  if (!body) return;
+  reminderTableBound = true;
+
+  body.addEventListener('click', (e) => {
+    const expand = e.target.closest('.rem-expand');
+    if (expand) {
+      const id = expand.dataset.id;
+      if (reminderExpandedAll) {
+        reminderExpandedAll = false;
+        reminderExpandedId = reminderExpandedId === id ? null : id;
+      } else {
+        reminderExpandedId = reminderExpandedId === id ? null : id;
+      }
+      renderReminderClientsTable();
+      return;
+    }
+    const removeClient = e.target.closest('.rem-remove');
+    if (removeClient) {
+      reminderClients = reminderClients.filter((c) => c.id !== removeClient.dataset.id);
+      if (reminderExpandedId === removeClient.dataset.id) reminderExpandedId = null;
+      renderReminderClientsTable();
+      updateReminderSendUI();
+      return;
+    }
+    const removeItem = e.target.closest('.rem-remove-item');
+    if (removeItem) {
+      const client = reminderClients.find((c) => c.id === removeItem.dataset.client);
+      if (client) {
+        client.reminderItems = getClientReminderItems(client).filter((r) => r.id !== removeItem.dataset.item);
+      }
+      renderReminderClientsTable();
+      updateReminderSendUI();
+      return;
+    }
+    const addBtn = e.target.closest('.rem-add-item-btn');
+    if (addBtn) {
+      const client = reminderClients.find((c) => c.id === addBtn.dataset.client);
+      const pick = body.querySelector(`.rem-add-pick[data-client="${addBtn.dataset.client}"]`)?.value;
+      if (client && pick) {
+        addReminderItemToClient(client, pick);
+        reminderExpandedId = client.id;
+        renderReminderClientsTable();
+        updateReminderSendUI();
+      }
+    }
+  });
+
+  body.addEventListener('input', (e) => {
+    const t = e.target;
+    const client = reminderClients.find((c) => c.id === t.dataset.client);
+    if (!client) return;
+    const item = getClientReminderItems(client).find((r) => r.id === t.dataset.item);
+    if (!item) return;
+    if (t.classList.contains('rem-label')) item.label = t.value;
+    if (t.classList.contains('rem-filing')) item.filingDueDate = t.value;
+    if (t.classList.contains('rem-docs')) item.documentsDueBy = t.value;
+    updateReminderSendUI();
+  });
+
+  body.addEventListener('change', (e) => {
+    const t = e.target;
+    const client = reminderClients.find((c) => c.id === t.dataset.client);
+    if (!client) return;
+    if (t.classList.contains('rem-name')) {
+      client.name = t.value.trim();
+      renderReminderClientsTable();
+      return;
+    }
+    if (t.classList.contains('rem-email')) {
+      client.email = t.value.trim();
+      renderReminderClientsTable();
+      updateReminderSendUI();
+      return;
+    }
+    const item = getClientReminderItems(client).find((r) => r.id === t.dataset.item);
+    if (!item) return;
+    if (t.classList.contains('rem-label')) item.label = t.value.trim();
+    if (t.classList.contains('rem-filing')) item.filingDueDate = t.value;
+    if (t.classList.contains('rem-docs')) item.documentsDueBy = t.value;
+    renderReminderClientsTable();
+    updateReminderSendUI();
+  });
 }
 
 function renderReminderClientsTable() {
@@ -2255,88 +2506,108 @@ function renderReminderClientsTable() {
 
   empty.hidden = true;
   table.hidden = false;
+  const visible = getFilteredReminderClients();
 
-  reminderClients.forEach((client) => {
+  if (!visible.length) {
+    empty.hidden = false;
+    const ps = empty.querySelectorAll('p');
+    if (ps[1]) ps[1].textContent = reminderSearchQuery.trim()
+      ? 'No clients match your search.'
+      : 'Upload a filled template or add a client manually.';
+    table.hidden = true;
+    updateReminderSendUI();
+    return;
+  }
+
+  if (empty.querySelector('p:last-child')) {
+    empty.querySelector('p:last-child').textContent = 'Upload a filled template or add a client manually.';
+  }
+
+  visible.forEach((client) => {
+    const issues = getClientIssues(client);
     const tr = document.createElement('tr');
-    if (reminderExpandedId === client.id) tr.classList.add('expanded');
+    tr.className = 'client-row';
+    if (reminderExpandedId === client.id || reminderExpandedAll) tr.classList.add('expanded');
+    if (issues.includes('invalid-email') || issues.includes('duplicate-email')) tr.classList.add('row-error');
+    else if (issues.length) tr.classList.add('row-warn');
+    const issueTags = issues.length
+      ? issues.map((i) => `<span class="reminder-issue-tag">${clientIssueLabel(i)}</span>`).join('')
+      : '';
     tr.innerHTML = `
-      <td><strong>${escapeHtml(client.name || '—')}</strong></td>
-      <td>${escapeHtml(client.email || '—')}</td>
+      <td><strong>${escapeHtml(client.name || 'N/A')}</strong>${issueTags}</td>
+      <td>${escapeHtml(client.email || 'N/A')}</td>
       <td>${reminderSummaryHtml(client)}</td>
       <td>
         <div class="reminder-actions">
           <button type="button" class="reminder-icon-btn rem-expand" data-id="${client.id}">
-            ${reminderExpandedId === client.id ? 'Close' : 'Customise'}
+            ${(reminderExpandedId === client.id || reminderExpandedAll) ? 'Close' : 'Customise'}
           </button>
           <button type="button" class="reminder-icon-btn danger rem-remove" data-id="${client.id}">Remove</button>
         </div>
       </td>`;
     body.appendChild(tr);
-    if (reminderExpandedId === client.id) {
+    if (reminderExpandedId === client.id || reminderExpandedAll) {
       body.insertAdjacentHTML('beforeend', reminderDetailHtml(client));
     }
   });
 
-  body.querySelectorAll('.rem-expand').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      reminderExpandedId = reminderExpandedId === btn.dataset.id ? null : btn.dataset.id;
-      renderReminderClientsTable();
-    });
-  });
-  body.querySelectorAll('.rem-remove').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      reminderClients = reminderClients.filter((c) => c.id !== btn.dataset.id);
-      if (reminderExpandedId === btn.dataset.id) reminderExpandedId = null;
-      renderReminderClientsTable();
-      updateReminderSendUI();
-    });
-  });
-  body.querySelectorAll('.rem-name').forEach((input) => {
-    input.addEventListener('change', () => {
-      const client = reminderClients.find((c) => c.id === input.dataset.client);
-      if (!client) return;
-      client.name = input.value.trim();
-      renderReminderClientsTable();
-    });
-  });
-  body.querySelectorAll('.rem-email').forEach((input) => {
-    input.addEventListener('change', () => {
-      const client = reminderClients.find((c) => c.id === input.dataset.client);
-      if (!client) return;
-      client.email = input.value.trim();
-      renderReminderClientsTable();
-      updateReminderSendUI();
-    });
-  });
-  body.querySelectorAll('.rem-type-enable').forEach((input) => {
-    input.addEventListener('change', () => {
-      const client = reminderClients.find((c) => c.id === input.dataset.client);
-      if (!client) return;
-      client.reminders[input.dataset.type].enabled = input.checked;
-      renderReminderClientsTable();
-      updateReminderSendUI();
-    });
-  });
-  body.querySelectorAll('.rem-due').forEach((input) => {
-    input.addEventListener('change', () => {
-      const client = reminderClients.find((c) => c.id === input.dataset.client);
-      if (!client) return;
-      client.reminders[input.dataset.type].dueDate = input.value;
-      renderReminderClientsTable();
-      updateReminderSendUI();
-    });
-  });
-  body.querySelectorAll('.rem-days').forEach((input) => {
-    input.addEventListener('change', () => {
-      const client = reminderClients.find((c) => c.id === input.dataset.client);
-      if (!client) return;
-      client.reminders[input.dataset.type].daysBefore = Number(input.value) || 0;
-      renderReminderClientsTable();
-      updateReminderSendUI();
-    });
-  });
-
+  bindReminderTableEvents();
   updateReminderSendUI();
+}
+
+function parseCsvLine(line) {
+  const out = [];
+  let cur = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === '"') {
+      if (inQuotes && line[i + 1] === '"') { cur += '"'; i++; }
+      else inQuotes = !inQuotes;
+    } else if (ch === ',' && !inQuotes) {
+      out.push(cur.trim());
+      cur = '';
+    } else {
+      cur += ch;
+    }
+  }
+  out.push(cur.trim());
+  return out;
+}
+
+function parseCsvText(text) {
+  return text
+    .replace(/^\uFEFF/, '')
+    .split(/\r?\n/)
+    .filter((l) => l.trim())
+    .map(parseCsvLine);
+}
+
+function validateAndNormalizeClientRows(rows) {
+  const report = { duplicateInFile: [], invalidEmails: [], missingNames: [], loaded: 0, skipped: 0 };
+  const seen = new Set();
+  const out = [];
+  for (const row of rows) {
+    const name = String(row.name || '').trim();
+    const email = String(row.email || '').trim();
+    if (!name && !email) continue;
+    if (!email || !isValidEmail(email)) {
+      report.invalidEmails.push({ name, email });
+      report.skipped++;
+      continue;
+    }
+    const key = normalizeEmail(email);
+    if (seen.has(key)) {
+      report.duplicateInFile.push({ name, email });
+      report.skipped++;
+      continue;
+    }
+    seen.add(key);
+    if (!name) report.missingNames.push({ email });
+    out.push({ name: name || 'Client', email });
+  }
+  report.loaded = out.length;
+  return { rows: out, report };
 }
 
 function normalizeHeader(h) {
@@ -2364,16 +2635,16 @@ function parseClientRows(matrix) {
 
 async function parseReminderClientFile(file) {
   const name = file.name.toLowerCase();
+  let matrix;
   if (name.endsWith('.csv')) {
-    const text = await file.text();
-    const rows = text.split(/\r?\n/).filter((l) => l.trim()).map((l) => l.split(',').map((c) => c.trim().replace(/^"|"$/g, '')));
-    return parseClientRows(rows);
+    matrix = parseCsvText(await file.text());
+  } else {
+    await ensureXLSX();
+    const wb = XLSX.read(await file.arrayBuffer(), { type: 'array' });
+    const sheet = wb.Sheets[wb.SheetNames[0]];
+    matrix = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
   }
-  await ensureXLSX();
-  const wb = XLSX.read(await file.arrayBuffer(), { type: 'array' });
-  const sheet = wb.Sheets[wb.SheetNames[0]];
-  const matrix = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
-  return parseClientRows(matrix);
+  return validateAndNormalizeClientRows(parseClientRows(matrix));
 }
 
 async function downloadReminderClientTemplate() {
@@ -2406,24 +2677,47 @@ function renderReminderFileList() {
     <span class="fsize">${formatSize(reminderUploadFile.size)}</span>
     <button class="fremove" type="button" aria-label="Remove file">×</button>`;
   row.querySelector('.fremove').addEventListener('click', () => {
+    if (reminderClients.length && !confirm('Remove the uploaded file and clear all clients from this list?')) return;
     reminderUploadFile = null;
+    reminderClients = [];
+    reminderExpandedId = null;
+    reminderExpandedAll = false;
+    renderUploadWarnings(null);
     renderReminderFileList();
+    renderReminderClientsTable();
+    updateReminderSendUI();
   });
   list.appendChild(row);
 }
 
 function initComplianceRemindersUI() {
-  renderDefaultTypeToggles();
+  document.getElementById('reminder-preview-btn')?.addEventListener('click', toggleReminderPayloadPreview);
+
+  document.getElementById('reminder-search')?.addEventListener('input', (e) => {
+    reminderSearchQuery = e.target.value;
+    renderReminderClientsTable();
+  });
+
+  document.getElementById('reminder-expand-all')?.addEventListener('click', () => {
+    reminderExpandedAll = true;
+    reminderExpandedId = null;
+    renderReminderClientsTable();
+  });
+
+  document.getElementById('reminder-collapse-all')?.addEventListener('click', () => {
+    reminderExpandedAll = false;
+    reminderExpandedId = null;
+    renderReminderClientsTable();
+  });
+
+  document.getElementById('reminder-dry-run')?.addEventListener('click', () => dryRunWorkflow());
 
   document.getElementById('reminder-template-download')?.addEventListener('click', () => {
     downloadReminderClientTemplate().catch((err) => alert('Could not build template: ' + err.message));
   });
 
-  document.getElementById('reminder-apply-defaults')?.addEventListener('click', applyDefaultsToAllClients);
-
   document.getElementById('reminder-add-client')?.addEventListener('click', () => {
-    const defaults = readReminderDefaultsFromUI();
-    reminderClients.push(newReminderClient('New client', '', defaults));
+    reminderClients.push(newReminderClient('New client', ''));
     reminderExpandedId = reminderClients[reminderClients.length - 1].id;
     renderReminderClientsTable();
   });
@@ -2435,17 +2729,22 @@ function initComplianceRemindersUI() {
   async function ingestFile(file) {
     uploadStatus.className = 'status-msg processing';
     uploadStatus.innerHTML = '<span class="spin"></span> Reading client list…';
+    uploadStatus.style.color = '';
     try {
-      const rows = await parseReminderClientFile(file);
-      if (!rows.length) throw new Error('No client rows found.');
-      const defaults = readReminderDefaultsFromUI();
-      reminderClients = rows.map((r) => newReminderClient(r.name, r.email, defaults));
+      const { rows, report } = await parseReminderClientFile(file);
+      if (!rows.length) throw new Error('No valid client rows found. Check name and email columns.');
+      reminderClients = rows.map((r) => newReminderClient(r.name, r.email));
       reminderUploadFile = file;
+      reminderExpandedId = reminderClients[0]?.id || null;
+      reminderExpandedAll = false;
+      renderUploadWarnings(report);
       renderReminderFileList();
       renderReminderClientsTable();
       uploadStatus.className = 'status-msg done';
-      uploadStatus.textContent = `✓ Loaded ${reminderClients.length} client${reminderClients.length === 1 ? '' : 's'} — customise reminders below.`;
+      const warn = report.skipped ? ` (${report.skipped} row${report.skipped === 1 ? '' : 's'} skipped)` : '';
+      uploadStatus.textContent = `✓ Loaded ${reminderClients.length} client${reminderClients.length === 1 ? '' : 's'}${warn}. Add compliance items and dates for each client below.`;
     } catch (err) {
+      renderUploadWarnings(null);
       uploadStatus.className = 'status-msg';
       uploadStatus.style.color = '#C0392B';
       uploadStatus.textContent = '✗ ' + err.message;
@@ -2515,7 +2814,7 @@ n8nForm.addEventListener('submit', e => {
   const raw = n8nInput.value.trim();
   if (!isValidWebhookUrl(raw)){
     n8nStatus.className = 'wf-status err';
-    n8nStatus.textContent = 'That doesn\'t look like a valid URL — paste the Production URL from your n8n Webhook node.';
+    n8nStatus.textContent = 'That doesn\'t look like a valid URL. Paste the Production URL from your n8n Webhook node.';
     return;
   }
   localStorage.setItem(N8N_STORAGE_KEY, raw);
@@ -2529,7 +2828,7 @@ async function triggerN8n(statusEl, btn, payload, successMsg){
   const url = getN8nUrl();
   if (!url){
     statusEl.className = 'wf-status err';
-    statusEl.textContent = 'Not connected yet — paste your n8n webhook URL in the panel above.';
+    statusEl.textContent = 'Not connected yet. Paste your n8n webhook URL in the panel above.';
     // Take the user straight to the paste field
     const card = document.getElementById('n8n-card');
     card.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -2564,55 +2863,73 @@ async function triggerN8n(statusEl, btn, payload, successMsg){
 n8nTest.addEventListener('click', () =>
   triggerN8n(n8nStatus, n8nTest,
     buildN8nPayload({ test: true }),
-    '✓ Connection works — n8n responded successfully.'));
+    '✓ Connection works. n8n responded successfully.'));
 
 /* ==================== EXECUTE N8N WORKFLOW ==================== */
 const runWorkflowBtn = document.getElementById('run-workflow');
 const workflowStatus = document.getElementById('workflow-status');
 const RUN_WORKFLOW_LABEL = '▶ Send reminders';
 
-async function executeWorkflow(){
-  if (!currentUser?.uid) { openSignin(); return; }
-
+async function postReminderPayload({ dryRun = false, consumeCredit = true } = {}) {
   const validation = validateReminderDispatch();
   if (!validation.ok) {
     workflowStatus.className = 'wf-status err';
     workflowStatus.textContent = '✗ ' + validation.message;
-    return;
+    return false;
   }
-
-  if (!(await consumeRunCredit('reminders'))) return;
 
   const url = getN8nUrl();
-  if (!url || !isValidWebhookUrl(url)){
+  if (!url || !isValidWebhookUrl(url)) {
     workflowStatus.className = 'wf-status err';
     workflowStatus.textContent = '✗ Connect your n8n webhook before sending.';
-    return;
+    return false;
   }
 
-  runWorkflowBtn.disabled = true;
-  runWorkflowBtn.textContent = 'Running…';
+  if (consumeCredit && !(await consumeRunCredit('reminders'))) return false;
+
   workflowStatus.className = 'wf-status run';
-  workflowStatus.innerHTML = '<span class="spin"></span> Sending to n8n…';
+  workflowStatus.innerHTML = `<span class="spin"></span> ${dryRun ? 'Running dry run on n8n…' : 'Sending to n8n…'}`;
 
   try {
     const res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', ...(await getFirebaseAuthHeaders()) },
-      body: JSON.stringify(buildN8nPayload()),
+      body: JSON.stringify(buildN8nPayload({ dryRun })),
     });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const n = validation.dispatch.length;
     const total = validation.dispatch.reduce((s, c) => s + c.reminders.length, 0);
     workflowStatus.className = 'wf-status ok';
-    workflowStatus.textContent = `✓ Sent ${total} reminder${total === 1 ? '' : 's'} for ${n} client${n === 1 ? '' : 's'} to your n8n workflow.`;
+    workflowStatus.textContent = dryRun
+      ? `✓ Dry run complete. ${n} email${n === 1 ? '' : 's'} would be sent (${total} reminder item${total === 1 ? '' : 's'} combined per client). No emails sent.`
+      : `✓ Sent ${n} email${n === 1 ? '' : 's'} to your clients (${total} reminder item${total === 1 ? '' : 's'} included).`;
+    return true;
   } catch (err) {
     workflowStatus.className = 'wf-status err';
     workflowStatus.textContent = '✗ Could not reach the workflow (' + err.message + '). Check the URL and that the workflow is active.';
-  } finally {
-    updateReminderSendUI();
-    runWorkflowBtn.textContent = RUN_WORKFLOW_LABEL;
+    return false;
   }
+}
+
+async function dryRunWorkflow() {
+  if (!currentUser?.uid) { openSignin(); return; }
+  const btn = document.getElementById('reminder-dry-run');
+  btn.disabled = true;
+  btn.style.opacity = '.6';
+  await postReminderPayload({ dryRun: true, consumeCredit: false });
+  btn.disabled = false;
+  btn.style.opacity = '';
+  updateReminderSendUI();
+}
+
+async function executeWorkflow(){
+  if (!currentUser?.uid) { openSignin(); return; }
+
+  runWorkflowBtn.disabled = true;
+  runWorkflowBtn.textContent = 'Running…';
+  await postReminderPayload({ dryRun: false, consumeCredit: true });
+  runWorkflowBtn.textContent = RUN_WORKFLOW_LABEL;
+  updateReminderSendUI();
 }
 
 runWorkflowBtn.addEventListener('click', executeWorkflow);
@@ -2717,11 +3034,11 @@ function setupUploader({ dropzoneId, inputId, listId, submitId, statusId, proces
     submit.disabled = true;
     submit.style.opacity = '.5';
 
-    // Stage 1 — uploading
+    // Stage 1: uploading
     status.className = 'status-msg processing';
     status.innerHTML = '<span class="spin"></span> <b>Uploading ' + n + ' file' + (n > 1 ? 's' : '') + '…</b> Adding to the processing queue.';
 
-    // Stage 2 — processing
+    // Stage 2: processing
     setTimeout(() => {
       status.innerHTML = '<span class="spin"></span> <b>Processing…</b> ' + processingMessage;
     }, 1400);
@@ -2738,7 +3055,7 @@ function setupUploader({ dropzoneId, inputId, listId, submitId, statusId, proces
   });
 }
 
-/* Bank Categoriser — locked until backend is ready (no uploader wired) */
+/* Bank Categoriser: locked until backend is ready (no uploader wired) */
 
 /* ==================== TB → NCE TEMPLATE ==================== */
 let templateMapCache = null;
@@ -2965,7 +3282,7 @@ function renderDetectedMetaCopy() {
   const fyLabel = formatIndianDate(finStatementMeta.fyEnd);
   const fyNote = finStatementMeta.fyDetected
     ? 'detected from file'
-    : 'default — edit if needed';
+    : 'default; edit if needed';
   if (finStatementMeta.entityName) {
     copy.innerHTML = `<strong>${escapeHtml(finStatementMeta.entityName)}</strong><br>Year ended ${fyLabel} <span style="color:var(--ink-light)">(${fyNote})</span>`;
   } else {
@@ -3027,7 +3344,7 @@ async function refreshStatementMetaFromFile() {
       fyDetected: false,
     };
     document.getElementById('fin-detected-copy').textContent =
-      'Could not read file details — you can still generate, or use Edit details.';
+      'Could not read file details. You can still generate, or use Edit details.';
     syncMetaEditFields();
   }
 }
@@ -3340,7 +3657,7 @@ async function buildAndShowResult(result, entityName, fyEnd, prevFyEnd) {
       ? 'Medium'
       : result.mapping_confidence === 'low'
         ? 'Low'
-        : '—';
+        : 'N/A';
 
   document.getElementById('tally-sum-entity').textContent = entityName;
   document.getElementById('tally-sum-fy').textContent = formatIndianDate(fyEnd);
@@ -3370,7 +3687,7 @@ async function buildAndShowResult(result, entityName, fyEnd, prevFyEnd) {
     suspenseWrap.hidden = false;
     suspenseEl.textContent = `₹ ${formatIndian(plug)}`;
     suspenseCallout.hidden = false;
-    suspenseCopy.innerHTML = `This trial balance did not foot — <strong>₹ ${formatIndian(plug)}</strong> was added to `
+    suspenseCopy.innerHTML = `This trial balance did not foot. <strong>₹ ${formatIndian(plug)}</strong> was added to `
       + `<strong>Other current liabilities</strong> as a suspense plug so the balance sheet balances. `
       + `Review before sign-off.`;
   } else {
@@ -3558,7 +3875,7 @@ async function buildFilledXLSX(result, meta) {
     });
   }
 
-  // Notes — flat period mappings
+  // Notes: flat period mappings mappings
   Object.entries(map.notes).forEach(([key, cfg]) => {
     if (key === 'owners_capital_details') return;
     const node = getByPath(result.notes, key);
@@ -3648,7 +3965,7 @@ tallySubmit.addEventListener('click', async () => {
   }
 
   tallyStatus.className = 'status-msg done';
-  tallyStatus.innerHTML = '✓ Conversion complete — review the mapping below and download your NCE workbook.';
+  tallyStatus.innerHTML = '✓ Conversion complete. Review the mapping below and download your NCE workbook.';
   tallySubmit.disabled = false;
   tallySubmit.style.opacity = '1';
 });

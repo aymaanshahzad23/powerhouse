@@ -66,6 +66,13 @@ function updateCell(sheet, rowIndex, col, header, value) {
   sheet.getRange(rowIndex + 1, col[header] + 1).setValue(value);
 }
 
+function updateCells(sheet, rowIndex, col, updates) {
+  Object.keys(updates).forEach(header => {
+    sheet.getRange(rowIndex + 1, col[header] + 1).setValue(updates[header]);
+  });
+  SpreadsheetApp.flush();
+}
+
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
@@ -236,13 +243,12 @@ function sendThreadedReply(params) {
   }, "me");
 }
 
-function captureThreadId(sheet, rowIndex, col, email, subject) {
+function captureThreadId(email, subject) {
   try {
     Utilities.sleep(3000);
     const threads = GmailApp.search(`in:sent to:${email} subject:"${subject}"`);
     if (threads.length > 0) {
       const latest = threads.sort((a, b) => b.getLastMessageDate() - a.getLastMessageDate())[0];
-      updateCell(sheet, rowIndex, col, "Thread ID", latest.getId());
       return latest.getId();
     }
   } catch (e) {

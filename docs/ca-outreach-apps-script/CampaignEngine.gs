@@ -13,6 +13,7 @@ function runCampaignForSheet(sheetName, getSubject, getBody, getFollowUpBody) {
   const col = mapHeaders(data[0]);
   validateHeaders(col);
   flagBouncedRows(sheet, data, col);
+  SpreadsheetApp.flush();
 
   const now = new Date();
   let sentCount = 0;
@@ -23,7 +24,6 @@ function runCampaignForSheet(sheetName, getSubject, getBody, getFollowUpBody) {
     if (!record.email || !isValidEmail(record.email)) continue;
     if (TERMINAL_STATUSES.includes(record.status)) continue;
 
-    // Partial failure: first mail sent but status never updated — don't resend
     if (record.threadId && (!record.status || record.status === "Pending")) continue;
 
     try {
@@ -40,8 +40,10 @@ function runCampaignForSheet(sheetName, getSubject, getBody, getFollowUpBody) {
         randomDelay(CONFIG);
       }
     } catch (e) {
-      updateCell(sheet, i, col, "Remarks", e.message);
-      updateCell(sheet, i, col, "Last Attempt", now);
+      updateCells(sheet, i, col, {
+        "Remarks": e.message,
+        "Last Attempt": now
+      });
       Logger.log(`Error processing ${record.email}: ${e.message}`);
     }
   }
@@ -53,14 +55,23 @@ function sendFirstEmail(sheet, rowIndex, col, record, now, getSubject, getBody) 
   const subject = getSubject();
   sendOutreachEmail(record.email, subject, getBody(record.name, record.firm));
 
-  updateCell(sheet, rowIndex, col, "Status", "Sent");
-  updateCell(sheet, rowIndex, col, "First Sent At", now);
-  updateCell(sheet, rowIndex, col, "Last Attempt", now);
-  updateCell(sheet, rowIndex, col, "Remarks", "First email sent");
+  updateCells(sheet, rowIndex, col, {
+    "Status": "Sent",
+    "First Sent At": now,
+    "Last Attempt": now,
+    "Remarks": "First email sent"
+  });
 
-  const threadId = captureThreadId(sheet, rowIndex, col, record.email, subject);
-  if (!threadId) {
-    updateCell(sheet, rowIndex, col, "Remarks", "First email sent (Thread ID pending — will retry next run)");
+  const threadId = captureThreadId(record.email, subject);
+  if (threadId) {
+    updateCells(sheet, rowIndex, col, {
+      "Thread ID": threadId,
+      "Remarks": "First email sent"
+    });
+  } else {
+    updateCells(sheet, rowIndex, col, {
+      "Remarks": "First email sent (Thread ID pending — will retry next run)"
+    });
   }
 
   return true;
@@ -74,40 +85,48 @@ function sendFollowUp(sheet, rowIndex, col, record, now, getFollowUpBody) {
     const sentThreads = GmailApp.search(`in:sent to:${record.email}`);
     if (sentThreads.length > 0) {
       const latest = sentThreads.sort((a, b) => b.getLastMessageDate() - a.getLastMessageDate())[0];
-      updateCell(sheet, rowIndex, col, "Thread ID", latest.getId());
       record.threadId = latest.getId();
+      updateCells(sheet, rowIndex, col, { "Thread ID": record.threadId });
     }
   }
 
   if (!record.threadId) {
-    updateCell(sheet, rowIndex, col, "Status", "Failed");
-    updateCell(sheet, rowIndex, col, "Remarks", "Missing Thread ID, cannot send follow-up");
-    updateCell(sheet, rowIndex, col, "Last Attempt", now);
+    updateCells(sheet, rowIndex, col, {
+      "Status": "Failed",
+      "Remarks": "Missing Thread ID, cannot send follow-up",
+      "Last Attempt": now
+    });
     return false;
   }
 
   const thread = GmailApp.getThreadById(record.threadId);
   if (!thread) {
-    updateCell(sheet, rowIndex, col, "Status", "Failed");
-    updateCell(sheet, rowIndex, col, "Remarks", "Thread not found");
-    updateCell(sheet, rowIndex, col, "Last Attempt", now);
+    updateCells(sheet, rowIndex, col, {
+      "Status": "Failed",
+      "Remarks": "Thread not found",
+      "Last Attempt": now
+    });
     return false;
   }
 
   const messages = thread.getMessages();
   if (!messages.length) {
-    updateCell(sheet, rowIndex, col, "Status", "Failed");
-    updateCell(sheet, rowIndex, col, "Remarks", "Thread has no messages");
-    updateCell(sheet, rowIndex, col, "Last Attempt", now);
+    updateCells(sheet, rowIndex, col, {
+      "Status": "Failed",
+      "Remarks": "Thread has no messages",
+      "Last Attempt": now
+    });
     return false;
   }
 
   const anchor = messages[messages.length - 1];
   const messageId = anchor.getHeader("Message-ID");
   if (!messageId) {
-    updateCell(sheet, rowIndex, col, "Status", "Failed");
-    updateCell(sheet, rowIndex, col, "Remarks", "Missing Message-ID on original email");
-    updateCell(sheet, rowIndex, col, "Last Attempt", now);
+    updateCells(sheet, rowIndex, col, {
+      "Status": "Failed",
+      "Remarks": "Missing Message-ID on original email",
+      "Last Attempt": now
+    });
     return false;
   }
 
@@ -129,10 +148,12 @@ function sendFollowUp(sheet, rowIndex, col, record, now, getFollowUpBody) {
     references: messageId
   });
 
-  updateCell(sheet, rowIndex, col, "Status", "Completed");
-  updateCell(sheet, rowIndex, col, "Followup Sent At", now);
-  updateCell(sheet, rowIndex, col, "Last Attempt", now);
-  updateCell(sheet, rowIndex, col, "Remarks", "Follow-up sent in thread");
+  updateCells(sheet, rowIndex, col, {
+    "Status": "Completed",
+    "Followup Sent At": now,
+    "Last Attempt": now,
+    "Remarks": "Follow-up sent in thread"
+  });
 
   return true;
 }
