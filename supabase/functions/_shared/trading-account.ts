@@ -33,6 +33,17 @@ function splitLine(line: string): string[] {
   return line.split(',').map((c) => c.trim());
 }
 
+function sheetBodies(sourceText: string, namePattern: RegExp): string[] {
+  const sections = String(sourceText || '').split(/---\s*(?:Sheet|File):\s*([^\n-]+)\s*---/i);
+  if (sections.length === 1) return [sections[0]];
+  const out: string[] = [];
+  for (let i = 1; i < sections.length; i += 2) {
+    const name = (sections[i] || '').trim();
+    if (namePattern.test(name)) out.push(sections[i + 1] || '');
+  }
+  return out.length ? out : [sourceText];
+}
+
 function rowLabel(cells: string[]): string {
   const parts = cells.slice(0, 3).filter(Boolean);
   return parts.join(' ').trim();
@@ -108,10 +119,11 @@ function parseSplitRow(cells: string[], matchedLabels: string[]): Partial<Tradin
  * Works across layouts where labels mention opening stock, purchases, rate difference, closing stock.
  */
 export function extractTradingAccount(sourceText: string): TradingAccountHints | null {
-  const lines = String(sourceText || '')
-    .split(/\r?\n/)
-    .map((l) => l.trim())
-    .filter(Boolean);
+  const bodies = sheetBodies(sourceText, /\bpl\b|profit|trading/i);
+  const lines = bodies
+    .flatMap((body) => body.split(/\r?\n/))
+    .map((l) => l.replace(/\r/g, ''))
+    .filter((l) => l.trim());
 
   if (!lines.length) return null;
 

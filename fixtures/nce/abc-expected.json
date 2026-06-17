@@ -1,0 +1,33 @@
+{
+  "entity_name": "ABC AUTOMOBILE SERVICE CENTER",
+  "fy_end": "2020-03-31",
+  "profit_and_loss": {
+    "revenue_from_operations": { "current": 14246749.43 },
+    "other_income": { "current": 218628.08 },
+    "cost_of_goods_sold": { "current": 14376979.62 },
+    "employee_benefits_expense": { "current": 335200 },
+    "finance_costs": { "current": 89821.36 },
+    "depreciation_amortization": { "current": 290448.6 },
+    "other_expenses": { "current": 493693.78 }
+  },
+  "net_profit_current": -1120765.85,
+  "balance_sheet": {
+    "equity_and_liabilities": {
+      "owners_capital": { "current": 1686922.38 },
+      "long_term_borrowings": { "current": 7221500 },
+      "short_term_borrowings": { "current": 741580.26 },
+      "trade_payables": { "current": 1900514.44 },
+      "other_current_liabilities": { "current": 10000 },
+      "other_long_term_liabilities": { "current": 841560.25 }
+    },
+    "assets": {
+      "property_plant_equipment": { "current": 1651152.4 },
+      "long_term_loans_advances": { "current": 1500000 },
+      "inventories": { "current": 3919329.39 },
+      "trade_receivables": { "current": 3541801.02 },
+      "cash_and_bank": { "current": 657642.73 },
+      "short_term_loans_advances": { "current": 1132151.79 },
+      "other_current_assets": { "current": 0 }
+    }
+  }
+}

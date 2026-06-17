@@ -185,11 +185,16 @@ function reconcileBalanceSheetFromHints(
   const assets = bs.assets;
   const c = hints.current;
 
+  applyBsHint(eq, 'owners_capital', c.owners_capital, 'current', adjustments, 'Owners capital');
   applyBsHint(eq, 'long_term_borrowings', c.long_term_borrowings, 'current', adjustments, 'Long-term borrowings');
   applyBsHint(eq, 'short_term_borrowings', c.short_term_borrowings, 'current', adjustments, 'Short-term borrowings');
   applyBsHint(eq, 'trade_payables', c.trade_payables, 'current', adjustments, 'Trade payables');
   applyBsHint(eq, 'other_current_liabilities', c.other_current_liabilities, 'current', adjustments, 'Other current liabilities');
+  applyBsHint(assets, 'property_plant_equipment', c.property_plant_equipment, 'current', adjustments, 'Property, plant & equipment');
   applyBsHint(assets, 'long_term_loans_advances', c.long_term_loans_advances, 'current', adjustments, 'Long-term loans & advances');
+  applyBsHint(assets, 'inventories', c.inventories, 'current', adjustments, 'Inventories');
+  applyBsHint(assets, 'trade_receivables', c.trade_receivables, 'current', adjustments, 'Trade receivables');
+  applyBsHint(assets, 'cash_and_bank', c.cash_and_bank, 'current', adjustments, 'Cash and bank');
   applyBsHint(assets, 'short_term_loans_advances', c.short_term_loans_advances, 'current', adjustments, 'Short-term loans & advances');
   if (c.other_current_assets > 0) {
     applyBsHint(assets, 'other_current_assets', c.other_current_assets, 'current', adjustments, 'Other current assets');
@@ -206,6 +211,31 @@ function reconcileBooksImbalance(
     assets?: Record<string, Period>;
   } | undefined;
   if (!bs?.equity_and_liabilities || !bs.assets) return;
+
+  // Prefer source book totals when available — avoids bogus suspense plugs on partial parses.
+  if (bsHints?.current.total_assets && bsHints?.current.total_liabilities) {
+    const sourceDiff = round2(bsHints.current.total_assets - bsHints.current.total_liabilities);
+    if (Math.abs(sourceDiff) > 1) {
+      const suspenseKey = 'other_long_term_liabilities';
+      const suspense = bs.equity_and_liabilities[suspenseKey] ?? { current: 0, previous: 0 };
+      const from = getPeriod(suspense, 'current');
+      const to = round2(sourceDiff);
+      if (Math.abs(from - to) > 1) {
+        adjustments.push({
+          field: `balance_sheet.equity_and_liabilities.${suspenseKey}`,
+          period: 'current',
+          from,
+          to,
+          reason: 'Books imbalance from source balance sheet totals (suspense pending reconciliation)',
+        });
+        setPeriod(bs.equity_and_liabilities, suspenseKey, 'current', to);
+        const notes = (out.notes ?? {}) as Record<string, unknown>;
+        out.notes = notes;
+        notes.books_suspense_disclosed = true;
+      }
+    }
+    return;
+  }
 
   for (const period of ['current', 'previous'] as const) {
     const totalLiab = sumSide(bs.equity_and_liabilities, LIAB_KEYS, period);
@@ -259,6 +289,12 @@ function reconcileOtherExpensesDoubleCount(
 
   const pl = out.profit_and_loss as Record<string, Period> | undefined;
   if (!pl) return;
+
+  const notes = (out.notes ?? {}) as { other_expenses_breakup?: { head: string; current: number }[] };
+  const breakup = notes.other_expenses_breakup ?? [];
+  const hasRateInOther = breakup.some((r) => /rate\s*diff/i.test(r.head))
+    || Math.abs(breakup.reduce((s, r) => s + r.current, 0) - hints.current.rateDifference) < 1000;
+  if (!hasRateInOther) return;
 
   const other = pl.other_expenses ?? { current: 0, previous: 0 };
   pl.other_expenses = other;

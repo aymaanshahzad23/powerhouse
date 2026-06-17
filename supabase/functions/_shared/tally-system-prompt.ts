@@ -93,6 +93,8 @@ INPUT FORMATS (adapt to whatever is provided):
 - Ignore README / instruction sheets — map only real accounting data
 - Infer entity_name and fy_end from headers when present; otherwise use values from the user message
 
+When PARSED_SCHEDULE_TOTALS appears in the input, those figures are pre-computed from the source and are AUTHORITATIVE for the listed Schedule III heads. Do not change them. Your job is to fill notes, previous-year columns, owners_capital_details, and any heads not listed in PARSED_SCHEDULE_TOTALS.
+
 Rules:
 - notes_to_preparer must always be an empty string ""
 - All amounts in INR as plain numbers (no commas, no symbols). Use 0 if not present.

@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "npx --yes serve . -p 8742",
     "dev:supabase": "npx supabase functions serve --env-file .env",
-    "deploy:functions": "bash scripts/deploy-functions.sh"
+    "deploy:functions": "bash scripts/deploy-functions.sh",
+    "test:nce": "npx -y deno run --allow-read --allow-run scripts/test-nce-deterministic.ts"
   }
 }

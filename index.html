@@ -1444,6 +1444,10 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
             <p class="fin-detected-copy" id="tally-suspense-copy"></p>
           </div>
 
+          <div id="tally-validation-callout" class="fin-detected-meta" hidden style="margin-bottom:18px;border-color:#F5C6C6;background:#FFF5F5">
+            <p class="fin-detected-copy" id="tally-validation-copy"></p>
+          </div>
+
           <div class="tbl-wrap" id="tally-preview-wrap">
             <table class="preview" id="tally-preview-table">
               <thead>
@@ -4477,15 +4481,33 @@ async function buildAndShowResult(result, entityName, fyEnd, prevFyEnd) {
   const suspenseCopy = document.getElementById('tally-suspense-copy');
   if (suspenseAdj) {
     const plug = roundMoney(suspenseAdj.to - suspenseAdj.from);
+    const plugField = /long.term/i.test(suspenseAdj.field || '') ? 'Other long-term liabilities' : 'Other current liabilities';
     suspenseWrap.hidden = false;
-    suspenseEl.textContent = `₹ ${formatIndian(plug)}`;
+    suspenseEl.textContent = `₹ ${formatIndian(Math.abs(plug))}`;
     suspenseCallout.hidden = false;
-    suspenseCopy.innerHTML = `This trial balance did not foot. <strong>₹ ${formatIndian(plug)}</strong> was added to `
-      + `<strong>Other current liabilities</strong> as a suspense plug so the balance sheet balances. `
+    suspenseCopy.innerHTML = `This trial balance did not foot. <strong>₹ ${formatIndian(Math.abs(plug))}</strong> was added to `
+      + `<strong>${plugField}</strong> as a suspense plug so the balance sheet balances. `
       + `Review before sign-off.`;
   } else {
     suspenseWrap.hidden = true;
     suspenseCallout.hidden = true;
+  }
+
+  const validation = result.mapping_validation || {};
+  const validationCallout = document.getElementById('tally-validation-callout');
+  const validationCopy = document.getElementById('tally-validation-copy');
+  const warnings = validation.warnings || [];
+  if (warnings.length > 0) {
+    validationCallout.hidden = false;
+    const profitLine = validation.profit_ok === false
+      ? `<br>Computed net profit <strong>₹ ${formatIndian(validation.computed_net_profit)}</strong> vs source `
+        + `<strong>₹ ${formatIndian(validation.source_net_profit)}</strong>.`
+      : '';
+    validationCopy.innerHTML = `<strong>Mapping checks</strong>${profitLine}<ul style="margin:8px 0 0;padding-left:1.2rem">`
+      + warnings.map((w) => `<li>${escapeHtml(w)}</li>`).join('')
+      + '</ul>';
+  } else {
+    validationCallout.hidden = true;
   }
 
   const badge = document.getElementById('tally-result-badge');
@@ -4799,11 +4821,6 @@ tallySubmit.addEventListener('click', async () => {
     return;
   }
 
-  mappingResult = reconcileMappingResult(
-    mappingResult,
-    extractTradingAccount(fileText),
-    extractBalanceSheetHints(fileText),
-  );
   const meta = resolveStatementMeta(mappingResult, hints);
   finStatementMeta = { ...finStatementMeta, ...meta, fyDetected: finStatementMeta.fyDetected };
   syncMetaEditFields();

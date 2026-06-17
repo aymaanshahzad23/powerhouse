@@ -41,6 +41,10 @@ const bundles = {
       { name: '../_shared/trading-account.ts', content: read('_shared/trading-account.ts') },
       { name: '../_shared/balance-sheet.ts', content: read('_shared/balance-sheet.ts') },
       { name: '../_shared/tally-system-prompt.ts', content: read('_shared/tally-system-prompt.ts') },
+      { name: '../_shared/ledger-rules.ts', content: read('_shared/ledger-rules.ts') },
+      { name: '../_shared/source-ledger.ts', content: read('_shared/source-ledger.ts') },
+      { name: '../_shared/schedule-aggregator.ts', content: read('_shared/schedule-aggregator.ts') },
+      { name: '../_shared/validate-mapping.ts', content: read('_shared/validate-mapping.ts') },
     ],
   },
   'book-build-start': {
