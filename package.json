@@ -7,6 +7,7 @@
     "deploy:functions": "bash scripts/deploy-functions.sh",
     "test:nce": "npx -y deno run --allow-read --allow-run scripts/test-nce-deterministic.ts",
     "test:nce:e2e": "npx -y deno run --allow-read --allow-run --allow-env --allow-net scripts/test-nce-e2e.ts",
-    "test:nova-flat": "npx -y deno run --allow-read --allow-run scripts/test-nova-flat.ts"
+    "test:nova-flat": "npx -y deno run --allow-read --allow-run scripts/test-nova-flat.ts",
+    "test:meridian": "python3 scripts/generate-meridian-fixture.py && npx -y deno run --allow-read --allow-run scripts/test-meridian-flat.ts"
   }
 }

@@ -60,7 +60,7 @@ export function matchFlatTbTarget(label: string, group: string, side: 'debit' | 
     if (/\bcapital\s+account\b/i.test(g) || /\bpartners?'\s+capital\b/i.test(l)) {
       return { statement: 'bs', side: 'equity_and_liabilities', key: 'owners_capital' };
     }
-    if (/\bloans?\s*\(liability\)\b/i.test(g) || /\bterm\s+loan\b/i.test(l)) {
+    if (/\bloans?\s*\(liability\)/i.test(g) || /\bterm\s+loan\b/i.test(l)) {
       return { statement: 'bs', side: 'equity_and_liabilities', key: 'long_term_borrowings' };
     }
     if (/\bbank\s+od\b/i.test(g) || /\bcash\s+credit\b/i.test(l)) {
@@ -90,7 +90,7 @@ export function matchFlatTbTarget(label: string, group: string, side: 'debit' | 
     if (/\bstock[\s-]*in[\s-]*hand\b/i.test(g) && /\bclosing\b/i.test(l)) {
       return { statement: 'bs', side: 'assets', key: 'inventories' };
     }
-    if (/\bpurchase\s+accounts?\b/i.test(g) || /\bpurchas/i.test(l)) {
+    if (/\bpurchase\s+accounts?\b/i.test(g) || /\bpurchas(es|ses)?\s*[-–]/i.test(l)) {
       return { statement: 'pl', key: '_cogs_purchases' };
     }
     if (/\brate\s+diff/i.test(l)) {
@@ -113,7 +113,7 @@ export function matchFlatTbTarget(label: string, group: string, side: 'debit' | 
     if (/\bfixed\s+assets?\b/i.test(g) && !/\baccumulated\b/i.test(l)) {
       return { statement: 'bs', side: 'assets', key: '_ppe_gross' };
     }
-    if (/\bdeposits?\s*\(asset\)\b/i.test(g)) {
+    if (/\bdeposits?\s*\(asset\)/i.test(g)) {
       if (/security|long[\s-]*term/i.test(l)) {
         return { statement: 'bs', side: 'assets', key: 'long_term_loans_advances' };
       }
@@ -128,7 +128,7 @@ export function matchFlatTbTarget(label: string, group: string, side: 'debit' | 
     if (/\bbank\s+accounts?\b/i.test(g)) {
       return { statement: 'bs', side: 'assets', key: 'cash_and_bank' };
     }
-    if (/\bloans?\s*&\s*advances?\s*\(asset\)\b/i.test(g)) {
+    if (/\bloans?\s*&\s*advances?\s*\(asset\)/i.test(g)) {
       return { statement: 'bs', side: 'assets', key: 'short_term_loans_advances' };
     }
   }

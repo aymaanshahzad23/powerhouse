@@ -1,26 +1,15 @@
-# NCE mapping fixtures
+# NCE golden fixtures
 
-Local QA for TB → NCE conversion. **Not used in production** — compare deterministic mapping against the corrected Schedule III workbook.
+| File | Entity | Format | Purpose |
+|------|--------|--------|---------|
+| `ABC_2019-20_source.xls` | ABC Automobile | pl + bs sheets | Classic Tally export |
+| `MERIDIAN_flat_tb.xlsx` | Meridian Polymer Works | Flat TB (Ledger \| Group \| Dr \| Cr) | Complex traps regression |
 
-## Files
-
-| File | Purpose |
-|------|---------|
-| `ABC_2019-20_source.xls` | Source pl / bs / Dep workbook (client-style input) |
-| `abc-expected.json` | Key Schedule III line items from the corrected NCE output |
-
-## Run deterministic test (no API)
+Regenerate Meridian:
 
 ```bash
-npm run test:nce
+python3 scripts/generate-meridian-fixture.py
+npm run test:meridian
 ```
 
-Requires [Deno](https://deno.land/). Tests parsers + schedule aggregator only — no Claude call.
-
-## Full pipeline (local edge)
-
-```bash
-export ANTHROPIC_API_KEY=...
-npx supabase functions serve --env-file .env
-# Upload ABC_2019-20_source.xls via localhost:8742 workspace
-```
+**MERIDIAN traps:** export + domestic sales, sales returns, Frieght typo, COGS components, Cash Credit (Bank OD), split sundry creditors, audit fee vs payable, advance to suppliers, unbalanced TB suspense, trailing-space debtor name, zero-balance ledger.

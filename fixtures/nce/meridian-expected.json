@@ -1,0 +1,73 @@
+{
+  "entity_name": "MERIDIAN POLYMER WORKS",
+  "fy_end": "2024-03-31",
+  "profit_and_loss": {
+    "revenue_from_operations": {
+      "current": 21131672.6
+    },
+    "other_income": {
+      "current": 58023.9
+    },
+    "cost_of_goods_sold": {
+      "current": 16050480.96
+    },
+    "employee_benefits_expense": {
+      "current": 2802458.25
+    },
+    "finance_costs": {
+      "current": 469135.68
+    },
+    "depreciation_amortization": {
+      "current": 567890.12
+    },
+    "other_expenses": {
+      "current": 1362682.56
+    }
+  },
+  "balance_sheet": {
+    "equity_and_liabilities": {
+      "owners_capital": {
+        "current": 8393837.93
+      },
+      "long_term_borrowings": {
+        "current": 3456789.45
+      },
+      "short_term_borrowings": {
+        "current": 1234567.8
+      },
+      "trade_payables": {
+        "current": 2345678.9
+      },
+      "other_current_liabilities": {
+        "current": 1065430.56
+      }
+    },
+    "assets": {
+      "property_plant_equipment": {
+        "current": 7901122.46
+      },
+      "long_term_loans_advances": {
+        "current": 250000.0
+      },
+      "inventories": {
+        "current": 2789012.34
+      },
+      "trade_receivables": {
+        "current": 3796921.83
+      },
+      "cash_and_bank": {
+        "current": 1111111.1
+      },
+      "short_term_loans_advances": {
+        "current": 648136.91
+      }
+    }
+  },
+  "net_profit": -62951.07,
+  "tb_suspense": 127843.65,
+  "ocl_excl_suspense": 937586.91,
+  "total_liabilities": 16496304.64,
+  "total_assets": 16496304.64,
+  "pre_loss_capital": 8456789.0,
+  "trade_receivables": 3796921.83
+}

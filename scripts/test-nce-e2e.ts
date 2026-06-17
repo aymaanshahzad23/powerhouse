@@ -212,6 +212,22 @@ if (novaPack) {
   else fail('NOVA flat: owners capital', `${nCap} vs 10660537.35`);
 }
 
+console.log('\n--- MERIDIAN flat TB (fixture) ---');
+const meridianPath = `${root}/fixtures/nce/MERIDIAN_flat_tb.xlsx`;
+try {
+  const meridianPack = await xlsxToBrowserCsvPack(meridianPath, true);
+  const meridian = runPipeline(meridianPack, 'MERIDIAN POLYMER WORKS', '2024-03-31', '2023-03-31');
+  assertSchema(meridian.result as Record<string, unknown>, 'MERIDIAN');
+  const mPl = (meridian.result as { profit_and_loss: Record<string, { current: number }> }).profit_and_loss;
+  const mProfit = computeProfitFromPl(mPl);
+  if (Math.abs(mProfit - (-62_951.07)) < 5000) pass('MERIDIAN: net profit', String(mProfit));
+  else fail('MERIDIAN: net profit', `${mProfit} vs -62951.07`);
+  if ((mPl.revenue_from_operations?.current ?? 0) > 20_000_000) pass('MERIDIAN: revenue', String(mPl.revenue_from_operations?.current));
+  else fail('MERIDIAN: revenue', String(mPl.revenue_from_operations?.current));
+} catch (e) {
+  fail('MERIDIAN: file', e instanceof Error ? e.message : String(e));
+}
+
 console.log('\n--- Live API (optional) ---');
 const apiKey = Deno.env.get('ANTHROPIC_API_KEY');
 if (!apiKey) {
