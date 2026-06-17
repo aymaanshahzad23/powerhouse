@@ -1,5 +1,6 @@
 import { getCoaTemplate } from './coa.ts';
 import { bookClassifySystemPrompt, buildClassifyUserMessage } from './book-classify-prompt.ts';
+import { getAnthropicModel } from './anthropic-model.ts';
 import { ingestClientPack } from './pack-ingest.ts';
 import { reconcileBooks, type BookBuildResult } from './reconcile-books.ts';
 
@@ -59,7 +60,7 @@ export async function buildBooksWithClaude({
         'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
+        model: getAnthropicModel(),
         max_tokens: 4096,
         system: bookClassifySystemPrompt,
         messages: [{ role: 'user', content: userMessage }],

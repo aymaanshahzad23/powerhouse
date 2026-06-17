@@ -180,6 +180,38 @@ if (zRev > 0 && zCogs > 0) pass('ZENITH: pipeline', 'no throw, figures populated
 else fail('ZENITH: pipeline', 'empty P&L');
 }
 
+console.log('\n--- NOVA flat TB ---');
+const novaCandidates = [
+  `${root}/../Downloads/Trial_Balance_ZENITH_FLAT_FY2024.xlsx`,
+  '/Users/aymaanshahzad23/Downloads/Trial_Balance_ZENITH_FLAT_FY2024.xlsx',
+];
+let novaPack = '';
+for (const candidate of novaCandidates) {
+  try {
+    novaPack = await xlsxToBrowserCsvPack(candidate, true);
+    break;
+  } catch { /* try next */ }
+}
+if (!novaPack) fail('NOVA flat: file', 'Trial_Balance_ZENITH_FLAT_FY2024.xlsx not found');
+if (novaPack) {
+  const nova = runPipeline(novaPack, 'NOVA CHEMICAL TRADERS', '2024-03-31', '2023-03-31');
+  assertSchema(nova.result as Record<string, unknown>, 'NOVA flat');
+  const nPl = (nova.result as { profit_and_loss: Record<string, { current: number }> }).profit_and_loss;
+  const nBs = (nova.result as { balance_sheet: { equity_and_liabilities: Record<string, { current: number }> } }).balance_sheet;
+  const nRev = nPl.revenue_from_operations?.current ?? 0;
+  const nCogs = nPl.cost_of_goods_sold?.current ?? 0;
+  const nProfit = computeProfitFromPl(nPl);
+  const nCap = nBs.equity_and_liabilities.owners_capital?.current ?? 0;
+  if (Math.abs(nRev - 25_954_489) < 100) pass('NOVA flat: revenue', String(nRev));
+  else fail('NOVA flat: revenue', `${nRev} vs 25954489`);
+  if (Math.abs(nCogs - 18_708_135.7) < 100) pass('NOVA flat: COGS', String(nCogs));
+  else fail('NOVA flat: COGS', `${nCogs} vs 18708135.7`);
+  if (Math.abs(nProfit - (-1_813_353.1)) < 5000) pass('NOVA flat: net loss', String(nProfit));
+  else fail('NOVA flat: net loss', `${nProfit} vs -1813353.1`);
+  if (Math.abs(nCap - 10_660_537.35) < 100) pass('NOVA flat: owners capital', String(nCap));
+  else fail('NOVA flat: owners capital', `${nCap} vs 10660537.35`);
+}
+
 console.log('\n--- Live API (optional) ---');
 const apiKey = Deno.env.get('ANTHROPIC_API_KEY');
 if (!apiKey) {

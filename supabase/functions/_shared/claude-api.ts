@@ -1,5 +1,6 @@
 import { tallyNotesPrompt } from './tally-notes-prompt.ts';
 import { parseJsonFromLlmText } from './parse-llm-json.ts';
+import { getAnthropicModel } from './anthropic-model.ts';
 import { reconcileMappingResult } from './reconcile-mapping.ts';
 import { extractTradingAccount, formatTradingAccountBlock } from './trading-account.ts';
 import { extractBalanceSheetHints, formatBalanceSheetBlock } from './balance-sheet.ts';
@@ -25,7 +26,7 @@ async function fetchNotesSupplement(
       'anthropic-version': '2023-06-01',
     },
     body: JSON.stringify({
-      model: 'claude-sonnet-4-6',
+      model: getAnthropicModel(),
       max_tokens: 4096,
       system: tallyNotesPrompt,
       messages: [{ role: 'user', content: userMessage }],

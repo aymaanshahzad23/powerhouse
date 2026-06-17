@@ -212,7 +212,9 @@ function reconcileBooksImbalance(
   } | undefined;
   if (!bs?.equity_and_liabilities || !bs.assets) return;
 
-  // Prefer source book totals when available — avoids bogus suspense plugs on partial parses.
+  const notesEarly = (out.notes ?? {}) as Record<string, unknown>;
+  if (notesEarly.tb_suspense_amount) return;
+
   if (bsHints?.current.total_assets && bsHints?.current.total_liabilities) {
     const sourceDiff = round2(bsHints.current.total_assets - bsHints.current.total_liabilities);
     if (Math.abs(sourceDiff) > 1) {

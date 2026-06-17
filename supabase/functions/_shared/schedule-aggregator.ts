@@ -1,6 +1,7 @@
 import type { BalanceSheetHints } from './balance-sheet.ts';
 import type { TradingAccountHints } from './trading-account.ts';
 import { aggregateSourceLedgers, parseSourceLedgers } from './source-ledger.ts';
+import { parseFlatTbFooterTotals } from './flat-trial-balance.ts';
 import { sumPlExpenses } from './reconcile-mapping.ts';
 
 type Period = { current: number; previous: number };
@@ -169,8 +170,12 @@ export function buildDeterministicMapping(
     }
     notes.revenue_breakup = revBreakup;
     const revTotal = round2(Object.values(agg.revenueBreakup).reduce((s, v) => s + v, 0));
-    const opRev = pl.revenue_from_operations?.current || 0;
-    if (revTotal > opRev) setPl(pl, 'revenue_from_operations', revTotal);
+    const opRev = pl.revenue_from_operations?.current || agg.pl.revenue_from_operations || 0;
+    if (opRev > 0) {
+      setPl(pl, 'revenue_from_operations', opRev);
+    } else if (revTotal > 0) {
+      setPl(pl, 'revenue_from_operations', revTotal);
+    }
   }
 
   const mappedValue = round2(
@@ -181,8 +186,37 @@ export function buildDeterministicMapping(
   const sourceValue = round2(lines.reduce((s, l) => s + l.amount, 0));
   const coverage = sourceValue > 0 ? round2((mappedValue / sourceValue) * 100) : 0;
 
+  const isFlatTb = lines.some((l) => Boolean(l.group));
+  if (isFlatTb) {
+    const revenue = (pl.revenue_from_operations?.current || 0) + (pl.other_income?.current || 0);
+    const expenses = sumPlExpenses(pl, 'current');
+    const netProfit = round2(revenue - expenses);
+    const preLossCapital = eq.owners_capital?.current || agg.bsEq.owners_capital || 0;
+    if (preLossCapital > 0 && netProfit < -1000) {
+      setBs(eq, 'owners_capital', round2(preLossCapital + netProfit));
+    }
+
+    const sections = String(sourceText || '').split(/---\s*(?:Sheet|File):\s*([^\n-]+)\s*---/i);
+    for (let i = 1; i < sections.length; i += 2) {
+      const sheet = (sections[i] || '').trim();
+      const body = sections[i + 1] || '';
+      if (!/\btrial\s+balance\b/i.test(sheet)) continue;
+      const totals = parseFlatTbFooterTotals(body);
+      if (!totals) continue;
+      const suspense = round2(totals.totalDebit - totals.totalCredit);
+      if (suspense > 1) {
+        const ocl = eq.other_current_liabilities?.current || agg.bsEq.other_current_liabilities || 0;
+        setBs(eq, 'other_current_liabilities', round2(ocl + suspense));
+        notes.books_suspense_disclosed = true;
+        notes.tb_suspense_amount = suspense;
+      }
+    }
+  }
+
   let confidence: DeterministicMapping['mapping_confidence'] = 'low';
-  if (coverage >= 70 && (tradingHints?.confidence === 'high' || balanceHints?.confidence === 'high')) {
+  if (isFlatTb && coverage >= 70) {
+    confidence = 'high';
+  } else if (coverage >= 70 && (tradingHints?.confidence === 'high' || balanceHints?.confidence === 'high')) {
     confidence = 'high';
   } else if (coverage >= 45) confidence = 'medium';
 

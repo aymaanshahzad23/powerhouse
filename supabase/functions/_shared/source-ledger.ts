@@ -5,12 +5,18 @@ import {
   BS_RULES,
   type ScheduleTarget,
 } from './ledger-rules.ts';
+import {
+  isFlatTrialBalanceSheet,
+  matchFlatTbTarget,
+  parseFlatTrialBalanceRows,
+} from './flat-trial-balance.ts';
 
 export type SourceLedgerLine = {
   label: string;
   amount: number;
   side: 'debit' | 'credit';
   sheet: string;
+  group?: string;
 };
 
 function round2(n: number): number {
@@ -104,8 +110,8 @@ function parsePlRow(cells: string[], sheet: string, out: SourceLedgerLine[]): vo
     if (amt > 0) pushPlLine(out, sub, amt, 'credit', sheet);
   }
 
-  // Flat TB row: label + debit/credit columns
-  if (!hasToBy) {
+  // Flat TB row: label + debit/credit (3 cols only — 4-col Ledger|Group|Dr|Cr uses flat-trial-balance.ts)
+  if (!hasToBy && cells.length < 4) {
     const label = cells[0] || '';
     const debit = parseNum(cells[1]);
     const credit = parseNum(cells[2]);
@@ -178,6 +184,34 @@ export function parseSourceLedgers(sourceText: string): SourceLedgerLine[] {
   function parseBody(body: string, sheetName: string) {
     const lower = sheetName.toLowerCase();
     if (/\breadme\b/i.test(lower)) return;
+
+    if (isFlatTrialBalanceSheet(sheetName)) {
+      for (const row of parseFlatTrialBalanceRows(body, sheetName)) {
+        out.push({
+          label: row.label,
+          group: row.group,
+          amount: row.amount,
+          side: row.side,
+          sheet: row.sheet,
+        });
+      }
+      return;
+    }
+
+    const flatRows = parseFlatTrialBalanceRows(body, sheetName);
+    if (flatRows.length >= 8) {
+      for (const row of flatRows) {
+        out.push({
+          label: row.label,
+          group: row.group,
+          amount: row.amount,
+          side: row.side,
+          sheet: row.sheet,
+        });
+      }
+      return;
+    }
+
     const isDep = /\bdep\b|depreciation|schedule\s*[\"']?a/i.test(lower);
     const isPl = /\bpl\b|profit|trading/i.test(lower);
     const isBs = /\bbs\b|balance\s+sheet/i.test(lower);
@@ -223,6 +257,17 @@ function targetKey(t: ScheduleTarget): string {
   return `bs.${t.side}.${t.key}`;
 }
 
+function resolveTarget(line: SourceLedgerLine): ScheduleTarget | null {
+  if (line.group) {
+    const flat = matchFlatTbTarget(line.label, line.group, line.side);
+    if (flat) return flat;
+  }
+  const rules = line.side === 'debit'
+    ? [...PL_DEBIT_RULES, ...BS_RULES]
+    : [...PL_CREDIT_RULES, ...BS_RULES];
+  return matchLedgerRule(line.label, rules)?.target ?? null;
+}
+
 export function aggregateSourceLedgers(lines: SourceLedgerLine[]): AggregatedSchedule {
   const pl: Record<string, number> = {};
   const bsEq: Record<string, number> = {};
@@ -232,6 +277,14 @@ export function aggregateSourceLedgers(lines: SourceLedgerLine[]): AggregatedSch
   const matched: AggregatedSchedule['matched'] = [];
   const unmapped: AggregatedSchedule['unmapped'] = [];
   let netProfitSource: number | undefined;
+  let cogsOpening = 0;
+  let cogsPurchases = 0;
+  let cogsRateDiff = 0;
+  let cogsFreight = 0;
+  let cogsClosing = 0;
+  let revenueReturns = 0;
+  let ppeGross = 0;
+  let ppeAccum = 0;
 
   // Prefer total "By Sale" over sub-line breakup when both present.
   const saleTotal = lines.find((l) => /\bby\s+sale\b/i.test(l.label) && l.side === 'credit');
@@ -252,22 +305,29 @@ export function aggregateSourceLedgers(lines: SourceLedgerLine[]): AggregatedSch
       continue;
     }
 
-    const rules = line.side === 'debit'
-      ? [...PL_DEBIT_RULES, ...BS_RULES]
-      : [...PL_CREDIT_RULES, ...BS_RULES];
-    const rule = matchLedgerRule(line.label, rules);
-    if (!rule) {
+    const t = resolveTarget(line);
+    if (!t) {
       if (line.amount > 1000) {
         unmapped.push({ label: line.label, amount: line.amount, reason: 'No rule matched' });
       }
       continue;
     }
 
-    const t = rule.target;
     matched.push({ label: line.label, target: targetKey(t), amount: line.amount });
 
+    if (t.key === '_revenue_returns') {
+      revenueReturns = round2(revenueReturns + line.amount);
+      continue;
+    }
+    if (t.key === '_cogs_opening') { cogsOpening = round2(cogsOpening + line.amount); continue; }
+    if (t.key === '_cogs_purchases') { cogsPurchases = round2(cogsPurchases + line.amount); continue; }
+    if (t.key === '_cogs_rate_diff') { cogsRateDiff = round2(cogsRateDiff + line.amount); continue; }
+    if (t.key === '_cogs_freight') { cogsFreight = round2(cogsFreight + line.amount); continue; }
+    if (t.key === '_cogs_closing') { cogsClosing = round2(cogsClosing + line.amount); continue; }
+    if (t.key === '_ppe_gross') { ppeGross = round2(ppeGross + line.amount); continue; }
+    if (t.key === '_ppe_accumulated_depreciation') { ppeAccum = round2(ppeAccum + line.amount); continue; }
+
     if (t.statement === 'pl') {
-      if (t.key.startsWith('_cogs_')) continue;
       addTo(pl, t.key, line.amount);
       if (t.key === 'other_expenses' && t.noteHead) {
         otherExpenseBreakup.push({ head: t.noteHead, current: line.amount });
@@ -281,6 +341,17 @@ export function aggregateSourceLedgers(lines: SourceLedgerLine[]): AggregatedSch
       addTo(bsAssets, t.key, line.amount);
     }
   }
+
+  const cogsComputed = round2(cogsOpening + cogsPurchases + cogsRateDiff + cogsFreight - cogsClosing);
+  if (cogsComputed > 0) addTo(pl, 'cost_of_goods_sold', cogsComputed);
+
+  if (revenueReturns > 0) {
+    const rev = pl.revenue_from_operations || 0;
+    if (rev > 0) pl.revenue_from_operations = round2(Math.max(0, rev - revenueReturns));
+  }
+
+  const ppeNet = round2(ppeGross - ppeAccum);
+  if (ppeNet > 0) addTo(bsAssets, 'property_plant_equipment', ppeNet);
 
   return {
     pl,
