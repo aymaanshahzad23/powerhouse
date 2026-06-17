@@ -1045,8 +1045,8 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
           <p>Our first focus: the repetitive document work inside Indian CA practices.</p>
           <ul>
             <li>Trial balances converted to NCE Schedule III templates automatically</li>
-            <li>Client packs turned into classified books and draft trial balances</li>
-            <li>GST, ITR, and TDS reminders: upload a client list, customise each one, send via n8n</li>
+            <li>Client packs turned into classified books and draft trial balances <span style="color:var(--ink-light)">(coming soon)</span></li>
+            <li>GST, ITR, and TDS reminders: upload a client list, customise each one, send when ready</li>
             <li>Output formatted to your firm's templates, audit-ready, every time</li>
           </ul>
           <button class="btn btn-primary js-open-signin" style="align-self:flex-start">Get early access</button>
@@ -1279,7 +1279,7 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
         </p>
 
         <div class="reminder-steps">
-          <div class="reminder-step"><b>1. Client list</b>Upload CSV or Excel (name and email only), or add clients manually.</div>
+          <div class="reminder-step"><b>1. Client list</b>Upload CSV or Excel (name and email only).</div>
           <div class="reminder-step"><b>2. Set dates &amp; send</b>For each compliance item: filing due date (official deadline) and documents needed by (when the client must send papers). Then send the email.</div>
         </div>
 
@@ -1311,7 +1311,6 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
               <p class="sheet-note" style="margin:4px 0 0" id="reminder-client-count">0 clients</p>
               <p class="sheet-note" style="margin:2px 0 0">Click <b>Customise</b> to set filing dates and when you need documents from each client.</p>
             </div>
-            <button type="button" class="sheet-change-btn" id="reminder-add-client">+ Add client</button>
           </div>
           <div class="reminder-toolbar">
             <input type="search" id="reminder-search" placeholder="Search by name or email…" aria-label="Search clients">
@@ -1333,22 +1332,8 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
           </div>
           <div class="reminder-clients-empty" id="reminder-clients-empty" hidden>
             <p><b>No clients yet</b></p>
-            <p>Upload a filled template or add a client manually.</p>
+            <p>Upload a filled client list template to get started.</p>
           </div>
-        </div>
-
-        <div class="dcard" id="n8n-card">
-          <div class="dcard-head">
-            <h3>n8n connection</h3>
-            <span class="chip gray" id="n8n-badge">Not connected</span>
-          </div>
-          <p class="sheet-note">Paste your n8n workflow webhook URL (Webhook node → Production URL). The Powerhouse default is prefilled; change it if you use a different workflow.</p>
-          <form class="n8n-form" id="n8n-form">
-            <input id="n8n-url-input" type="url" placeholder="https://your-instance.app.n8n.cloud/webhook/…" autocomplete="off">
-            <button type="submit" class="btn btn-primary" style="padding:11px 22px;flex-shrink:0">Save</button>
-            <button type="button" id="n8n-test" class="btn btn-ghost" style="padding:11px 22px;flex-shrink:0">Test</button>
-          </form>
-          <p class="wf-status" id="n8n-status" style="margin:12px 0 0"></p>
         </div>
 
         <div class="dcard" id="reminder-send-card" hidden>
@@ -1558,6 +1543,29 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
           that feed into <button type="button" class="sheet-change-btn" data-switch-tab="tab-financial">TB → NCE Template</button>.
         </p>
 
+        <div class="dcard tool-coming-soon-card" id="book-tool-locked" hidden>
+          <div class="tool-coming-soon">
+            <div class="cs-icon" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#424FD1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <h3>Not available in the workspace yet</h3>
+            <p>
+              We're finishing client-pack ingestion and draft trial balance generation.
+              It isn't ready for production workspace runs yet.
+            </p>
+            <p>
+              For now, try <button type="button" class="sheet-change-btn" data-switch-tab="tab-financial">TB → NCE Template</button>
+              if you already have a trial balance, or
+              <button type="button" class="sheet-change-btn" data-switch-tab="tab-reminders">Compliance Reminders</button>
+              for client follow-ups.
+            </p>
+          </div>
+        </div>
+
+        <div id="book-tool-live">
         <div class="dcard">
           <div class="dcard-head"><h3>Upload client pack</h3></div>
           <div class="dropzone" id="book-dropzone" tabindex="0" role="button"
@@ -1704,6 +1712,7 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
               <p>Download working papers or send the draft TB to NCE conversion when you're satisfied.</p>
             </div>
           </div>
+        </div>
         </div>
       </section>
 
@@ -1890,8 +1899,11 @@ window.dispatchEvent(new CustomEvent('ph-firebase-ready'));
 // Google sign-in is handled by Firebase Auth (see Firebase module above).
 // Enable Google provider: Firebase Console → Authentication → Sign-in method.
 
-// Optional: hardcoded default for the n8n workflow webhook URL.
+// Backend webhook for compliance reminders (not shown in the UI).
 const N8N_WEBHOOK_URL = 'https://aymaanshahzad23.app.n8n.cloud/webhook/ca-filing-reminder';
+
+// Tool 3: enabled on localhost only until production QA is complete.
+const BOOK_BUILD_ENABLED = ['localhost', '127.0.0.1'].includes(window.location.hostname);
 
 // TB → NCE Template: Supabase Edge Functions (API key in Supabase secrets)
 const SUPABASE_URL = 'https://msratyvmnuvozuthgkmi.supabase.co';
@@ -2415,7 +2427,7 @@ function updateReminderSendUI() {
     `${reminderClients.length} client${reminderClients.length === 1 ? '' : 's'}`;
 
   if (!hasClients) {
-    summary.textContent = 'Upload a client list or add clients manually to configure reminders.';
+    summary.textContent = 'Upload a client list to configure reminders.';
     sendBtn.disabled = true;
     return;
   }
@@ -2634,14 +2646,14 @@ function renderReminderClientsTable() {
     const ps = empty.querySelectorAll('p');
     if (ps[1]) ps[1].textContent = reminderSearchQuery.trim()
       ? 'No clients match your search.'
-      : 'Upload a filled template or add a client manually.';
+      : 'Upload a filled client list template to get started.';
     table.hidden = true;
     updateReminderSendUI();
     return;
   }
 
   if (empty.querySelector('p:last-child')) {
-    empty.querySelector('p:last-child').textContent = 'Upload a filled template or add a client manually.';
+    empty.querySelector('p:last-child').textContent = 'Upload a filled client list template to get started.';
   }
 
   visible.forEach((client) => {
@@ -2843,12 +2855,6 @@ function initComplianceRemindersUI() {
     downloadReminderClientTemplate().catch((err) => alert('Could not build template: ' + err.message));
   });
 
-  document.getElementById('reminder-add-client')?.addEventListener('click', () => {
-    reminderClients.push(newReminderClient('New client', ''));
-    reminderExpandedId = reminderClients[reminderClients.length - 1].id;
-    renderReminderClientsTable();
-  });
-
   const dropzone = document.getElementById('reminder-dropzone');
   const input = document.getElementById('reminder-input');
   const uploadStatus = document.getElementById('reminder-upload-status');
@@ -2902,97 +2908,21 @@ function initComplianceRemindersUI() {
 
 initComplianceRemindersUI();
 
-/* ==================== N8N CONNECTION ==================== */
+/* ==================== N8N (backend webhook — UI hidden) ==================== */
 const N8N_STORAGE_KEY = 'ph_n8n_url';
-const n8nForm   = document.getElementById('n8n-form');
-const n8nInput  = document.getElementById('n8n-url-input');
-const n8nBadge  = document.getElementById('n8n-badge');
-const n8nStatus = document.getElementById('n8n-status');
-const n8nTest   = document.getElementById('n8n-test');
 
-function getN8nUrl(){
-  const fromInput = n8nInput.value.trim();
-  if (fromInput) return fromInput;
+function getN8nUrl() {
   return localStorage.getItem(N8N_STORAGE_KEY) || N8N_WEBHOOK_URL;
 }
 
-function isValidWebhookUrl(raw){
+function isValidWebhookUrl(raw) {
   try {
     const u = new URL(raw.trim());
     return u.protocol === 'http:' || u.protocol === 'https:';
   } catch { return false; }
 }
 
-function refreshN8nUI(){
-  const url = getN8nUrl();
-  if (url){
-    n8nInput.value = url;
-    n8nBadge.className = 'chip';
-    n8nBadge.textContent = 'Webhook saved';
-  } else {
-    n8nBadge.className = 'chip gray';
-    n8nBadge.textContent = 'Not connected';
-  }
-}
-refreshN8nUI();
-
-n8nForm.addEventListener('submit', e => {
-  e.preventDefault();
-  const raw = n8nInput.value.trim();
-  if (!isValidWebhookUrl(raw)){
-    n8nStatus.className = 'wf-status err';
-    n8nStatus.textContent = 'That doesn\'t look like a valid URL. Paste the Production URL from your n8n Webhook node.';
-    return;
-  }
-  localStorage.setItem(N8N_STORAGE_KEY, raw);
-  refreshN8nUI();
-  n8nStatus.className = 'wf-status ok';
-  n8nStatus.textContent = '✓ Webhook saved. Use Test to verify the connection, then send reminders below.';
-});
-
-// Shared trigger used by both the Test button and Execute workflow
-async function triggerN8n(statusEl, btn, payload, successMsg){
-  const url = getN8nUrl();
-  if (!url){
-    statusEl.className = 'wf-status err';
-    statusEl.textContent = 'Not connected yet. Paste your n8n webhook URL in the panel above.';
-    // Take the user straight to the paste field
-    const card = document.getElementById('n8n-card');
-    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    card.style.boxShadow = '0 0 0 2px var(--teal)';
-    setTimeout(() => card.style.boxShadow = '', 1600);
-    n8nInput.focus();
-    return;
-  }
-  btn.disabled = true;
-  btn.style.opacity = '.6';
-  statusEl.className = 'wf-status run';
-  statusEl.innerHTML = '<span class="spin"></span> Contacting n8n…';
-  try {
-    const body = typeof payload === 'object' && payload.then ? await payload : payload;
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', ...(await getFirebaseAuthHeaders()) },
-      body: JSON.stringify(body),
-    });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    statusEl.className = 'wf-status ok';
-    statusEl.textContent = successMsg;
-  } catch (err) {
-    statusEl.className = 'wf-status err';
-    statusEl.textContent = 'Could not reach the n8n webhook (' + err.message + '). Check the URL, that the workflow is active, and CORS settings on your n8n instance.';
-  } finally {
-    btn.disabled = false;
-    btn.style.opacity = '';
-  }
-}
-
-n8nTest.addEventListener('click', () =>
-  triggerN8n(n8nStatus, n8nTest,
-    buildN8nPayload({ test: true }),
-    '✓ Connection works. n8n responded successfully.'));
-
-/* ==================== EXECUTE N8N WORKFLOW ==================== */
+/* ==================== EXECUTE REMINDER WORKFLOW ==================== */
 const runWorkflowBtn = document.getElementById('run-workflow');
 const workflowStatus = document.getElementById('workflow-status');
 const RUN_WORKFLOW_LABEL = '▶ Send reminders';
@@ -3008,14 +2938,14 @@ async function postReminderPayload({ dryRun = false, consumeCredit = true } = {}
   const url = getN8nUrl();
   if (!url || !isValidWebhookUrl(url)) {
     workflowStatus.className = 'wf-status err';
-    workflowStatus.textContent = '✗ Connect your n8n webhook before sending.';
+    workflowStatus.textContent = '✗ Reminder delivery is not configured. Contact support.';
     return false;
   }
 
   if (consumeCredit && !(await consumeRunCredit('reminders'))) return false;
 
   workflowStatus.className = 'wf-status run';
-  workflowStatus.innerHTML = `<span class="spin"></span> ${dryRun ? 'Running dry run on n8n…' : 'Sending to n8n…'}`;
+  workflowStatus.innerHTML = `<span class="spin"></span> ${dryRun ? 'Running dry run…' : 'Sending reminders…'}`;
 
   try {
     const res = await fetch(url, {
@@ -3102,6 +3032,26 @@ function formatSize(bytes){
 }
 
 /* ==================== TOOL 3: CLIENT PACK → TRIAL BALANCE ==================== */
+function initBookBuildGate() {
+  const live = document.getElementById('book-tool-live');
+  const locked = document.getElementById('book-tool-locked');
+  const navBtn = document.querySelector('.side-nav button[data-tab="tab-bank"]');
+  if (BOOK_BUILD_ENABLED) {
+    locked?.setAttribute('hidden', '');
+    live?.removeAttribute('hidden');
+    return;
+  }
+  live?.setAttribute('hidden', '');
+  locked?.removeAttribute('hidden');
+  if (navBtn && !navBtn.querySelector('.nav-soon-badge')) {
+    const badge = document.createElement('span');
+    badge.className = 'nav-soon-badge';
+    badge.textContent = 'Soon';
+    navBtn.appendChild(badge);
+  }
+}
+initBookBuildGate();
+
 const bookDropzone = document.getElementById('book-dropzone');
 const bookInput    = document.getElementById('book-input');
 const bookFileList = document.getElementById('book-files');
