@@ -44,6 +44,7 @@ const bundles = {
       { name: '../_shared/ledger-rules.ts', content: read('_shared/ledger-rules.ts') },
       { name: '../_shared/source-ledger.ts', content: read('_shared/source-ledger.ts') },
       { name: '../_shared/schedule-aggregator.ts', content: read('_shared/schedule-aggregator.ts') },
+      { name: '../_shared/validate-mapping.ts', content: read('_shared/validate-mapping.ts') },
       { name: '../_shared/tally-notes-prompt.ts', content: read('_shared/tally-notes-prompt.ts') },
       { name: '../_shared/parse-llm-json.ts', content: read('_shared/parse-llm-json.ts') },
     ],
