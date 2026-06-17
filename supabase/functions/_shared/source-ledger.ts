@@ -177,10 +177,10 @@ export function parseSourceLedgers(sourceText: string): SourceLedgerLine[] {
 
   function parseBody(body: string, sheetName: string) {
     const lower = sheetName.toLowerCase();
-  // Depreciation / fixed-asset schedules are not balance-sheet bodies.
-  const isDep = /\bdep\b|depreciation|schedule\s*[\"']?a/i.test(lower);
-  const isPl = /\bpl\b|profit|trading/i.test(lower);
-  const isBs = /\bbs\b|balance\s+sheet/i.test(lower);
+    if (/\breadme\b/i.test(lower)) return;
+    const isDep = /\bdep\b|depreciation|schedule\s*[\"']?a/i.test(lower);
+    const isPl = /\bpl\b|profit|trading/i.test(lower);
+    const isBs = /\bbs\b|balance\s+sheet/i.test(lower);
 
     for (const line of body.split(/\r?\n/)) {
       const lineContent = line.replace(/\r/g, '');
@@ -236,7 +236,9 @@ export function aggregateSourceLedgers(lines: SourceLedgerLine[]): AggregatedSch
   // Prefer total "By Sale" over sub-line breakup when both present.
   const saleTotal = lines.find((l) => /\bby\s+sale\b/i.test(l.label) && l.side === 'credit');
   const saleSubLines = lines.filter(
-    (l) => l.side === 'credit' && /\b(sale\s+of\s+goods|service\s+charg)/i.test(l.label),
+    (l) => l.side === 'credit'
+      && /\b(sale\s+of\s+goods|service\s+charg)/i.test(l.label)
+      && !/^by\s+/i.test(String(l.label || '').trim()),
   );
 
   for (const line of lines) {

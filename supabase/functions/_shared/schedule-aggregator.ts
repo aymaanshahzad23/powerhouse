@@ -5,6 +5,42 @@ import { sumPlExpenses } from './reconcile-mapping.ts';
 
 type Period = { current: number; previous: number };
 
+const PL_KEYS = [
+  'revenue_from_operations',
+  'other_income',
+  'cost_of_goods_sold',
+  'employee_benefits_expense',
+  'finance_costs',
+  'depreciation_amortization',
+  'other_expenses',
+] as const;
+
+const LIAB_KEYS = [
+  'owners_capital',
+  'long_term_borrowings',
+  'other_long_term_liabilities',
+  'long_term_provisions',
+  'short_term_borrowings',
+  'trade_payables',
+  'other_current_liabilities',
+  'short_term_provisions',
+] as const;
+
+const ASSET_KEYS = [
+  'property_plant_equipment',
+  'intangible_assets',
+  'capital_wip',
+  'non_current_investments',
+  'long_term_loans_advances',
+  'other_non_current_assets',
+  'current_investments',
+  'inventories',
+  'trade_receivables',
+  'cash_and_bank',
+  'short_term_loans_advances',
+  'other_current_assets',
+] as const;
+
 function period(current = 0, previous = 0): Period {
   return { current, previous };
 }
@@ -163,6 +199,97 @@ export function buildDeterministicMapping(
     deterministic_coverage_pct: coverage,
     net_profit_source: agg.netProfitSource,
   };
+}
+
+function fillSide(from: Record<string, Period>, keys: readonly string[]): Record<string, Period> {
+  const out: Record<string, Period> = {};
+  for (const key of keys) {
+    const val = from[key];
+    out[key] = {
+      current: round2(val?.current ?? 0),
+      previous: round2(val?.previous ?? 0),
+    };
+  }
+  return out;
+}
+
+export function deterministicToMappingResult(
+  det: DeterministicMapping,
+  entityName: string,
+  fyEnd: string,
+  prevFyEnd: string,
+): Record<string, unknown> {
+  return {
+    entity_name: entityName,
+    fy_end: fyEnd,
+    prev_fy_end: prevFyEnd,
+    balance_sheet: {
+      equity_and_liabilities: fillSide(det.balance_sheet.equity_and_liabilities, LIAB_KEYS),
+      assets: fillSide(det.balance_sheet.assets, ASSET_KEYS),
+    },
+    profit_and_loss: fillSide(det.profit_and_loss, PL_KEYS),
+    notes: { ...det.notes },
+    unmapped_ledgers: det.unmapped_ledgers,
+    mapping_confidence: det.mapping_confidence,
+    deterministic_coverage_pct: det.deterministic_coverage_pct,
+    notes_to_preparer: '',
+  };
+}
+
+function num(v: unknown): number {
+  const n = Number(v);
+  return Number.isFinite(n) ? round2(n) : 0;
+}
+
+function mergeNotes(base: Record<string, unknown>, incoming: Record<string, unknown>): void {
+  for (const [key, val] of Object.entries(incoming)) {
+    if (val == null) continue;
+    const existing = base[key];
+    if (Array.isArray(val) && Array.isArray(existing)) {
+      base[key] = val;
+    } else if (typeof val === 'object' && !Array.isArray(val) && typeof existing === 'object' && existing && !Array.isArray(existing)) {
+      mergeNotes(existing as Record<string, unknown>, val as Record<string, unknown>);
+    } else {
+      base[key] = val;
+    }
+  }
+}
+
+export function applyNotesSupplement(
+  base: Record<string, unknown>,
+  supplement: Record<string, unknown>,
+): void {
+  const notesIn = (supplement.notes ?? {}) as Record<string, unknown>;
+  const notes = { ...((base.notes ?? {}) as Record<string, unknown>) };
+  mergeNotes(notes, notesIn);
+  base.notes = notes;
+
+  const prev = (supplement.previous_year ?? {}) as {
+    profit_and_loss?: Record<string, number>;
+    balance_sheet?: {
+      equity_and_liabilities?: Record<string, number>;
+      assets?: Record<string, number>;
+    };
+  };
+
+  const pl = base.profit_and_loss as Record<string, Period>;
+  for (const [key, val] of Object.entries(prev.profit_and_loss ?? {})) {
+    if (!pl[key]) pl[key] = { current: 0, previous: 0 };
+    pl[key].previous = num(val);
+  }
+
+  const bs = base.balance_sheet as {
+    equity_and_liabilities: Record<string, Period>;
+    assets: Record<string, Period>;
+  };
+  for (const [key, val] of Object.entries(prev.balance_sheet?.equity_and_liabilities ?? {})) {
+    if (!bs.equity_and_liabilities[key]) bs.equity_and_liabilities[key] = { current: 0, previous: 0 };
+    bs.equity_and_liabilities[key].previous = num(val);
+  }
+  for (const [key, val] of Object.entries(prev.balance_sheet?.assets ?? {})) {
+    if (!bs.assets[key]) bs.assets[key] = { current: 0, previous: 0 };
+    bs.assets[key].previous = num(val);
+  }
 }
 
 export function formatDeterministicBlock(det: DeterministicMapping): string {
