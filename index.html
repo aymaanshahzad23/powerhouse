@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Powerhouse: workflow automation for Chartered Accountant practices in India. We turn repetitive manual work into simple, reliable automations.">
 <title>Powerhouse: Automation studio for CA practices</title>
+<script>
+(function(){try{var t=localStorage.getItem('ph_theme');if(t==='dark'||(t!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();
+</script>
 <link rel="icon" type="image/png" sizes="512x512" href="favicon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" sizes="512x512" href="favicon.png">
@@ -34,6 +37,29 @@
   --radius-lg:22px;
   --font-body:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
   --font-mono:'JetBrains Mono',ui-monospace,monospace;
+  --nav-bg:rgba(246,246,249,.88);
+  --surface-raised:#FFFFFF;
+  --hero-bg:#FFFFFF;
+}
+
+[data-theme="dark"]{
+  color-scheme:dark;
+  --ivory:#0E0E13;
+  --white:#18181F;
+  --surface-raised:#1E1E27;
+  --hero-bg:#18181F;
+  --ink:#EEEFF5;
+  --ink-mid:#A8A9B8;
+  --ink-light:#6E7082;
+  --teal:#6B7AE8;
+  --teal-dark:#5A68D4;
+  --teal-soft:rgba(107,122,232,.16);
+  --slate-light:#252530;
+  --line:#2D2D3A;
+  --green:#3DBB6E;
+  --nav-bg:rgba(14,14,19,.92);
+  --shadow-sm:0 1px 3px rgba(0,0,0,.35),0 4px 16px rgba(0,0,0,.28);
+  --shadow-md:0 4px 24px rgba(0,0,0,.45);
 }
 
 /* ============ RESET / BASE ============ */
@@ -88,7 +114,7 @@ h3{font-size:1.1rem;font-weight:700;letter-spacing:-0.01em}
 /* ============ NAVBAR ============ */
 .nav{
   position:sticky;top:0;z-index:50;
-  background:rgba(246,246,249,.88);
+  background:var(--nav-bg);
   -webkit-backdrop-filter:blur(14px) saturate(180%);
   backdrop-filter:blur(14px) saturate(180%);
   border-bottom:1px solid var(--line);
@@ -97,7 +123,8 @@ h3{font-size:1.1rem;font-weight:700;letter-spacing:-0.01em}
   max-width:1160px;margin:0 auto;padding:0 24px;height:68px;
   display:flex;align-items:center;justify-content:space-between;gap:24px;
 }
-.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.08rem;letter-spacing:-0.02em}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.08rem;letter-spacing:-0.02em;color:var(--ink)}
+.brand svg{color:var(--ink)}
 .nav-links{display:flex;gap:30px;align-items:center}
 .nav-links a{font-size:.92rem;font-weight:500;color:var(--ink-mid);transition:color .15s}
 .nav-links a:hover{color:var(--teal)}
@@ -111,9 +138,10 @@ h3{font-size:1.1rem;font-weight:700;letter-spacing:-0.01em}
 .mobile-nav.open{display:flex}
 .mobile-nav a{padding:12px 0;font-weight:500;color:var(--ink-mid);border-bottom:1px solid var(--line)}
 .mobile-nav a:last-child{border-bottom:none}
+.mobile-nav-tools{display:flex;justify-content:flex-end;padding:4px 0 12px}
 
 /* ============ HERO ============ */
-.hero{position:relative;background:var(--white);overflow:hidden;padding:120px 0 80px}
+.hero{position:relative;background:var(--hero-bg);overflow:hidden;padding:120px 0 80px}
 .hero-inner{
   max-width:1160px;margin:0 auto;padding:0 24px;
   display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;
@@ -307,7 +335,7 @@ h3{font-size:1.1rem;font-weight:700;letter-spacing:-0.01em}
 .mobile-cta{
   display:none;position:fixed;bottom:0;left:0;right:0;z-index:40;
   padding:12px 16px calc(12px + env(safe-area-inset-bottom));
-  background:rgba(246,246,249,.92);
+  background:color-mix(in srgb, var(--ivory) 92%, transparent);
   -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
   border-top:1px solid var(--line);
 }
@@ -550,6 +578,9 @@ body.sheet-fullscreen .tab-section.active{animation:none}
 .file-row .fremove:hover{color:#C0392B;background:var(--slate-light)}
 
 .status-msg{font-size:.9rem;font-weight:500;margin-top:14px;min-height:1.4em;line-height:1.5}
+.status-msg.ok{color:var(--green)}
+.status-msg.err{color:#C0392B}
+[data-theme="dark"] .status-msg.err{color:#F08070}
 .status-msg.processing{
   background:var(--teal-soft);border-radius:var(--radius-sm);
   padding:14px 16px;color:#2A35A0;
@@ -742,6 +773,8 @@ table.tally-sheet-table td {
 .reminder-step{background:var(--slate-light);border-radius:var(--radius-sm);padding:14px 16px;font-size:.82rem;color:var(--ink-mid);line-height:1.5}
 .reminder-step b{display:block;color:var(--ink);font-size:.88rem;margin-bottom:4px}
 .reminder-clients-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.reminder-add-client{margin-bottom:20px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.reminder-add-client .home-quick-add{margin-top:10px}
 .reminder-clients-empty{text-align:center;padding:36px 20px;color:var(--ink-mid);font-size:.9rem;border:1.5px dashed var(--line);border-radius:var(--radius-sm);background:var(--ivory)}
 .reminder-clients-empty p{margin-top:8px;color:var(--ink-light);font-size:.84rem}
 table.reminder-clients{width:100%;border-collapse:collapse;font-size:.84rem}
@@ -773,10 +806,24 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
 .reminder-payload-preview{margin-top:14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--slate-light);max-height:360px;overflow:auto}
 .reminder-payload-preview pre{margin:0;padding:14px;font-size:.72rem;line-height:1.45;white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
 .reminder-send-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.reminder-channel-label{font-size:.78rem;font-weight:600;color:var(--ink-light);margin:0}
+.reminder-channel-select{padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:.84rem;background:var(--white);min-width:148px}
 .reminder-issue-tag{display:inline-block;font-size:.7rem;font-weight:600;color:#9B3B26;margin-left:6px}
 .reminder-add-item-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;align-items:center}
 .reminder-items-panel{grid-column:1/-1;padding:4px 0 8px}
 .reminder-items-intro{font-size:.82rem;color:var(--ink-mid);line-height:1.5;margin:0 0 12px;padding:10px 12px;background:var(--slate-light);border-radius:var(--radius-sm)}
+.reminder-detail-footer{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  margin-top:16px;padding-top:16px;border-top:1px solid var(--line);
+}
+.rem-save-status{font-size:.86rem;color:var(--ink-mid);margin:0;flex:1;min-width:180px}
+.rem-save-status.ok{color:var(--green);font-weight:600}
+.rem-save-status.err{color:#9B3B26;font-weight:500}
+.reminder-saved-tag{
+  display:inline-flex;align-items:center;gap:4px;font-size:.7rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.04em;color:var(--green);
+  background:#EAF7EE;padding:3px 8px;border-radius:999px;margin-left:6px;vertical-align:middle;
+}
 .reminder-item-card{border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px;margin-bottom:10px;background:var(--white)}
 .reminder-item-card-top{display:grid;grid-template-columns:1fr 36px;gap:10px;align-items:start;margin-bottom:10px}
 .reminder-item-card-top label{display:block;font-size:.72rem;font-weight:600;color:var(--ink);margin-bottom:4px}
@@ -799,8 +846,161 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
   .reminder-detail-grid{grid-template-columns:1fr}
 }
 
-/* dashboard mobile top bar */
-.dash-topbar{display:none}
+[data-theme="dark"] .btn-ghost{border-color:var(--line);color:var(--ink)}
+[data-theme="dark"] .btn-ghost:hover{background:var(--slate-light)}
+[data-theme="dark"] .btn-google{background:var(--surface-raised);color:var(--ink)}
+[data-theme="dark"] .featured-card{background:#12121A}
+[data-theme="dark"] .home-hero{border-color:rgba(255,255,255,.1)}
+[data-theme="dark"] .theme-toggle{background:var(--surface-raised)}
+
+/* ============ THEME TOGGLE ============ */
+.theme-toggle{
+  flex-shrink:0;width:40px;height:40px;border-radius:10px;
+  border:1.5px solid var(--line);background:var(--white);color:var(--ink-mid);
+  display:inline-flex;align-items:center;justify-content:center;
+  transition:background .15s,border-color .15s,color .15s;
+}
+.theme-toggle:hover{background:var(--slate-light);color:var(--ink)}
+.theme-toggle svg{width:18px;height:18px;display:block}
+.theme-toggle .icon-moon{display:none}
+[data-theme="dark"] .theme-toggle .icon-sun{display:none}
+[data-theme="dark"] .theme-toggle .icon-moon{display:block}
+.theme-toggle-modal{position:absolute;top:16px;left:16px;z-index:2}
+.theme-toggle-nav{background:var(--white)}
+.home-hero .theme-toggle{
+  background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.22);color:#E8EAFF;
+}
+.home-hero .theme-toggle:hover{background:rgba(255,255,255,.18);color:#fff}
+
+/* ============ WORKSPACE HOME ============ */
+.home-hero{
+  position:relative;overflow:hidden;border-radius:var(--radius-lg);
+  background:linear-gradient(135deg,#1C1C24 0%,#2a2d4a 55%,#1e2240 100%);
+  color:#fff;padding:0;margin-bottom:0;
+  border:1px solid rgba(255,255,255,.08);
+}
+.home-hero-bar{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:16px;
+  padding:28px 28px 24px;position:relative;z-index:1;
+}
+.home-hero::before{
+  content:'';position:absolute;right:-20px;top:-30px;width:220px;height:220px;
+  background:radial-gradient(circle,rgba(66,79,209,.35) 0%,transparent 70%);
+  pointer-events:none;
+}
+.home-hero::after{
+  content:'';position:absolute;left:40%;bottom:-40px;width:180px;height:180px;
+  background:radial-gradient(circle,rgba(66,79,209,.2) 0%,transparent 70%);
+  pointer-events:none;
+}
+.home-hero-inner{position:relative;z-index:1}
+.home-hero-kicker{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#C9CEF5;margin-bottom:8px}
+.home-hero h2{font-size:clamp(1.35rem,3vw,1.85rem);font-weight:800;margin-bottom:6px;letter-spacing:-.02em}
+.home-hero-sub{font-size:.94rem;color:rgba(255,255,255,.78);max-width:520px}
+.home-hero-art{position:absolute;right:24px;top:50%;transform:translateY(-50%);opacity:.9;display:none;pointer-events:none}
+@media(min-width:768px){.home-hero-art{display:block}}
+.home-overview{display:flex;flex-direction:column;gap:36px;max-width:1040px}
+.home-block{display:flex;flex-direction:column;gap:12px}
+.home-block-usage .home-credit-pill{margin-top:4px}
+.home-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:0}
+.home-stat{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius-md);
+  padding:18px 20px;box-shadow:var(--shadow-sm);
+}
+.home-stat .lbl{font-size:.76rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-light);margin-bottom:6px}
+.home-stat .val{font-size:1.5rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);line-height:1.1}
+.home-stat .sub{font-size:.8rem;color:var(--ink-mid);margin-top:4px}
+.home-section-title{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-light);margin:0}
+.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:0}
+.tool-card{
+  position:relative;overflow:hidden;text-align:left;
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius-md);
+  padding:22px 20px 20px;box-shadow:var(--shadow-sm);
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s;
+  cursor:pointer;display:flex;flex-direction:column;gap:10px;min-height:168px;
+}
+.tool-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:rgba(66,79,209,.35)}
+.tool-card:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.tool-card.soon{opacity:.72;cursor:default}
+.tool-card.soon:hover{transform:none;box-shadow:var(--shadow-sm)}
+.tool-card-icon{
+  width:48px;height:48px;border-radius:14px;background:var(--teal-soft);
+  display:flex;align-items:center;justify-content:center;color:var(--teal);
+}
+.tool-card h3{font-size:1rem;font-weight:700;letter-spacing:-.01em}
+.tool-card p{font-size:.84rem;color:var(--ink-mid);line-height:1.45;flex:1}
+.tool-card-cta{font-size:.8rem;font-weight:700;color:var(--teal);display:inline-flex;align-items:center;gap:4px}
+.tool-card-deco{
+  position:absolute;right:-12px;bottom:-12px;width:88px;height:88px;opacity:.07;
+  pointer-events:none;color:var(--teal);
+}
+.home-profile{
+  background:var(--white);border:1px solid var(--line);border-radius:var(--radius-md);
+  box-shadow:var(--shadow-sm);
+}
+.home-profile-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:20px 28px;
+  padding:24px 26px;
+}
+.home-profile-divider{
+  padding:18px 26px;border-top:1px solid var(--line);
+}
+.home-field label{display:block;font-size:.8rem;font-weight:600;color:var(--ink-mid);margin-bottom:6px}
+.home-field input{
+  width:100%;padding:11px 14px;border:1.5px solid var(--line);border-radius:var(--radius-sm);
+  font-size:.92rem;color:var(--ink);background:var(--white);outline:none;
+}
+.home-field input:focus{border-color:var(--teal)}
+.home-field-locked .home-locked-value{
+  margin:0;padding:11px 14px;background:var(--slate-light);border:1px solid var(--line);
+  border-radius:var(--radius-sm);font-size:.92rem;color:var(--ink-mid);
+  word-break:break-all;
+}
+.home-auth-block{display:flex;flex-direction:column;gap:10px}
+.home-switch-link{
+  align-self:flex-start;padding:0;border:none;background:none;
+  font-size:.84rem;font-weight:600;color:var(--teal);cursor:pointer;
+  text-decoration:underline;text-underline-offset:3px;
+}
+.home-switch-link:hover{opacity:.85}
+.home-practice-footer{
+  display:grid;grid-template-columns:1fr auto;gap:12px 16px;align-items:center;
+}
+.home-practice-footer .status-msg{margin:0;min-height:0;grid-column:1}
+.home-practice-footer .status-msg:empty{display:none}
+.home-practice-footer:has(.status-msg:empty){grid-template-columns:1fr;justify-items:end}
+.home-practice-footer .btn{grid-column:2;white-space:nowrap;padding:10px 20px;font-size:.88rem}
+.home-practice-footer:has(.status-msg:empty) .btn{grid-column:1}
+.home-clients-bar{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+}
+.home-clients-bar p{font-size:.88rem;color:var(--ink-mid);margin:0;flex:1 1 200px}
+.home-quick-add{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:10px;margin-top:14px;align-items:end}
+.home-quick-add input{
+  padding:10px 12px;border:1.5px solid var(--line);border-radius:var(--radius-sm);font-size:.86rem;
+}
+.home-quick-add input:focus{border-color:var(--teal);outline:none}
+.tool-back{
+  display:inline-flex;align-items:center;gap:6px;font-size:.86rem;font-weight:600;
+  color:var(--teal);margin-bottom:18px;padding:0;background:none;border:none;cursor:pointer;
+}
+.tool-back:hover{text-decoration:underline}
+
+/* dashboard mobile drawer */
+.dash-topbar{
+  display:none;align-items:center;justify-content:space-between;gap:14px;
+  padding:12px 16px;background:var(--white);border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:60;
+}
+.dash-topbar-start{display:flex;align-items:center;gap:14px;min-width:0}
+.dash-menu-btn{
+  font-size:1.35rem;padding:6px 10px;border-radius:8px;color:var(--ink);
+  background:var(--slate-light);line-height:1;
+}
+.dash-overlay{
+  display:none;position:fixed;inset:0;background:rgba(22,22,26,.45);z-index:90;
+}
+.dash-overlay.open{display:block}
 
 /* ============ RESPONSIVE ============ */
 @media (max-width:1079px){
@@ -810,33 +1010,51 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
   .industries-grid{grid-template-columns:1fr}
   .steps-panel{grid-template-columns:1fr;gap:24px}
   .step-arrow{display:none}
+  .dash-topbar{display:flex}
+  .home-hero .theme-toggle{display:none}
   .dash{flex-direction:column}
   .sidebar{
-    width:100%;height:auto;position:static;flex-direction:row;align-items:center;
-    padding:12px 20px;border-right:none;border-bottom:1px solid var(--line);gap:8px;
+    position:fixed;left:0;top:0;bottom:0;width:280px;max-width:88vw;z-index:100;
+    height:100vh;padding:20px 0 16px;flex-direction:column;align-items:stretch;
+    transform:translateX(-105%);transition:transform .22s ease;
+    box-shadow:var(--shadow-md);
   }
-  .sidebar .brand{padding:0;margin:0 16px 0 0}
-  .side-label{display:none}
-  .side-nav{flex-direction:row;flex:1;overflow-x:auto}
+  .sidebar.open{transform:translateX(0)}
+  .sidebar .brand{padding:0 24px;margin-bottom:24px}
+  .side-label{display:block}
+  .side-nav{flex-direction:column;overflow:visible}
   .side-nav button{
-    border-left:none;border-bottom:3px solid transparent;
-    padding:10px 14px;white-space:nowrap;border-radius:8px 8px 0 0;
+    border-left:3px solid transparent;border-bottom:none;
+    padding:12px 24px;border-radius:0;white-space:normal;
   }
-  .side-nav button.active{border-left:none;border-bottom-color:var(--teal)}
+  .side-nav button.active{border-left-color:var(--teal);border-bottom:none}
   .tally-meta-grid { grid-template-columns: 1fr; }
   .tally-result-summary { grid-template-columns: 1fr; }
-  .side-user{border-top:none;padding:0;gap:8px}
-  .side-user .who{display:none}
-  .signout-link{
-    margin:0 0 0 4px;color:var(--teal);font-size:.82rem;
-    padding:8px 10px;border-radius:8px;white-space:nowrap;
-  }
-  .signout-link:hover{background:var(--teal-soft)}
-  .dash-main{padding:28px 24px 64px}
+  .side-user{border-top:1px solid var(--line);padding:18px 24px 0;margin-top:auto}
+  .side-user .who{display:block}
+  .signout-link{margin:12px 24px 0}
+  .dash-main{padding:20px 16px 64px}
+  .tool-grid{grid-template-columns:1fr}
+  .home-stats{grid-template-columns:1fr}
+  .home-profile-grid{grid-template-columns:1fr;padding:20px}
+  .home-profile-divider{padding:16px 20px}
+  .home-practice-footer{grid-template-columns:1fr}
+  .home-practice-footer .btn{grid-column:1;width:100%}
+  .home-clients-bar{flex-direction:column;align-items:stretch}
+  .home-clients-bar .btn{width:100%}
+  .home-overview{gap:28px}
+  .home-hero-bar{padding:22px 20px 20px}
+  .home-quick-add{grid-template-columns:1fr}
 }
 @media (max-width:767px){
   .nav-links{display:none}
-  .hamburger{display:block}
+  .nav-right .js-open-signin{display:none}
+  .hamburger{display:block;flex-shrink:0;margin-left:auto}
+  .nav-inner{gap:12px}
+  .mobile-nav a.mobile-signin{
+    display:block;width:100%;text-align:left;padding:14px 0;
+    font-weight:600;color:var(--teal);border-bottom:1px solid var(--line);
+  }
   .hero{padding:72px 0 56px}
   .cards-3{grid-template-columns:1fr}
   .mini-grid{grid-template-columns:1fr}
@@ -864,12 +1082,12 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
 <!-- Shared logo mark (Y-shaped node graph) -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
   <symbol id="logo-mark" viewBox="0 0 48 48">
-    <line x1="8" y1="9.5" x2="24" y2="21.5" stroke="#16161A" stroke-width="3"/>
-    <line x1="40" y1="9.5" x2="24" y2="21.5" stroke="#16161A" stroke-width="3"/>
-    <line x1="24" y1="21.5" x2="24" y2="40" stroke="#16161A" stroke-width="3"/>
-    <circle cx="8" cy="9.5" r="5.2" fill="#16161A"/>
-    <circle cx="40" cy="9.5" r="5.2" fill="#16161A"/>
-    <circle cx="24" cy="40" r="5" fill="#16161A"/>
+    <line x1="8" y1="9.5" x2="24" y2="21.5" stroke="currentColor" stroke-width="3"/>
+    <line x1="40" y1="9.5" x2="24" y2="21.5" stroke="currentColor" stroke-width="3"/>
+    <line x1="24" y1="21.5" x2="24" y2="40" stroke="currentColor" stroke-width="3"/>
+    <circle cx="8" cy="9.5" r="5.2" fill="currentColor"/>
+    <circle cx="40" cy="9.5" r="5.2" fill="currentColor"/>
+    <circle cx="24" cy="40" r="5" fill="currentColor"/>
     <circle cx="24" cy="21.5" r="6.3" fill="#424FD1"/>
   </symbol>
 </svg>
@@ -889,11 +1107,22 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
         <a href="#how-it-works">How it works</a>
       </nav>
       <div class="nav-right">
+        <button type="button" class="theme-toggle theme-toggle-nav" data-theme-toggle aria-label="Switch to dark mode" title="Toggle light/dark mode">
+          <svg class="icon-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
         <button class="btn btn-outline-teal js-open-signin" style="padding:10px 22px">Sign in</button>
         <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">☰</button>
       </div>
     </div>
     <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile">
+      <div class="mobile-nav-tools">
+        <button type="button" class="theme-toggle theme-toggle-nav" data-theme-toggle aria-label="Switch to dark mode" title="Toggle light/dark mode">
+          <svg class="icon-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+      <button type="button" class="mobile-signin js-open-signin">Sign in to workspace</button>
       <a href="#what-we-do">What we do</a>
       <a href="#industries">Industries</a>
       <a href="#how-it-works">How it works</a>
@@ -913,7 +1142,7 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
         </div>
         <p class="trust-line">Built for Chartered Accountant practices across India</p>
         <div class="stat-strip">
-          <div class="stat"><span class="num">2 hr → 8 min</span><span class="lbl">TB → NCE conversion</span></div>
+          <div class="stat"><span class="num">2 hr → 8 min</span><span class="lbl">Trial balance to Schedule III</span></div>
           <div class="stat"><span class="num">100%</span><span class="lbl">Audit-ready output</span></div>
           <div class="stat"><span class="num">0</span><span class="lbl">New tools to learn</span></div>
         </div>
@@ -1194,6 +1423,10 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
 <!-- ==================== SIGN-IN OVERLAY ==================== -->
 <div class="overlay" id="signin-overlay" role="dialog" aria-modal="true" aria-labelledby="signin-title">
   <div class="modal">
+    <button type="button" class="theme-toggle theme-toggle-modal" data-theme-toggle aria-label="Switch to dark mode" title="Toggle light/dark mode">
+      <svg class="icon-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="icon-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
     <button class="modal-close" id="signin-close" aria-label="Close sign-in">×</button>
     <div class="brand">
       <svg width="30" height="30" aria-hidden="true"><use href="#logo-mark"/></svg>
@@ -1220,24 +1453,42 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
 <!-- ==================== DASHBOARD ==================== -->
 <div id="dashboard" hidden>
   <div class="dash">
-    <aside class="sidebar">
+    <div class="dash-overlay" id="dash-overlay" hidden></div>
+    <header class="dash-topbar" aria-label="Workspace navigation">
+      <div class="dash-topbar-start">
+        <button type="button" class="dash-menu-btn" id="dash-menu-btn" aria-label="Open menu" aria-expanded="false">☰</button>
+        <a href="#" class="brand" onclick="return false" style="font-size:1rem">
+          <svg width="24" height="24" aria-hidden="true"><use href="#logo-mark"/></svg>
+          Powerhouse
+        </a>
+      </div>
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark mode" title="Toggle light/dark mode">
+        <svg class="icon-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </header>
+    <aside class="sidebar" id="dash-sidebar">
       <a href="#" class="brand" onclick="return false">
         <svg width="26" height="26" aria-hidden="true"><use href="#logo-mark"/></svg>
         Powerhouse
       </a>
-      <p class="side-label">Tools</p>
+      <p class="side-label">Workspace</p>
       <nav class="side-nav" aria-label="Dashboard tools">
-        <button class="active" data-tab="tab-financial" title="Trial balance → NCE Schedule III template">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>
-          TB → NCE Template
+        <button class="active" data-tab="tab-home" title="Your practice overview">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V9.5z"/></svg>
+          Overview
         </button>
-        <button data-tab="tab-reminders" title="GST, ITR, and TDS filing reminders">
+        <button data-tab="tab-financial" title="Prepare Schedule III financial statements">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>
+          Financial Statements
+        </button>
+        <button data-tab="tab-reminders" title="Statutory filing and document reminders">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
           Compliance Reminders
         </button>
-        <button data-tab="tab-bank" title="Bank, cash, registers → classified books and draft trial balance">
+        <button data-tab="tab-bank" title="Working papers and draft trial balance">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>
-          Client pack → Trial balance
+          Working Papers
         </button>
       </nav>
       <div class="side-user">
@@ -1259,28 +1510,131 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
 
     <main class="dash-main">
 
-      <div class="dash-header">
-        <div>
-          <h1 class="page-title" id="greeting">Welcome back</h1>
-          <p class="dash-header-sub" id="dash-header-sub">
-            Your workspace includes one complimentary run across our tools. Use it on whichever workflow you want to try first.
-          </p>
-        </div>
-        <div class="credit-pill" id="credit-pill" title="Complimentary runs">Checking access…</div>
-      </div>
-
       <div class="tool-gate hidden" id="tool-gate"></div>
+
+      <!-- TAB: WORKSPACE HOME -->
+      <section class="tab-section active" id="tab-home">
+        <div class="home-overview">
+          <div class="home-hero">
+            <div class="home-hero-bar">
+              <div class="home-hero-inner">
+                <p class="home-hero-kicker">Your practice workspace</p>
+                <h2 id="greeting">Welcome back</h2>
+                <p class="home-hero-sub" id="dash-header-sub">Manage statutory work, client reminders, and financial statements from one place.</p>
+              </div>
+              <button type="button" class="theme-toggle home-hero-theme" data-theme-toggle aria-label="Switch to dark mode" title="Toggle light/dark mode">
+                <svg class="icon-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+                <svg class="icon-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+              </button>
+            </div>
+            <svg class="home-hero-art" width="140" height="120" viewBox="0 0 140 120" aria-hidden="true">
+              <rect x="8" y="20" width="52" height="68" rx="6" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.25)"/>
+              <rect x="22" y="36" width="28" height="4" rx="2" fill="rgba(255,255,255,.5)"/>
+              <rect x="22" y="48" width="20" height="4" rx="2" fill="rgba(255,255,255,.35)"/>
+              <rect x="22" y="60" width="24" height="4" rx="2" fill="rgba(255,255,255,.35)"/>
+              <path d="M72 44h48M72 58h36M72 72h42" stroke="#C9CEF5" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="108" cy="88" r="18" fill="#424FD1"/>
+              <path d="M100 88l6 6 12-14" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </div>
+
+          <div class="home-block">
+            <p class="home-section-title">Your practice</p>
+            <div class="home-profile">
+              <div class="home-profile-grid">
+                <div class="home-field">
+                  <label for="firm-name-input">Firm / practice name</label>
+                  <input type="text" id="firm-name-input" placeholder="e.g. ABC &amp; Associates" autocomplete="organization">
+                </div>
+                <div class="home-field">
+                  <label for="practice-phone-input">Your mobile number</label>
+                  <input type="tel" id="practice-phone-input" placeholder="+91 98765 43210" autocomplete="tel">
+                </div>
+              </div>
+              <div class="home-profile-divider home-auth-block">
+                <div class="home-field home-field-locked">
+                  <label>Signed in as</label>
+                  <p class="home-locked-value" id="home-user-email-display">—</p>
+                </div>
+                <button type="button" class="home-switch-link" id="home-switch-account">Sign in with another account</button>
+              </div>
+              <div class="home-profile-divider home-practice-footer">
+                <p class="status-msg" id="home-practice-save-status"></p>
+                <button type="button" class="btn btn-primary" id="home-practice-save">Save practice details</button>
+              </div>
+              <div class="home-profile-divider home-clients-bar">
+                <p id="home-clients-summary">No clients on file yet. Add clients in Compliance Reminders.</p>
+                <button type="button" class="btn btn-outline-teal" data-open-tab="tab-reminders">Open reminders</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-block home-block-usage">
+            <p class="home-section-title">Workspace usage</p>
+            <div class="home-stats">
+              <div class="home-stat">
+                <div class="lbl">Runs available</div>
+                <div class="val" id="home-credits-remaining">—</div>
+                <div class="sub" id="home-credits-sub">Complimentary workspace access</div>
+              </div>
+              <div class="home-stat">
+                <div class="lbl">Runs used</div>
+                <div class="val" id="home-credits-used">—</div>
+                <div class="sub">Across all tools</div>
+              </div>
+              <div class="home-stat">
+                <div class="lbl">Last activity</div>
+                <div class="val" id="home-last-tool" style="font-size:1.1rem">—</div>
+                <div class="sub" id="home-last-tool-sub">No runs yet</div>
+              </div>
+            </div>
+            <div class="credit-pill home-credit-pill" id="credit-pill" title="Complimentary runs">Checking access…</div>
+          </div>
+
+          <div class="home-block">
+            <p class="home-section-title">Practice tools</p>
+            <div class="tool-grid" id="home-tool-grid">
+              <button type="button" class="tool-card" data-open-tab="tab-financial">
+                <div class="tool-card-icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </div>
+                <h3>Schedule III Financial Statements</h3>
+                <p>Prepare non-corporate entity accounts from your trial balance — audit-ready Schedule III format.</p>
+                <span class="tool-card-cta">Open tool →</span>
+                <svg class="tool-card-deco" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v16H4z"/></svg>
+              </button>
+              <button type="button" class="tool-card" data-open-tab="tab-reminders">
+                <div class="tool-card-icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                </div>
+                <h3>Statutory Compliance Reminders</h3>
+                <p>Send GST, ITR, TDS and other filing reminders to clients by email or WhatsApp.</p>
+                <span class="tool-card-cta">Open tool →</span>
+              </button>
+              <button type="button" class="tool-card soon" data-open-tab="tab-bank" id="home-tool-bank">
+                <div class="tool-card-icon" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="22" x2="21" y2="22"/><polygon points="12 2 20 7 4 7"/></svg>
+                </div>
+                <h3>Working Papers &amp; Trial Balance</h3>
+                <p>Classify client records into books of account and prepare a draft trial balance.</p>
+                <span class="tool-card-cta" id="home-tool-bank-cta">Coming soon</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- TAB: COMPLIANCE REMINDERS -->
       <section class="tab-section" id="tab-reminders">
-        <h2 class="page-title" style="font-size:1.45rem;margin-bottom:8px">Client Compliance Reminders</h2>
+        <button type="button" class="tool-back" data-open-tab="tab-home">← Back to overview</button>
+        <h2 class="page-title" style="font-size:1.45rem;margin-bottom:8px">Statutory Compliance Reminders</h2>
         <p class="page-sub">
-          Upload your client list, then tell each client what to file, when the filing is due, and when you need their documents. One email per client, sent when you click Send.
+          Upload your client list, then set filing due dates and when you need documents from each client. Send reminders by email and/or WhatsApp when you are ready.
         </p>
 
         <div class="reminder-steps">
-          <div class="reminder-step"><b>1. Client list</b>Upload CSV or Excel (name and email only).</div>
-          <div class="reminder-step"><b>2. Set dates &amp; send</b>For each compliance item: filing due date (official deadline) and documents needed by (when the client must send papers). Then send the email.</div>
+          <div class="reminder-step"><b>1. Client list</b>Upload CSV or Excel (name, email, and phone for WhatsApp).</div>
+          <div class="reminder-step"><b>2. Set dates &amp; send</b>For each compliance item: filing due date (official deadline) and documents needed by (when the client must send papers). Then send via email and/or WhatsApp.</div>
         </div>
 
         <div class="dcard" id="reminder-clients-card">
@@ -1288,7 +1642,7 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
             <h3>Client list</h3>
             <button type="button" class="sheet-change-btn" id="reminder-template-download">Download template ↗</button>
           </div>
-          <p class="sheet-note">The template only includes <b>Client Name</b> and <b>Email</b>. Fill it in Excel or Google Sheets, then upload here.</p>
+          <p class="sheet-note">The template includes <b>Client Name</b>, <b>Email</b>, and <b>Phone (WhatsApp)</b>. Fill it in Excel or Google Sheets, then upload here.</p>
           <div class="dropzone" id="reminder-dropzone" tabindex="0" role="button" aria-label="Upload client list">
             <div class="dz-icon">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#424FD1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1296,7 +1650,7 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
               </svg>
             </div>
             <p><b>Click to upload</b> or drag and drop your filled client list</p>
-            <p class="dz-hint">Excel (.xlsx) or CSV · name &amp; email columns only</p>
+            <p class="dz-hint">Excel (.xlsx) or CSV · name, email &amp; phone columns</p>
             <input type="file" id="reminder-input" accept=".xlsx,.xls,.csv" hidden>
           </div>
           <div class="file-list" id="reminder-files"></div>
@@ -1304,16 +1658,28 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
           <p class="status-msg" id="reminder-upload-status"></p>
         </div>
 
-        <div class="dcard" id="reminder-table-card" hidden>
+        <div class="dcard" id="reminder-table-card">
           <div class="reminder-clients-head">
             <div>
               <h3 style="font-size:1rem;font-weight:700">Review &amp; customise</h3>
               <p class="sheet-note" style="margin:4px 0 0" id="reminder-client-count">0 clients</p>
-              <p class="sheet-note" style="margin:2px 0 0">Click <b>Customise</b> to set filing dates and when you need documents from each client.</p>
+              <p class="sheet-note" style="margin:2px 0 0">Add clients below, then click <b>Customise</b> to set filing dates for each.</p>
             </div>
           </div>
+
+          <div class="reminder-add-client">
+            <p class="sheet-note" style="margin-bottom:0"><b>Add a client</b> — enter details manually or upload a list above</p>
+            <div class="home-quick-add">
+              <input type="text" id="reminder-add-name" placeholder="Client name" aria-label="Client name">
+              <input type="email" id="reminder-add-email" placeholder="Email" aria-label="Email">
+              <input type="tel" id="reminder-add-phone" placeholder="Mobile (+91…)" aria-label="Mobile">
+              <button type="button" class="btn btn-primary" id="reminder-add-client-btn" style="padding:10px 16px;font-size:.84rem">Add client</button>
+            </div>
+            <p class="status-msg" id="reminder-add-client-status" style="margin-top:8px"></p>
+          </div>
+
           <div class="reminder-toolbar">
-            <input type="search" id="reminder-search" placeholder="Search by name or email…" aria-label="Search clients">
+            <input type="search" id="reminder-search" placeholder="Search by name, email or phone…" aria-label="Search clients">
             <button type="button" class="sheet-change-btn" id="reminder-expand-all">Expand all</button>
             <button type="button" class="sheet-change-btn" id="reminder-collapse-all">Collapse all</button>
           </div>
@@ -1323,6 +1689,7 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
                 <tr>
                   <th>Client</th>
                   <th>Email</th>
+                  <th>Phone</th>
                   <th>Compliance items</th>
                   <th></th>
                 </tr>
@@ -1330,9 +1697,9 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
               <tbody id="reminder-clients-body"></tbody>
             </table>
           </div>
-          <div class="reminder-clients-empty" id="reminder-clients-empty" hidden>
-            <p><b>No clients yet</b></p>
-            <p>Upload a filled client list template to get started.</p>
+          <div class="reminder-clients-empty" id="reminder-clients-empty">
+            <p><b>No clients in the list yet</b></p>
+            <p>Use <b>Add a client</b> above or upload an Excel / CSV file.</p>
           </div>
         </div>
 
@@ -1340,13 +1707,19 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
           <div class="dcard-head">
             <h3>Send reminders</h3>
             <div class="reminder-send-actions">
+              <label class="reminder-channel-label" for="reminder-channel">Delivery</label>
+              <select id="reminder-channel" class="reminder-channel-select" aria-label="Delivery channel">
+                <option value="email">Email only</option>
+                <option value="whatsapp">WhatsApp only</option>
+                <option value="both">Email + WhatsApp</option>
+              </select>
               <button type="button" id="reminder-preview-btn" class="btn btn-ghost" style="padding:9px 16px;font-size:.84rem">Preview payload</button>
               <button type="button" id="reminder-dry-run" class="btn btn-ghost" style="padding:9px 16px;font-size:.84rem">Dry run</button>
               <button id="run-workflow" class="btn btn-primary tool-action" style="padding:9px 18px;font-size:.84rem" disabled>▶ Send reminders</button>
             </div>
           </div>
           <p class="sheet-note" id="reminder-send-summary">Add at least one client with a valid email and one compliance item (name, filing due date, documents needed by) before sending.</p>
-          <p class="sheet-note" style="margin-top:6px">The email goes out <b>when you click Send</b> below. The dates you set are what the client reads in the message — not when the email is delivered.</p>
+          <p class="sheet-note" style="margin-top:6px">Messages go out <b>when you click Send</b> below. The dates you set are what the client reads — not when delivery happens.</p>
           <div class="reminder-payload-preview" id="reminder-payload-preview" hidden>
             <pre id="reminder-payload-json"></pre>
           </div>
@@ -1354,12 +1727,13 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
         </div>
       </section>
 
-      <!-- TAB: TB → NCE TEMPLATE -->
-      <section class="tab-section active" id="tab-financial">
-        <h2 class="page-title" style="font-size:1.45rem;margin-bottom:8px">Trial Balance → NCE Template</h2>
+      <!-- TAB: SCHEDULE III FINANCIAL STATEMENTS -->
+      <section class="tab-section" id="tab-financial">
+        <button type="button" class="tool-back" data-open-tab="tab-home">← Back to overview</button>
+        <h2 class="page-title" style="font-size:1.45rem;margin-bottom:8px">Schedule III Financial Statements</h2>
         <p class="page-sub">
-          Upload a trial balance or Tally export and get back a filled Schedule III workbook
-          in the non-corporate entities (NCE) format, ready to review and sign off.
+          Upload a trial balance or Tally export and receive a filled Schedule III workbook
+          for non-corporate entities, ready for your review and sign-off.
         </p>
 
         <div class="dcard">
@@ -1402,7 +1776,7 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
           </div>
 
           <button class="btn btn-primary tool-action" id="tally-submit" disabled style="opacity:.5;margin-top:16px">
-            Convert to NCE template
+            Prepare Schedule III statements
           </button>
           <p class="status-msg" id="tally-status"></p>
         </div>
@@ -1538,13 +1912,14 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
         </div>
       </section>
 
-      <!-- TAB: CLIENT PACK → TRIAL BALANCE (Tool 3) -->
+      <!-- TAB: WORKING PAPERS -->
       <section class="tab-section" id="tab-bank">
-        <h2 class="page-title" style="font-size:1.45rem;margin-bottom:8px">Client pack → Trial balance</h2>
+        <button type="button" class="tool-back" data-open-tab="tab-home">← Back to overview</button>
+        <h2 class="page-title" style="font-size:1.45rem;margin-bottom:8px">Working Papers &amp; Trial Balance</h2>
         <p class="page-sub">
-          Upload bank statements, cash books, sales/purchase registers, and opening trial balance.
-          Get back classified books, a day book, and a draft trial balance for your review — working papers
-          that feed into <button type="button" class="sheet-change-btn" data-switch-tab="tab-financial">TB → NCE Template</button>.
+          Upload bank statements, cash books, and sales or purchase registers with an opening trial balance.
+          Receive classified books and a draft trial balance for review — ready for
+          <button type="button" class="sheet-change-btn" data-switch-tab="tab-financial">Schedule III Financial Statements</button>.
         </p>
 
         <div class="dcard tool-coming-soon-card" id="book-tool-locked" hidden>
@@ -1561,9 +1936,10 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
               It isn't ready for production workspace runs yet.
             </p>
             <p>
-              For now, try <button type="button" class="sheet-change-btn" data-switch-tab="tab-financial">TB → NCE Template</button>
+              For now, use
+              <button type="button" class="sheet-change-btn" data-switch-tab="tab-financial">Schedule III Financial Statements</button>
               if you already have a trial balance, or
-              <button type="button" class="sheet-change-btn" data-switch-tab="tab-reminders">Compliance Reminders</button>
+              <button type="button" class="sheet-change-btn" data-switch-tab="tab-reminders">Statutory Compliance Reminders</button>
               for client follow-ups.
             </p>
           </div>
@@ -1689,7 +2065,7 @@ table.reminder-clients tr.row-error td{background:#FCEFEA}
               ⬇ Download working papers (.xlsx)
             </button>
             <button class="btn btn-primary" id="book-handoff-tally">
-              Continue in TB → NCE Template
+              Continue in Schedule III Financial Statements
             </button>
             <button class="btn btn-ghost" id="book-reset">
               Start over
@@ -1903,8 +2279,18 @@ window.dispatchEvent(new CustomEvent('ph-firebase-ready'));
 // Google sign-in is handled by Firebase Auth (see Firebase module above).
 // Enable Google provider: Firebase Console → Authentication → Sign-in method.
 
-// Backend webhook for compliance reminders (not shown in the UI).
+// Backend webhooks for compliance reminders (not shown in the UI).
 const N8N_WEBHOOK_URL = 'https://aymaanshahzad23.app.n8n.cloud/webhook/ca-filing-reminder';
+const N8N_WHATSAPP_WEBHOOK_URL = 'https://aymaanshahzad23.app.n8n.cloud/webhook/ca-filing-reminder-whatsapp';
+const N8N_WHATSAPP_STORAGE_KEY = 'ph_n8n_whatsapp_url';
+const FIRM_NAME_STORAGE_KEY = 'ph_firm_name';
+const PRACTICE_PROFILE_KEY = 'ph_practice_profile';
+
+const TOOL_LABELS = {
+  financial_statements: 'Schedule III Financial Statements',
+  reminders: 'Statutory Compliance Reminders',
+  book_build: 'Working Papers & Trial Balance',
+};
 
 // Tool 3: enabled on localhost only until production QA is complete.
 const BOOK_BUILD_ENABLED = ['localhost', '127.0.0.1'].includes(window.location.hostname);
@@ -1924,6 +2310,40 @@ const TEMPLATE_MAP_URL = 'template_map.json';
 const landing   = document.getElementById('landing');
 const dashboard = document.getElementById('dashboard');
 const overlay   = document.getElementById('signin-overlay');
+
+/* ==================== THEME ==================== */
+const THEME_STORAGE_KEY = 'ph_theme';
+
+function getTheme() {
+  return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+}
+
+function setTheme(theme, { persist = true } = {}) {
+  const next = theme === 'dark' ? 'dark' : 'light';
+  if (next === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+  else document.documentElement.removeAttribute('data-theme');
+  if (persist) {
+    try { localStorage.setItem(THEME_STORAGE_KEY, next); } catch {}
+  }
+  document.querySelectorAll('[data-theme-toggle]').forEach((btn) => {
+    const label = next === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+    btn.setAttribute('aria-label', label);
+    btn.title = label;
+  });
+}
+
+function initThemeToggles() {
+  document.querySelectorAll('[data-theme-toggle]').forEach((btn) => {
+    if (btn.dataset.themeBound) return;
+    btn.dataset.themeBound = '1';
+    btn.addEventListener('click', () => {
+      setTheme(getTheme() === 'dark' ? 'light' : 'dark');
+    });
+  });
+  setTheme(getTheme(), { persist: false });
+}
+
+initThemeToggles();
 
 /* ==================== SIGN-IN OVERLAY ==================== */
 function openSignin(){
@@ -1971,15 +2391,19 @@ function enterDashboard(user){
   window.scrollTo(0, 0);
   populateUser(user);
   refreshCredits();
+  switchDashboardTab('tab-home');
+  initHomeDashboard();
 }
 
 function populateUser(user){
   const firstName = (user.name || 'there').split(' ')[0];
   const h = new Date().getHours();
   const part = h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening';
-  document.getElementById('greeting').textContent = `Good ${part}, ${firstName} 👋`;
+  document.getElementById('greeting').textContent = `Good ${part}, ${firstName}`;
   document.getElementById('user-name').textContent = user.name;
   document.getElementById('user-email').textContent = user.email;
+  const homeEmail = document.getElementById('home-user-email-display');
+  if (homeEmail) homeEmail.textContent = user.email || '—';
   const avatar = document.getElementById('user-avatar');
   avatar.textContent = (user.name || 'U')[0].toUpperCase();
   if (user.picture){
@@ -1988,6 +2412,198 @@ function populateUser(user){
   } else {
     avatar.style.backgroundImage = '';
   }
+  updateHomeClientsSummary();
+  loadPracticeProfileIntoForm();
+}
+
+function getPracticeProfileStore() {
+  try {
+    return JSON.parse(localStorage.getItem(PRACTICE_PROFILE_KEY) || '{}');
+  } catch {
+    return {};
+  }
+}
+
+function getPracticeProfile() {
+  if (!currentUser?.uid) return { firmName: '', phone: '' };
+  const store = getPracticeProfileStore();
+  if (store[currentUser.uid]) return store[currentUser.uid];
+  const legacyFirm = localStorage.getItem(FIRM_NAME_STORAGE_KEY);
+  if (legacyFirm) return { firmName: legacyFirm, phone: '' };
+  return { firmName: '', phone: '' };
+}
+
+function getFirmName() {
+  return getPracticeProfile().firmName || '';
+}
+
+function savePracticeProfile({ firmName, phone }) {
+  if (!currentUser?.uid) return false;
+  const store = getPracticeProfileStore();
+  store[currentUser.uid] = {
+    firmName: String(firmName || '').trim(),
+    phone: normalizePhone(phone),
+    savedAt: new Date().toISOString(),
+  };
+  localStorage.setItem(PRACTICE_PROFILE_KEY, JSON.stringify(store));
+  if (store[currentUser.uid].firmName) {
+    localStorage.setItem(FIRM_NAME_STORAGE_KEY, store[currentUser.uid].firmName);
+  }
+  return true;
+}
+
+function loadPracticeProfileIntoForm() {
+  const profile = getPracticeProfile();
+  const firmInput = document.getElementById('firm-name-input');
+  const phoneInput = document.getElementById('practice-phone-input');
+  if (firmInput) firmInput.value = profile.firmName || '';
+  if (phoneInput) phoneInput.value = profile.phone || '';
+  const status = document.getElementById('home-practice-save-status');
+  if (status && profile.savedAt) {
+    status.className = 'status-msg ok';
+    status.textContent = 'Practice details saved.';
+  }
+}
+
+function addClientFromFields({ name, email, phone, statusEl }) {
+  if (!name) {
+    if (statusEl) { statusEl.className = 'status-msg err'; statusEl.textContent = 'Enter a client name.'; }
+    return false;
+  }
+  if (!email && !phone) {
+    if (statusEl) { statusEl.className = 'status-msg err'; statusEl.textContent = 'Enter at least an email or mobile number.'; }
+    return false;
+  }
+  if (email && !isValidEmail(email)) {
+    if (statusEl) { statusEl.className = 'status-msg err'; statusEl.textContent = 'Enter a valid email address.'; }
+    return false;
+  }
+  if (phone && !isValidPhone(phone)) {
+    if (statusEl) { statusEl.className = 'status-msg err'; statusEl.textContent = 'Enter a valid mobile number (10 digits or +91…).'; }
+    return false;
+  }
+  reminderClients.push(newReminderClient(name, email, phone));
+  renderReminderClientsTable();
+  updateReminderSendUI();
+  updateHomeClientsSummary();
+  if (statusEl) {
+    statusEl.className = 'status-msg ok';
+    statusEl.textContent = `Added ${name}. Click Customise to set compliance dates.`;
+  }
+  return true;
+}
+
+function updateHomeClientsSummary() {
+  const el = document.getElementById('home-clients-summary');
+  if (!el) return;
+  const n = reminderClients.length;
+  const firm = getFirmName();
+  if (!n) {
+    el.textContent = firm
+      ? `${firm} — no clients on file yet. Add clients in Compliance Reminders.`
+      : 'No clients on file yet. Add clients in Compliance Reminders.';
+    return;
+  }
+  el.textContent = `${n} client${n === 1 ? '' : 's'} on file${firm ? ` · ${firm}` : ''}. Open Compliance Reminders to set filing dates and send.`;
+}
+
+function updateHomeDashboard() {
+  const remaining = document.getElementById('home-credits-remaining');
+  const used = document.getElementById('home-credits-used');
+  const lastTool = document.getElementById('home-last-tool');
+  const lastSub = document.getElementById('home-last-tool-sub');
+  const sub = document.getElementById('home-credits-sub');
+  if (!remaining) return;
+
+  if (!creditState.loaded) {
+    remaining.textContent = '—';
+    used.textContent = '—';
+    if (lastTool) lastTool.textContent = '—';
+    return;
+  }
+
+  remaining.textContent = String(creditState.runs_remaining ?? 0);
+  used.textContent = String(creditState.runs_used ?? 0);
+  if (sub) {
+    sub.textContent = creditState.can_run
+      ? 'Complimentary workspace access'
+      : 'Contact us for continued access';
+  }
+  const label = creditState.last_tool_used
+    ? (TOOL_LABELS[creditState.last_tool_used] || creditState.last_tool_used)
+    : null;
+  if (lastTool) lastTool.textContent = label || 'None';
+  if (lastSub) lastSub.textContent = label ? 'Most recent tool run' : 'No runs yet';
+  updateHomeClientsSummary();
+}
+
+function closeDashDrawer() {
+  document.getElementById('dash-sidebar')?.classList.remove('open');
+  document.getElementById('dash-overlay')?.classList.remove('open');
+  document.getElementById('dash-overlay')?.setAttribute('hidden', '');
+  const btn = document.getElementById('dash-menu-btn');
+  if (btn) btn.setAttribute('aria-expanded', 'false');
+}
+
+function openDashDrawer() {
+  document.getElementById('dash-sidebar')?.classList.add('open');
+  const overlay = document.getElementById('dash-overlay');
+  overlay?.classList.add('open');
+  overlay?.removeAttribute('hidden');
+  document.getElementById('dash-menu-btn')?.setAttribute('aria-expanded', 'true');
+}
+
+let homeDashboardInited = false;
+
+function initHomeDashboard() {
+  if (!homeDashboardInited) {
+    homeDashboardInited = true;
+
+    document.getElementById('home-practice-save')?.addEventListener('click', () => {
+      const status = document.getElementById('home-practice-save-status');
+      const firmName = document.getElementById('firm-name-input')?.value?.trim() || '';
+      const phone = document.getElementById('practice-phone-input')?.value?.trim() || '';
+      if (!firmName) {
+        if (status) { status.className = 'status-msg err'; status.textContent = 'Enter your firm or practice name.'; }
+        return;
+      }
+      if (phone && !isValidPhone(phone)) {
+        if (status) { status.className = 'status-msg err'; status.textContent = 'Enter a valid mobile number (10 digits or +91…).'; }
+        return;
+      }
+      savePracticeProfile({ firmName, phone });
+      if (status) { status.className = 'status-msg ok'; status.textContent = '✓ Practice details saved.'; }
+      updateHomeClientsSummary();
+    });
+
+    document.getElementById('home-switch-account')?.addEventListener('click', async () => {
+      closeDashDrawer();
+      document.getElementById('signout')?.click();
+      setTimeout(() => openSignin(), 300);
+    });
+
+    document.querySelectorAll('[data-open-tab]').forEach((el) => {
+    el.addEventListener('click', () => {
+      const tab = el.dataset.openTab;
+      if (tab === 'tab-bank' && !BOOK_BUILD_ENABLED) {
+        switchDashboardTab('tab-bank');
+        return;
+      }
+      switchDashboardTab(tab);
+      closeDashDrawer();
+    });
+  });
+
+  document.getElementById('dash-menu-btn')?.addEventListener('click', () => {
+    const sidebar = document.getElementById('dash-sidebar');
+    if (sidebar?.classList.contains('open')) closeDashDrawer();
+    else openDashDrawer();
+  });
+  document.getElementById('dash-overlay')?.addEventListener('click', closeDashDrawer);
+  }
+
+  loadPracticeProfileIntoForm();
+  updateHomeDashboard();
 }
 
 function firebaseUserToProfile(user){
@@ -2014,6 +2630,7 @@ function updateCreditsUI(){
     pill.classList.remove('exhausted');
     gate.classList.add('hidden');
     dashMain?.classList.remove('tools-locked');
+    updateHomeDashboard();
     return;
   }
 
@@ -2024,6 +2641,7 @@ function updateCreditsUI(){
     pill.classList.remove('exhausted');
     gate.classList.add('hidden');
     dashMain?.classList.remove('tools-locked');
+    updateHomeDashboard();
     return;
   }
 
@@ -2032,6 +2650,7 @@ function updateCreditsUI(){
   gate.innerHTML = creditsExhaustedHtml();
   gate.classList.remove('hidden');
   dashMain?.classList.add('tools-locked');
+  updateHomeDashboard();
 }
 
 async function refreshCredits(){
@@ -2195,12 +2814,13 @@ async function getFirebaseAuthHeaders(){
   }
 }
 
-function buildN8nPayload({ test = false, dryRun = false } = {}){
+function buildN8nPayload({ test = false, dryRun = false, channel = null } = {}){
   const payload = {
     source: 'powerhouse-dashboard',
     triggeredAt: new Date().toISOString(),
     triggeredBy: currentUser?.email || null,
-    clients: test ? [] : buildReminderDispatchList(),
+    channel: channel || getReminderChannel(),
+    clients: test ? [] : buildReminderDispatchList(channel || getReminderChannel()),
   };
   if (test) payload.test = true;
   if (dryRun) payload.dryRun = true;
@@ -2223,6 +2843,15 @@ let reminderExpandedAll = false;
 let reminderSearchQuery = '';
 let reminderUploadFile = null;
 let reminderTableBound = false;
+
+function getReminderChannel() {
+  const sel = document.getElementById('reminder-channel');
+  return sel?.value || 'email';
+}
+
+function getN8nWhatsappUrl() {
+  return localStorage.getItem(N8N_WHATSAPP_STORAGE_KEY) || N8N_WHATSAPP_WEBHOOK_URL;
+}
 
 function reminderId() {
   return 'r_' + Math.random().toString(36).slice(2, 10);
@@ -2271,11 +2900,12 @@ function getClientReminderItems(client) {
   return client.reminderItems;
 }
 
-function newReminderClient(name, email) {
+function newReminderClient(name, email, phone = '') {
   return {
     id: reminderId(),
     name: (name || '').trim(),
     email: (email || '').trim(),
+    phone: normalizePhone(phone),
     reminderItems: [],
   };
 }
@@ -2295,6 +2925,22 @@ function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+function normalizePhone(phone) {
+  const raw = String(phone || '').trim();
+  if (!raw) return '';
+  if (raw.startsWith('whatsapp:')) return raw;
+  const digits = raw.replace(/[^\d+]/g, '');
+  if (!digits) return '';
+  if (digits.startsWith('+')) return digits;
+  if (digits.length === 10) return `+91${digits}`;
+  return `+${digits}`;
+}
+
+function isValidPhone(phone) {
+  const p = normalizePhone(phone);
+  return /^\+[1-9]\d{7,14}$/.test(p);
+}
+
 function normalizeEmail(email) {
   return String(email || '').trim().toLowerCase();
 }
@@ -2311,34 +2957,144 @@ function buildEmailCounts() {
 function getClientIssues(client) {
   const issues = [];
   const email = client.email.trim();
-  if (email && !isValidEmail(email)) issues.push('invalid-email');
+  const phone = client.phone || '';
+  const channel = getReminderChannel();
   if (!client.name.trim()) issues.push('missing-name');
-  const counts = buildEmailCounts();
-  if (email && counts[normalizeEmail(email)] > 1) issues.push('duplicate-email');
   const hasReady = getClientReminderItems(client).some(
     (row) => row.label.trim() && reminderFilingDate(row) && reminderDocumentsDue(row));
-  if (email && isValidEmail(email) && !hasReady) issues.push('no-active-reminder');
+  if (channel === 'email' || channel === 'both') {
+    if (email && !isValidEmail(email)) issues.push('invalid-email');
+    const counts = buildEmailCounts();
+    if (email && counts[normalizeEmail(email)] > 1) issues.push('duplicate-email');
+    if (email && isValidEmail(email) && !hasReady) issues.push('no-active-reminder');
+  }
+  if (channel === 'whatsapp' || channel === 'both') {
+    if (phone && !isValidPhone(phone)) issues.push('invalid-phone');
+    const pKey = normalizePhone(phone);
+    if (pKey && buildPhoneCounts()[pKey] > 1) issues.push('duplicate-phone');
+    if (phone && isValidPhone(phone) && !hasReady) issues.push('no-active-reminder');
+  }
   return issues;
+}
+
+function buildPhoneCounts() {
+  const counts = {};
+  reminderClients.forEach((c) => {
+    const key = normalizePhone(c.phone);
+    if (key) counts[key] = (counts[key] || 0) + 1;
+  });
+  return counts;
 }
 
 function clientIssueLabel(issue) {
   if (issue === 'invalid-email') return 'Invalid email';
+  if (issue === 'invalid-phone') return 'Invalid phone';
   if (issue === 'missing-name') return 'Name missing';
   if (issue === 'duplicate-email') return 'Duplicate email';
+  if (issue === 'duplicate-phone') return 'Duplicate phone';
   if (issue === 'no-active-reminder') return 'Filing date or documents date missing';
   return issue;
+}
+
+function syncClientDetailFromDom(clientId) {
+  const client = reminderClients.find((c) => c.id === clientId);
+  if (!client) return null;
+  const root = document.querySelector(`tr.reminder-detail-row[data-detail-for="${clientId}"]`);
+  if (!root) return client;
+
+  const nameEl = root.querySelector('.rem-name');
+  const emailEl = root.querySelector('.rem-email');
+  const phoneEl = root.querySelector('.rem-phone');
+  if (nameEl) client.name = nameEl.value.trim();
+  if (emailEl) client.email = emailEl.value.trim();
+  if (phoneEl) client.phone = normalizePhone(phoneEl.value);
+
+  getClientReminderItems(client).forEach((item) => {
+    const labelEl = root.querySelector(`.rem-label[data-item="${item.id}"]`);
+    const filingEl = root.querySelector(`.rem-filing[data-item="${item.id}"]`);
+    const docsEl = root.querySelector(`.rem-docs[data-item="${item.id}"]`);
+    if (labelEl) item.label = labelEl.value.trim();
+    if (filingEl) item.filingDueDate = filingEl.value;
+    if (docsEl) item.documentsDueBy = docsEl.value;
+  });
+  return client;
+}
+
+function validateClientForSave(client) {
+  const channel = getReminderChannel();
+  if (!client.name.trim()) {
+    return { ok: false, message: 'Enter the client name before saving.' };
+  }
+  if ((channel === 'email' || channel === 'both') && !client.email.trim()) {
+    return { ok: false, message: 'Enter an email address for this client.' };
+  }
+  if ((channel === 'whatsapp' || channel === 'both') && !client.phone) {
+    return { ok: false, message: 'Enter a mobile number for WhatsApp reminders.' };
+  }
+  const issues = getClientIssues(client);
+  const blocking = issues.filter((i) => i !== 'no-active-reminder');
+  if (blocking.length) {
+    return { ok: false, message: `${clientIssueLabel(blocking[0])}. Fix it before saving.` };
+  }
+  const hasComplete = getClientReminderItems(client).some(
+    (row) => row.label.trim() && reminderFilingDate(row) && reminderDocumentsDue(row),
+  );
+  if (!hasComplete) {
+    return { ok: false, message: 'Add at least one compliance item with a name, filing due date, and documents needed by date.' };
+  }
+  return { ok: true };
+}
+
+function saveReminderClient(clientId) {
+  const client = syncClientDetailFromDom(clientId);
+  if (!client) return;
+
+  const statusEl = document.querySelector(`[data-save-status-for="${clientId}"]`);
+  const validation = validateClientForSave(client);
+  if (!validation.ok) {
+    if (statusEl) {
+      statusEl.className = 'rem-save-status err';
+      statusEl.textContent = validation.message;
+    }
+    return;
+  }
+
+  client.reminderSaved = true;
+  reminderExpandedId = null;
+  renderReminderClientsTable();
+  updateReminderSendUI();
+  updateHomeClientsSummary();
+
+  const uploadStatus = document.getElementById('reminder-upload-status');
+  if (uploadStatus) {
+    uploadStatus.className = 'status-msg ok';
+    uploadStatus.textContent = `✓ Saved reminders for ${client.name}. Continue with the next client or send when ready.`;
+  }
+}
+
+function isClientReminderReady(client) {
+  return Boolean(client.reminderSaved) && !getClientIssues(client).length;
 }
 
 function getFilteredReminderClients() {
   const q = reminderSearchQuery.trim().toLowerCase();
   if (!q) return reminderClients;
   return reminderClients.filter((c) =>
-    c.name.toLowerCase().includes(q) || c.email.toLowerCase().includes(q));
+    c.name.toLowerCase().includes(q)
+    || c.email.toLowerCase().includes(q)
+    || String(c.phone || '').toLowerCase().includes(q));
 }
 
-function buildReminderDispatchList() {
+function buildReminderDispatchList(channel = getReminderChannel()) {
   return reminderClients
-    .filter((c) => c.name && isValidEmail(c.email))
+    .filter((c) => {
+      const hasName = Boolean(c.name);
+      const emailOk = isValidEmail(c.email);
+      const phoneOk = isValidPhone(c.phone);
+      if (channel === 'email') return hasName && emailOk;
+      if (channel === 'whatsapp') return hasName && phoneOk;
+      return hasName && emailOk && phoneOk;
+    })
     .map((client) => {
       const reminders = getClientReminderItems(client)
         .filter((row) => row.label.trim() && reminderFilingDate(row) && reminderDocumentsDue(row))
@@ -2348,30 +3104,52 @@ function buildReminderDispatchList() {
           filingDueDate: reminderFilingDate(row),
           documentsDueBy: reminderDocumentsDue(row),
         }));
-      return { name: client.name, email: client.email, reminders };
+      return {
+        name: client.name,
+        email: client.email,
+        phone: normalizePhone(client.phone),
+        reminders,
+      };
     })
     .filter((c) => c.reminders.length > 0);
 }
 
-function validateReminderDispatch() {
-  const dispatch = buildReminderDispatchList();
+function validateReminderDispatch(channel = getReminderChannel()) {
+  const dispatch = buildReminderDispatchList(channel);
   if (!dispatch.length) {
-    const missingDates = reminderClients.filter((c) =>
-      c.email && isValidEmail(c.email) && getClientIssues(c).includes('no-active-reminder')).length;
+    const need = channel === 'whatsapp' ? 'phone' : channel === 'both' ? 'email, phone' : 'email';
+    const missingDates = reminderClients.filter((c) => {
+      const contactOk = channel === 'email' ? isValidEmail(c.email)
+        : channel === 'whatsapp' ? isValidPhone(c.phone)
+          : isValidEmail(c.email) && isValidPhone(c.phone);
+      return contactOk && getClientIssues(c).includes('no-active-reminder');
+    }).length;
     if (missingDates) {
       return { ok: false, message: `${missingDates} client(s) need at least one compliance item with a name, filing due date, and documents needed by date.` };
     }
-    return { ok: false, message: 'Add at least one client with a valid email and one complete compliance item (name, filing due date, documents needed by).' };
+    return { ok: false, message: `Add at least one client with valid ${need} and one complete compliance item (name, filing due date, documents needed by).` };
   }
-  const invalid = reminderClients.filter((c) => c.email && !isValidEmail(c.email));
-  if (invalid.length) {
-    return { ok: false, message: `${invalid.length} client(s) have an invalid email address. Fix them before sending.` };
+  if (channel === 'email' || channel === 'both') {
+    const invalid = reminderClients.filter((c) => c.email && !isValidEmail(c.email));
+    if (invalid.length) {
+      return { ok: false, message: `${invalid.length} client(s) have an invalid email address. Fix them before sending.` };
+    }
+    const dupes = reminderClients.filter((c) => getClientIssues(c).includes('duplicate-email'));
+    if (dupes.length) {
+      return { ok: false, message: `${dupes.length} client(s) share a duplicate email. Keep one row per email.` };
+    }
   }
-  const dupes = reminderClients.filter((c) => getClientIssues(c).includes('duplicate-email'));
-  if (dupes.length) {
-    return { ok: false, message: `${dupes.length} client(s) share a duplicate email. Keep one row per email.` };
+  if (channel === 'whatsapp' || channel === 'both') {
+    const invalidPhone = reminderClients.filter((c) => c.phone && !isValidPhone(c.phone));
+    if (invalidPhone.length) {
+      return { ok: false, message: `${invalidPhone.length} client(s) have an invalid phone number. Use E.164 or a 10-digit Indian mobile.` };
+    }
+    const dupePhone = reminderClients.filter((c) => getClientIssues(c).includes('duplicate-phone'));
+    if (dupePhone.length) {
+      return { ok: false, message: `${dupePhone.length} client(s) share a duplicate phone number.` };
+    }
   }
-  return { ok: true, dispatch };
+  return { ok: true, dispatch, channel };
 }
 
 function renderUploadWarnings(report) {
@@ -2390,6 +3168,9 @@ function renderUploadWarnings(report) {
   }
   if (report.invalidEmails.length) {
     parts.push(`Invalid emails: ${report.invalidEmails.map((r) => escapeHtml(r.email || '(blank)')).join(', ')}`);
+  }
+  if (report.invalidPhones?.length) {
+    parts.push(`Invalid phones: ${report.invalidPhones.map((r) => escapeHtml(r.phone || '(blank)')).join(', ')}`);
   }
   if (report.missingNames.length) {
     parts.push(`${report.missingNames.length} row(s) had no name (marked as "Client").`);
@@ -2423,15 +3204,20 @@ function updateReminderSendUI() {
   const sendBtn = document.getElementById('run-workflow');
   const sendCard = document.getElementById('reminder-send-card');
   const hasClients = reminderClients.length > 0;
+  const table = document.getElementById('reminder-clients-table');
+  const empty = document.getElementById('reminder-clients-empty');
+  const toolbar = document.querySelector('.reminder-toolbar');
 
-  document.getElementById('reminder-table-card').hidden = !hasClients;
   sendCard.hidden = !hasClients;
+  if (table) table.hidden = !hasClients;
+  if (toolbar) toolbar.hidden = !hasClients;
+  if (empty) empty.hidden = hasClients;
 
   document.getElementById('reminder-client-count').textContent =
     `${reminderClients.length} client${reminderClients.length === 1 ? '' : 's'}`;
 
   if (!hasClients) {
-    summary.textContent = 'Upload a client list to configure reminders.';
+    summary.textContent = 'Add clients in the list above, set compliance dates, then send when ready.';
     sendBtn.disabled = true;
     return;
   }
@@ -2439,7 +3225,9 @@ function updateReminderSendUI() {
   if (validation.ok) {
     const n = validation.dispatch.length;
     const totalReminders = validation.dispatch.reduce((s, c) => s + c.reminders.length, 0);
-    summary.textContent = `Ready to send ${n} email${n === 1 ? '' : 's'} (${totalReminders} compliance item${totalReminders === 1 ? '' : 's'} total). One consolidated email per client — delivered when you click Send.`;
+    const ch = validation.channel || getReminderChannel();
+    const via = ch === 'both' ? 'email + WhatsApp' : ch === 'whatsapp' ? 'WhatsApp' : 'email';
+    summary.textContent = `Ready to send ${n} reminder${n === 1 ? '' : 's'} via ${via} (${totalReminders} compliance item${totalReminders === 1 ? '' : 's'} total). One consolidated message per client — delivered when you click Send.`;
     sendBtn.disabled = false;
     sendBtn.style.opacity = '1';
   } else {
@@ -2516,11 +3304,11 @@ function reminderDetailHtml(client) {
       </div>
     </div>`).join('') : '<p class="sheet-note" style="margin:8px 0">No compliance items for this client yet. Add one below.</p>';
 
-  return `<tr class="reminder-detail-row" data-detail-for="${client.id}"><td colspan="4">
+  return `<tr class="reminder-detail-row" data-detail-for="${client.id}"><td colspan="5">
     <div class="reminder-detail-grid">
       <div class="reminder-detail-card" style="grid-column:1/-1">
         <h4>Client details</h4>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
           <div>
             <label>Client name</label>
             <input type="text" class="rem-name" data-client="${client.id}" value="${escapeHtml(client.name)}">
@@ -2529,13 +3317,21 @@ function reminderDetailHtml(client) {
             <label>Email</label>
             <input type="email" class="rem-email" data-client="${client.id}" value="${escapeHtml(client.email)}">
           </div>
+          <div>
+            <label>Phone (WhatsApp)</label>
+            <input type="tel" class="rem-phone" data-client="${client.id}" value="${escapeHtml(client.phone || '')}" placeholder="+91 98765 43210">
+          </div>
         </div>
       </div>
       <div class="reminder-items-panel">
         <h4 style="font-size:.88rem;margin-bottom:8px">Compliance items for this client</h4>
-        <p class="reminder-items-intro">Each item becomes one section in the client&apos;s email. Set when the filing is due and when you need their documents — the email itself is sent when you click <b>Send reminders</b> at the bottom of the page.</p>
+        <p class="reminder-items-intro">Each item becomes one section in the client&apos;s reminder. Set when the filing is due and when you need their documents — delivery happens when you click <b>Send reminders</b> at the bottom of the page.</p>
         ${itemRows}
         ${reminderAddItemControlsHtml(client.id)}
+        <div class="reminder-detail-footer">
+          <p class="rem-save-status" data-save-status-for="${client.id}">${client.reminderSaved ? '✓ Saved — ready to include when you send reminders.' : 'When finished, save this client to mark them complete.'}</p>
+          <button type="button" class="btn btn-primary rem-save-client" data-client="${client.id}" style="padding:10px 20px;font-size:.88rem">Save client reminders</button>
+        </div>
       </div>
     </div>
   </td></tr>`;
@@ -2573,6 +3369,7 @@ function bindReminderTableEvents() {
       const client = reminderClients.find((c) => c.id === removeItem.dataset.client);
       if (client) {
         client.reminderItems = getClientReminderItems(client).filter((r) => r.id !== removeItem.dataset.item);
+        client.reminderSaved = false;
       }
       renderReminderClientsTable();
       updateReminderSendUI();
@@ -2584,10 +3381,17 @@ function bindReminderTableEvents() {
       const pick = body.querySelector(`.rem-add-pick[data-client="${addBtn.dataset.client}"]`)?.value;
       if (client && pick) {
         addReminderItemToClient(client, pick);
+        client.reminderSaved = false;
         reminderExpandedId = client.id;
         renderReminderClientsTable();
         updateReminderSendUI();
       }
+      return;
+    }
+    const saveBtn = e.target.closest('.rem-save-client');
+    if (saveBtn) {
+      saveReminderClient(saveBtn.dataset.client);
+      return;
     }
   });
 
@@ -2600,6 +3404,7 @@ function bindReminderTableEvents() {
     if (t.classList.contains('rem-label')) item.label = t.value;
     if (t.classList.contains('rem-filing')) item.filingDueDate = t.value;
     if (t.classList.contains('rem-docs')) item.documentsDueBy = t.value;
+    client.reminderSaved = false;
     updateReminderSendUI();
   });
 
@@ -2609,11 +3414,20 @@ function bindReminderTableEvents() {
     if (!client) return;
     if (t.classList.contains('rem-name')) {
       client.name = t.value.trim();
+      client.reminderSaved = false;
       renderReminderClientsTable();
       return;
     }
     if (t.classList.contains('rem-email')) {
       client.email = t.value.trim();
+      client.reminderSaved = false;
+      renderReminderClientsTable();
+      updateReminderSendUI();
+      return;
+    }
+    if (t.classList.contains('rem-phone')) {
+      client.phone = normalizePhone(t.value);
+      client.reminderSaved = false;
       renderReminderClientsTable();
       updateReminderSendUI();
       return;
@@ -2623,6 +3437,7 @@ function bindReminderTableEvents() {
     if (t.classList.contains('rem-label')) item.label = t.value.trim();
     if (t.classList.contains('rem-filing')) item.filingDueDate = t.value;
     if (t.classList.contains('rem-docs')) item.documentsDueBy = t.value;
+    client.reminderSaved = false;
     renderReminderClientsTable();
     updateReminderSendUI();
   });
@@ -2635,9 +3450,13 @@ function renderReminderClientsTable() {
   body.innerHTML = '';
 
   if (!reminderClients.length) {
-    empty.hidden = false;
-    table.hidden = true;
+    const ps = empty?.querySelectorAll('p');
+    if (ps[0]) ps[0].innerHTML = '<b>No clients in the list yet</b>';
+    if (ps[1]) ps[1].textContent = 'Use Add a client above or upload an Excel / CSV file.';
+    if (empty) empty.hidden = false;
+    if (table) table.hidden = true;
     updateReminderSendUI();
+    updateHomeClientsSummary();
     return;
   }
 
@@ -2646,38 +3465,45 @@ function renderReminderClientsTable() {
   const visible = getFilteredReminderClients();
 
   if (!visible.length) {
-    empty.hidden = false;
     const ps = empty.querySelectorAll('p');
+    if (ps[0]) ps[0].innerHTML = '<b>No matching clients</b>';
     if (ps[1]) ps[1].textContent = reminderSearchQuery.trim()
-      ? 'No clients match your search.'
-      : 'Upload a filled client list template to get started.';
+      ? 'Try a different search term.'
+      : 'Use Add a client above or upload an Excel / CSV file.';
+    empty.hidden = false;
     table.hidden = true;
     updateReminderSendUI();
+    updateHomeClientsSummary();
     return;
   }
 
-  if (empty.querySelector('p:last-child')) {
-    empty.querySelector('p:last-child').textContent = 'Upload a filled client list template to get started.';
-  }
+  const ps = empty?.querySelectorAll('p');
+  if (ps[0]) ps[0].innerHTML = '<b>No clients in the list yet</b>';
+  if (ps[1]) ps[1].textContent = 'Use Add a client above or upload an Excel / CSV file.';
 
   visible.forEach((client) => {
     const issues = getClientIssues(client);
     const tr = document.createElement('tr');
     tr.className = 'client-row';
     if (reminderExpandedId === client.id || reminderExpandedAll) tr.classList.add('expanded');
-    if (issues.includes('invalid-email') || issues.includes('duplicate-email')) tr.classList.add('row-error');
+    if (issues.includes('invalid-email') || issues.includes('duplicate-email')
+      || issues.includes('invalid-phone') || issues.includes('duplicate-phone')) tr.classList.add('row-error');
     else if (issues.length) tr.classList.add('row-warn');
     const issueTags = issues.length
       ? issues.map((i) => `<span class="reminder-issue-tag">${clientIssueLabel(i)}</span>`).join('')
       : '';
+    const savedTag = isClientReminderReady(client)
+      ? '<span class="reminder-saved-tag">✓ Ready</span>'
+      : '';
     tr.innerHTML = `
-      <td><strong>${escapeHtml(client.name || 'N/A')}</strong>${issueTags}</td>
-      <td>${escapeHtml(client.email || 'N/A')}</td>
+      <td><strong>${escapeHtml(client.name || 'N/A')}</strong>${savedTag}${issueTags}</td>
+      <td>${escapeHtml(client.email || '—')}</td>
+      <td>${escapeHtml(client.phone || '—')}</td>
       <td>${reminderSummaryHtml(client)}</td>
       <td>
         <div class="reminder-actions">
           <button type="button" class="reminder-icon-btn rem-expand" data-id="${client.id}">
-            ${(reminderExpandedId === client.id || reminderExpandedAll) ? 'Close' : 'Customise'}
+            ${(reminderExpandedId === client.id || reminderExpandedAll) ? 'Close' : (client.reminderSaved ? 'Edit' : 'Customise')}
           </button>
           <button type="button" class="reminder-icon-btn danger rem-remove" data-id="${client.id}">Remove</button>
         </div>
@@ -2690,6 +3516,7 @@ function renderReminderClientsTable() {
 
   bindReminderTableEvents();
   updateReminderSendUI();
+  updateHomeClientsSummary();
 }
 
 function parseCsvLine(line) {
@@ -2721,27 +3548,38 @@ function parseCsvText(text) {
 }
 
 function validateAndNormalizeClientRows(rows) {
-  const report = { duplicateInFile: [], invalidEmails: [], missingNames: [], loaded: 0, skipped: 0 };
-  const seen = new Set();
+  const report = { duplicateInFile: [], invalidEmails: [], invalidPhones: [], missingNames: [], loaded: 0, skipped: 0 };
+  const seenEmail = new Set();
+  const seenPhone = new Set();
   const out = [];
   for (const row of rows) {
     const name = String(row.name || '').trim();
     const email = String(row.email || '').trim();
-    if (!name && !email) continue;
+    const phone = normalizePhone(row.phone);
+    if (!name && !email && !phone) continue;
     if (!email || !isValidEmail(email)) {
       report.invalidEmails.push({ name, email });
       report.skipped++;
       continue;
     }
-    const key = normalizeEmail(email);
-    if (seen.has(key)) {
+    const emailKey = normalizeEmail(email);
+    if (seenEmail.has(emailKey)) {
       report.duplicateInFile.push({ name, email });
       report.skipped++;
       continue;
     }
-    seen.add(key);
+    seenEmail.add(emailKey);
+    if (phone) {
+      if (!isValidPhone(phone)) {
+        report.invalidPhones.push({ name, phone });
+      } else if (seenPhone.has(phone)) {
+        report.duplicateInFile.push({ name, email: phone });
+      } else {
+        seenPhone.add(phone);
+      }
+    }
     if (!name) report.missingNames.push({ email });
-    out.push({ name: name || 'Client', email });
+    out.push({ name: name || 'Client', email, phone });
   }
   report.loaded = out.length;
   return { rows: out, report };
@@ -2756,6 +3594,7 @@ function parseClientRows(matrix) {
   const headers = matrix[0].map(normalizeHeader);
   const nameIdx = headers.findIndex((h) => /^(client)?name$/.test(h) || h.includes('clientname'));
   const emailIdx = headers.findIndex((h) => h.includes('email'));
+  const phoneIdx = headers.findIndex((h) => h.includes('phone') || h.includes('whatsapp') || h.includes('mobile'));
   if (nameIdx < 0 || emailIdx < 0) {
     throw new Error('Could not find Client Name and Email columns. Use the downloaded template.');
   }
@@ -2764,8 +3603,9 @@ function parseClientRows(matrix) {
     const row = matrix[i];
     const name = String(row[nameIdx] ?? '').trim();
     const email = String(row[emailIdx] ?? '').trim();
-    if (!name && !email) continue;
-    out.push({ name, email });
+    const phone = phoneIdx >= 0 ? String(row[phoneIdx] ?? '').trim() : '';
+    if (!name && !email && !phone) continue;
+    out.push({ name, email, phone });
   }
   return out;
 }
@@ -2788,9 +3628,9 @@ async function downloadReminderClientTemplate() {
   await ensureXLSX();
   const wb = XLSX.utils.book_new();
   const rows = [
-    ['Client Name', 'Email'],
-    ['Acme Traders', 'client@example.com'],
-    ['Brightway Consultants', 'contact@brightway.in'],
+    ['Client Name', 'Email', 'Phone (WhatsApp)'],
+    ['Acme Traders', 'client@example.com', '+919876543210'],
+    ['Brightway Consultants', 'contact@brightway.in', '9876543210'],
   ];
   XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), 'Clients');
   const out = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
@@ -2836,6 +3676,23 @@ function collapseReminderClients() {
 function initComplianceRemindersUI() {
   document.getElementById('reminder-preview-btn')?.addEventListener('click', toggleReminderPayloadPreview);
 
+  document.getElementById('reminder-add-client-btn')?.addEventListener('click', () => {
+    const status = document.getElementById('reminder-add-client-status');
+    const name = document.getElementById('reminder-add-name')?.value?.trim();
+    const email = document.getElementById('reminder-add-email')?.value?.trim();
+    const phone = document.getElementById('reminder-add-phone')?.value?.trim();
+    if (addClientFromFields({ name, email, phone, statusEl: status })) {
+      document.getElementById('reminder-add-name').value = '';
+      document.getElementById('reminder-add-email').value = '';
+      document.getElementById('reminder-add-phone').value = '';
+    }
+  });
+
+  document.getElementById('reminder-channel')?.addEventListener('change', () => {
+    renderReminderClientsTable();
+    updateReminderSendUI();
+  });
+
   document.getElementById('reminder-search')?.addEventListener('input', (e) => {
     reminderSearchQuery = e.target.value;
     renderReminderClientsTable();
@@ -2870,13 +3727,14 @@ function initComplianceRemindersUI() {
     try {
       const { rows, report } = await parseReminderClientFile(file);
       if (!rows.length) throw new Error('No valid client rows found. Check name and email columns.');
-      reminderClients = rows.map((r) => newReminderClient(r.name, r.email));
+      reminderClients = rows.map((r) => newReminderClient(r.name, r.email, r.phone));
       reminderUploadFile = file;
       reminderExpandedId = null;
       reminderExpandedAll = false;
       renderUploadWarnings(report);
       renderReminderFileList();
       renderReminderClientsTable();
+      updateHomeClientsSummary();
       uploadStatus.className = 'status-msg done';
       const warn = report.skipped ? ` (${report.skipped} row${report.skipped === 1 ? '' : 's'} skipped)` : '';
       uploadStatus.textContent = `✓ Loaded ${reminderClients.length} client${reminderClients.length === 1 ? '' : 's'}${warn}. Add compliance items and dates for each client below.`;
@@ -2931,19 +3789,25 @@ const runWorkflowBtn = document.getElementById('run-workflow');
 const workflowStatus = document.getElementById('workflow-status');
 const RUN_WORKFLOW_LABEL = '▶ Send reminders';
 
-async function postReminderPayload({ dryRun = false, consumeCredit = true } = {}) {
-  const validation = validateReminderDispatch();
+async function postReminderPayload({ dryRun = false, consumeCredit = true, channel = null } = {}) {
+  const ch = channel || getReminderChannel();
+  const validation = validateReminderDispatch(ch);
   if (!validation.ok) {
     workflowStatus.className = 'wf-status err';
     workflowStatus.textContent = '✗ ' + validation.message;
     return false;
   }
 
-  const url = getN8nUrl();
-  if (!url || !isValidWebhookUrl(url)) {
-    workflowStatus.className = 'wf-status err';
-    workflowStatus.textContent = '✗ Reminder delivery is not configured. Contact support.';
-    return false;
+  const targets = ch === 'both'
+    ? [{ channel: 'email', url: getN8nUrl() }, { channel: 'whatsapp', url: getN8nWhatsappUrl() }]
+    : [{ channel: ch, url: ch === 'whatsapp' ? getN8nWhatsappUrl() : getN8nUrl() }];
+
+  for (const t of targets) {
+    if (!t.url || !isValidWebhookUrl(t.url)) {
+      workflowStatus.className = 'wf-status err';
+      workflowStatus.textContent = `✗ ${t.channel === 'whatsapp' ? 'WhatsApp' : 'Email'} delivery is not configured. Contact support.`;
+      return false;
+    }
   }
 
   if (consumeCredit && !(await consumeRunCredit('reminders'))) return false;
@@ -2952,18 +3816,24 @@ async function postReminderPayload({ dryRun = false, consumeCredit = true } = {}
   workflowStatus.innerHTML = `<span class="spin"></span> ${dryRun ? 'Running dry run…' : 'Sending reminders…'}`;
 
   try {
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', ...(await getFirebaseAuthHeaders()) },
-      body: JSON.stringify(buildN8nPayload({ dryRun })),
-    });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const headers = { 'Content-Type': 'application/json', ...(await getFirebaseAuthHeaders()) };
+    const results = [];
+    for (const t of targets) {
+      const res = await fetch(t.url, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(buildN8nPayload({ dryRun, channel: t.channel })),
+      });
+      if (!res.ok) throw new Error(`${t.channel} HTTP ${res.status}`);
+      results.push(t.channel);
+    }
     const n = validation.dispatch.length;
     const total = validation.dispatch.reduce((s, c) => s + c.reminders.length, 0);
+    const via = ch === 'both' ? 'email + WhatsApp' : ch === 'whatsapp' ? 'WhatsApp' : 'email';
     workflowStatus.className = 'wf-status ok';
     workflowStatus.textContent = dryRun
-      ? `✓ Dry run complete. ${n} email${n === 1 ? '' : 's'} would be sent (${total} reminder item${total === 1 ? '' : 's'} combined per client). No emails sent.`
-      : `✓ Sent ${n} email${n === 1 ? '' : 's'} to your clients (${total} reminder item${total === 1 ? '' : 's'} included).`;
+      ? `✓ Dry run complete. ${n} ${via} reminder${n === 1 ? '' : 's'} would be sent (${total} item${total === 1 ? '' : 's'} per client). Nothing delivered.`
+      : `✓ Sent ${n} reminder${n === 1 ? '' : 's'} via ${via} (${total} compliance item${total === 1 ? '' : 's'} included).`;
     return true;
   } catch (err) {
     workflowStatus.className = 'wf-status err';
@@ -3004,6 +3874,10 @@ hamburger.addEventListener('click', () => {
 });
 mobileNav.querySelectorAll('a').forEach(a =>
   a.addEventListener('click', () => mobileNav.classList.remove('open')));
+document.querySelector('.mobile-nav .mobile-signin')?.addEventListener('click', () => {
+  mobileNav.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+});
 
 /* ==================== DASHBOARD TABS ==================== */
 document.querySelectorAll('.side-nav button').forEach(btn => {
@@ -3014,7 +3888,8 @@ document.querySelectorAll('.side-nav button').forEach(btn => {
     document.getElementById(btn.dataset.tab).classList.add('active');
     if (btn.dataset.tab === 'tab-financial') initTallyTemplatePreview();
     if (btn.dataset.tab === 'tab-reminders') collapseReminderClients();
-    // Desktop scrolls .dash-main; mobile (sidebar as top bar) scrolls the window
+    if (btn.dataset.tab === 'tab-home') updateHomeDashboard();
+    closeDashDrawer();
     document.querySelector('.dash-main').scrollTop = 0;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
@@ -3040,13 +3915,19 @@ function initBookBuildGate() {
   const live = document.getElementById('book-tool-live');
   const locked = document.getElementById('book-tool-locked');
   const navBtn = document.querySelector('.side-nav button[data-tab="tab-bank"]');
+  const homeCard = document.getElementById('home-tool-bank');
+  const homeCta = document.getElementById('home-tool-bank-cta');
   if (BOOK_BUILD_ENABLED) {
     locked?.setAttribute('hidden', '');
     live?.removeAttribute('hidden');
+    homeCard?.classList.remove('soon');
+    if (homeCta) homeCta.textContent = 'Open tool →';
     return;
   }
   live?.setAttribute('hidden', '');
   locked?.removeAttribute('hidden');
+  homeCard?.classList.add('soon');
+  if (homeCta) homeCta.textContent = 'Coming soon';
   if (navBtn && !navBtn.querySelector('.nav-soon-badge')) {
     const badge = document.createElement('span');
     badge.className = 'nav-soon-badge';
