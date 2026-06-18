@@ -1,0 +1,176 @@
+{
+  "name": "CA Filing Reminder — WhatsApp (Powerhouse)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ca-filing-reminder-whatsapp",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000001",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 300],
+      "webhookId": "ca-filing-reminder-whatsapp"
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $input.first().json;\nconst body = raw.body ?? raw;\n\nif (body.test === true) {\n  return [{ json: { mode: 'test', ok: true, message: 'WhatsApp webhook connection verified.' } }];\n}\n\nconst dryRun = body.dryRun === true;\nconst clients = Array.isArray(body.clients) ? body.clients : [];\nconst items = [];\n\nfor (const client of clients) {\n  const reminders = (client.reminders || [])\n    .map((r) => ({\n      type: r?.type || 'custom',\n      label: r?.label,\n      filingDueDate: r?.filingDueDate || r?.dueDate,\n      documentsDueBy: r?.documentsDueBy || r?.reminderDate,\n    }))\n    .filter((r) => r.label && r.filingDueDate && r.documentsDueBy);\n\n  const phone = String(client.phone || '').trim();\n  if (!phone || !reminders.length) continue;\n\n  items.push({\n    json: {\n      client_name: client.name,\n      client_phone: phone,\n      client_email: client.email || '',\n      reminders,\n      reminder_count: reminders.length,\n      dry_run: dryRun,\n      triggered_at: body.triggeredAt,\n      triggered_by: body.triggeredBy,\n    },\n  });\n}\n\nif (!items.length) {\n  return [{ json: { mode: 'empty', ok: true, message: 'No clients with valid phone and complete reminders.' } }];\n}\n\nreturn items;"
+      },
+      "id": "a1b2c3d4-0002-4000-8000-000000000002",
+      "name": "Parse Dashboard Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "cond-test",
+              "leftValue": "={{ $json.mode }}",
+              "rightValue": "test",
+              "operator": { "type": "string", "operation": "equals" }
+            },
+            {
+              "id": "cond-empty",
+              "leftValue": "={{ $json.mode }}",
+              "rightValue": "empty",
+              "operator": { "type": "string", "operation": "equals" }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-0003-4000-8000-000000000003",
+      "name": "Test or Empty?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const docChecklists = {\n  gst: ['Sales and purchase invoices', 'Credit/debit notes', 'Bank statements for GST payments'],\n  itr: ['Form 16 / Form 16A', 'Bank statements (all accounts)', 'Investment proofs (80C, 80D, etc.)', 'Previous year ITR copy'],\n  tds: ['Purchase/expense invoices (with TDS deducted)', 'Salary details and Form 16 data', 'Challan payment receipts'],\n  advance_tax: ['Estimated income for the year', 'Previous advance tax challans', 'TDS certificates received'],\n  roc: ['Audited financial statements', 'Board resolution / AGM details', 'Director KYC if applicable'],\n};\n\nfunction formatDate(iso) {\n  if (!iso) return '';\n  const d = new Date(iso + 'T00:00:00');\n  if (Number.isNaN(d.getTime())) return iso;\n  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];\n  return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;\n}\n\nfunction checklistFor(rem) {\n  const key = String(rem.type || rem.label || '').toLowerCase();\n  for (const [k, docs] of Object.entries(docChecklists)) {\n    if (key.includes(k)) return docs;\n  }\n  return ['Relevant invoices and bank statements', 'Previous filings if applicable'];\n}\n\nfunction toWhatsAppAddr(phone) {\n  const p = String(phone || '').trim();\n  if (!p) return '';\n  if (p.startsWith('whatsapp:')) return p;\n  const digits = p.replace(/[^\\d+]/g, '');\n  const e164 = digits.startsWith('+') ? digits : (digits.length === 10 ? `+91${digits}` : `+${digits}`);\n  return `whatsapp:${e164}`;\n}\n\nconst results = [];\nfor (const item of $input.all()) {\n  const d = item.json;\n  if (!d.client_phone) continue;\n\n  const sections = (d.reminders || []).map((rem) => {\n    const docs = checklistFor(rem).slice(0, 3).join('; ');\n    return [\n      `*${rem.label}*`,\n      `• Filing due: ${formatDate(rem.filingDueDate)}`,\n      `• Send documents by: ${formatDate(rem.documentsDueBy)}`,\n      `• Please share: ${docs}`,\n    ].join('\\n');\n  });\n\n  const body = [\n    `Hi ${d.client_name || 'there'},`,\n    '',\n    'Reminder from your CA practice regarding upcoming compliance:',\n    '',\n    sections.join('\\n\\n'),\n    '',\n    'Reply to this message if you need clarification.',\n    '',\n    '— Sent via Powerhouse',\n  ].join('\\n');\n\n  results.push({\n    json: {\n      ...d,\n      whatsapp_body: body,\n      to_whatsapp: toWhatsAppAddr(d.client_phone),\n    },\n  });\n}\n\nreturn results.length ? results : [{ json: { mode: 'empty', ok: true, message: 'No messages built.' } }];"
+      },
+      "id": "a1b2c3d4-0004-4000-8000-000000000004",
+      "name": "Build Reminder WhatsApp",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [720, 420]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "id": "cond-dry",
+              "leftValue": "={{ $json.dry_run }}",
+              "rightValue": true,
+              "operator": { "type": "boolean", "operation": "true" }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-0005-4000-8000-000000000005",
+      "name": "Dry Run?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [960, 420]
+    },
+    {
+      "parameters": {
+        "resource": "sms",
+        "operation": "send",
+        "from": "={{ $env.TWILIO_WHATSAPP_FROM || 'whatsapp:+14155238886' }}",
+        "to": "={{ $json.to_whatsapp }}",
+        "message": "={{ $json.whatsapp_body }}",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0006-4000-8000-000000000006",
+      "name": "Send WhatsApp (Twilio)",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [1200, 520],
+      "credentials": {
+        "twilioApi": {
+          "id": "CONFIGURE_IN_N8N",
+          "name": "Twilio account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ok: true, mode: $json.mode || 'sent', message: $json.message || 'Reminder processed.', client: $json.client_name, phone: $json.client_phone || $json.to_whatsapp } }}",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0007-4000-8000-000000000007",
+      "name": "Respond Test/Empty",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [720, 120]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ok: true, mode: 'dry_run', client: $json.client_name, phone: $json.to_whatsapp, preview: $json.whatsapp_body } }}",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0008-4000-8000-000000000008",
+      "name": "Respond Dry Run",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1200, 320]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ok: true, mode: 'sent', sid: $json.sid, client: $('Build Reminder WhatsApp').item.json.client_name, phone: $('Build Reminder WhatsApp').item.json.to_whatsapp } }}",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0009-4000-8000-000000000009",
+      "name": "Respond Sent",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1440, 520]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Parse Dashboard Payload", "type": "main", "index": 0 }]]
+    },
+    "Parse Dashboard Payload": {
+      "main": [[{ "node": "Test or Empty?", "type": "main", "index": 0 }]]
+    },
+    "Test or Empty?": {
+      "main": [
+        [{ "node": "Respond Test/Empty", "type": "main", "index": 0 }],
+        [{ "node": "Build Reminder WhatsApp", "type": "main", "index": 0 }]
+      ]
+    },
+    "Build Reminder WhatsApp": {
+      "main": [[{ "node": "Dry Run?", "type": "main", "index": 0 }]]
+    },
+    "Dry Run?": {
+      "main": [
+        [{ "node": "Respond Dry Run", "type": "main", "index": 0 }],
+        [{ "node": "Send WhatsApp (Twilio)", "type": "main", "index": 0 }]
+      ]
+    },
+    "Send WhatsApp (Twilio)": {
+      "main": [[{ "node": "Respond Sent", "type": "main", "index": 0 }]]
+    }
+  },
+  "pinData": {},
+  "settings": { "executionOrder": "v1" },
+  "staticData": null,
+  "tags": []
+}
